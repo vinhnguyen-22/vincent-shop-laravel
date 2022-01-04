@@ -17,6 +17,7 @@ class CreateTblProduct extends Migration
             $table->Increments('product_id');
             $table->integer('category_id');
             $table->integer('brand_id');
+            $table->string('product_name');
             $table->text ('product_desc');
             $table->text ('product_content');
             $table->string('product_price');

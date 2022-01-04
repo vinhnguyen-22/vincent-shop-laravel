@@ -37,30 +37,32 @@
 
                         <div class="form-group col-lg-12">
                             <label for="content">Content</label>
-                            <textarea class="form-control" name="desc" id="content">
+                            <textarea class="form-control" name="content" id="content">
 
                             </textarea>
                         </div>
                         
                         <div class="form-group col-lg-6">
                             <label for="">Category</label>
-                                <select class="form-control input-sm m-bot15" name="status">
-                                    <option value="0">Hide</option>
-                                    <option value="1">Show</option>
+                                <select class="form-control input-sm m-bot15" name="category">
+                                    @foreach($cat_product as $key => $value)
+                                    <option value="{{$value->category_id}}">{{$value->category_name}}</option>
+                                    @endforeach
                             </select>
                         </div>
                         
                         <div class="form-group col-lg-6">
                             <label for="">Brand</label>
-                                <select class="form-control input-sm m-bot15" name="status">
-                                    <option value="0">Hide</option>
-                                    <option value="1">Show</option>
+                                <select class="form-control input-sm m-bot15" name="brand">
+                                    @foreach($brand_product as $key => $value)
+                                    <option value="{{$value->brand_id}}">{{$value->brand_name}}</option>
+                                    @endforeach
                             </select>
                         </div>
 
                         <div class="form-group col-lg-6">
-                            <label for="imgae">Image</label>
-                            <input type="file" class="form-control" name="imgae" id="imgae" placeholder="Enter imgae product">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control" name="image" id="image" placeholder="Enter image product">
                         </div>
 
                         <div class="form-group col-lg-6">

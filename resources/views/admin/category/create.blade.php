@@ -22,7 +22,8 @@
                             <label for="title">Title</label>
                             <input type="title" class="form-control" name="title" id="title" placeholder="Enter title category">
                         </div>
-                        <div class="form-group"
+                        
+                        <div class="form-group">
                             <label for="description">Description</label>
                             <textarea class="form-control" name="desc" id="description">
 
