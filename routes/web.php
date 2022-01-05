@@ -23,6 +23,13 @@ use App\Http\Controllers\ProductController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 
+// route category product
+Route::get('/category-product/{cat_id}', [CategoryProduct::class, 'showCategoryHome']);
+// route brand product
+Route::get('/brand-product/{cat_id}', [BrandProduct::class, 'showBrandHome']);
+
+
+
 //Backend
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboard', [AdminController::class, 'showDashboard']);

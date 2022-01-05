@@ -11,13 +11,11 @@ class AdminController extends Controller
 {
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
-        
-        if($admin_id){
-            if($admin_id){
-                return Redirect::to('admin.dashboard');
-            }else{
-                return Redirect::to('admin')->send();
-            }
+
+        if(!$admin_id){
+            return Redirect::to('admin')->send();
+        }else{
+            return Redirect::to('dashboard');
         }
     }
 
@@ -37,7 +35,7 @@ class AdminController extends Controller
         $result = DB::table('tbl_admin')->where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
         if($result){
             Session::put('admin_name', $result->admin_name);
-            Session::put('admin_id', $result->admin_name);
+            Session::put('admin_id', $result->admin_id);
             return Redirect::to('/dashboard');
         }else{
             Session::put('message','Password or email incorrect');
@@ -46,6 +44,7 @@ class AdminController extends Controller
     }
 
     public function logout(){
+        $this->AuthLogin();
         Session::put('admin_name',null);
         Session::put('admin_id',null);
         return Redirect::to('/admin');

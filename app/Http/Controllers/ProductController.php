@@ -12,13 +12,27 @@ use Session;
 
 class ProductController extends Controller
 {
+    public function AuthLogin(){
+        $admin_id = Session::get('admin_id');
+
+        if(!$admin_id){
+            return Redirect::to('admin')->send();
+        }else{
+            return Redirect::to('dashboard');
+        }
+    }
+
     public function addPageProduct(){
+        $this->AuthLogin();
+        
         $cat_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->orderby('brand_id', 'desc')->get();
         return view('admin.product.create')->with('cat_product', $cat_product)->with('brand_product', $brand_product);
     } 
     
     public function showAllProduct(){
+        $this->AuthLogin();
+        
         $list_product = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
         ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')->orderby('tbl_product.product_id','desc')->get();
@@ -27,6 +41,8 @@ class ProductController extends Controller
     }
     
     public function createProduct(Request $request){
+        $this->AuthLogin();
+        
         $data = array();
         $data['category_id'] = $request->category;
         $data['brand_id'] = $request->brand;
@@ -61,18 +77,24 @@ class ProductController extends Controller
     }   
 
     public function inactiveProduct ($product_id){
+        $this->AuthLogin();
+        
         DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status' => 0]);
         Session::put ('message', 'Don\'t show product');
         return Redirect::to('all-product');
     }
     
     public function activeProduct ($product_id){
+        $this->AuthLogin();
+        
         DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status' => 1]);
         Session::put ('message', 'show product');
         return Redirect::to('all-product');
     }
     
     public function editProduct($product_id){
+        $this->AuthLogin();
+        
         $cat_product = DB::table('tbl_category_product')->orderby('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderby('brand_id', 'desc')->get();
 
@@ -82,6 +104,8 @@ class ProductController extends Controller
     }
     
     public function updateProduct(Request $request,$product_id){
+        $this->AuthLogin();
+        
         $data = array();
         $data['category_id'] = $request->category;
         $data['brand_id'] = $request->brand;
@@ -112,6 +136,8 @@ class ProductController extends Controller
     }  
     
     public function deleteProduct($product_id){
+        $this->AuthLogin();
+        
         DB::table('tbl_product')->where( 'product_id',$product_id)->delete();
         Session::put('message', 'Delete product success');
         return Redirect::to('all-product');
