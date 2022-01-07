@@ -86,7 +86,7 @@ class BrandProduct extends Controller
     }
     
     // end function admin
-    public function showBrandHome($brand_id){
+    public function showBrandPage($brand_id){
         $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
         $pro_by_brand = DB::table('tbl_product')->join('tbl_brand', 'tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_product.brand_id',$brand_id)->get();

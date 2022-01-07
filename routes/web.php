@@ -24,9 +24,12 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 
 // route category product
-Route::get('/category-product/{cat_id}', [CategoryProduct::class, 'showCategoryHome']);
+Route::get('/category-product/{cat_id}', [CategoryProduct::class, 'showCategoryPage']);
 // route brand product
-Route::get('/brand-product/{cat_id}', [BrandProduct::class, 'showBrandHome']);
+Route::get('/brand-product/{cat_id}', [BrandProduct::class, 'showBrandPage']);
+// product page
+Route::get('/product-detail/{product_id}', [ProductController::class, 'showProductDetailPage']);
+
 
 
 
