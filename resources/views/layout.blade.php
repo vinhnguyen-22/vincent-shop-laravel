@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="{{asset('public/frontend/images/logo.png')}}" alt="" /></a>
+                            <a href="{{URL::to('/')}}"><img src="{{asset('public/frontend/images/logo.png')}}" alt="" /></a>
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -86,11 +86,34 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                                
+                                <?php 
+                                $customer_id = Session::get('customer_id');
+                                $shipping_id = Session::get('shipping_id');
+                                $customer_name = Session::get('customer_name');
+                                
+                                if($customer_id != null){ ?>
+                                    <li><a href=""><i class="fa fa-user"></i> {{$customer_name}}</a></li>                                    
+                                <?php }?>
+                                
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+
+                                <li><a href="
+                                    @if($shipping_id == null)
+                                    {{URL::to('/checkout')}}
+                                    @else
+                                    {{URL::to('/payment')}}
+                                    @endif
+
+                                    "><i class="fa fa-crosshairs"></i> Checkout</a></li>
+
+                                <li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <?php 
+                                if($customer_id != null){ ?>
+                                    <li><a href="{{URL::to('/customer-logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>                                    
+                                <?php } else{ ?>
+                                    <li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-lock"></i> Login</a></li>                                    
+                                <?php }  ?>
                             </ul>
                         </div>
                     </div>
@@ -101,7 +124,7 @@
         <div class="header-bottom"><!--header-bottom-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
@@ -133,10 +156,14 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="search_box pull-right">
-                            <input type="text" placeholder="Search"/>
-                        </div>
+                    <div class="col-sm-4">
+                        <form action="{{URL::to('/s')}}" method="post">
+                            {{csrf_field()}}
+                            <div class="search_box pull-right">
+                                <input type="text" name="search_box" id="search_box" placeholder="Search"/>
+                                <input type="submit" style="margin-top:0px; width:70px; color:white" name="search_items" value="Search" class="btn btn-primary btn-sm">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

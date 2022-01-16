@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryProduct;
 use App\Http\Controllers\BrandProduct;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 
 
@@ -22,6 +24,7 @@ use App\Http\Controllers\ProductController;
 //Frontend
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
+Route::post('/s', [HomeController::class, 'search']);
 
 // route category product
 Route::get('/category-product/{cat_id}', [CategoryProduct::class, 'showCategoryPage']);
@@ -30,10 +33,28 @@ Route::get('/brand-product/{cat_id}', [BrandProduct::class, 'showBrandPage']);
 // product page
 Route::get('/product-detail/{product_id}', [ProductController::class, 'showProductDetailPage']);
 
+// Cart
+Route::post('/save-cart', [CartController::class, 'saveCart']);
+Route::get('/show-cart', [CartController::class, 'showCart']);
+Route::get('/delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
+Route::post('/update-cart-qty', [CartController::class, 'updateQtyCart']);
+
+//Checkout
+Route::get('/login-checkout', [CheckoutController::class, 'loginCheckout']);
+Route::post('/customer-signup', [CheckoutController::class, 'customerSignup']);
+Route::post('/customer-login', [CheckoutController::class, 'login']);
+Route::get('/customer-logout', [CheckoutController::class, 'logout']);
+
+Route::get('/checkout', [CheckoutController::class, 'checkoutPage']);
+Route::get('/payment', [CheckoutController::class, 'paymentPage']);
+Route::post('/save-checkout-customer', [CheckoutController::class, 'saveCheckoutCustomer']);
+Route::post('/order-place', [CheckoutController::class, 'orderPlace']);
+
 
 
 
 //Backend
+
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboard', [AdminController::class, 'showDashboard']);
 Route::post('/admin-dashboard', [AdminController::class, 'dashboard']);

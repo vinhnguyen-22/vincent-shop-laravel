@@ -144,6 +144,7 @@ class ProductController extends Controller
     }
 
     //end function admin
+    
     public function showProductDetailPage($product_id){
         $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
@@ -151,6 +152,18 @@ class ProductController extends Controller
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_product.product_id', $product_id)->limit(1)->get();
-        return view('pages.productDetail.show')->with('cats',$cat_product)->with('brands', $brand_product)->with('product_details', $product_details);
+   
+        foreach($product_details as $key => $value){
+            $category_id = $value->category_id;
+        }
+
+        $related_products = DB::table('tbl_product')
+        ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
+        ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
+        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_id',[$product_id])->get();
+        
+        return view('pages.productDetail.show')->with('cats',$cat_product)->with('brands', $brand_product)->with('product_details', $product_details)->with('related_products', $related_products);
     } 
+
+
 }

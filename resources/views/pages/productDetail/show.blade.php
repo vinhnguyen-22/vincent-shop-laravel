@@ -43,17 +43,22 @@
         <div class="product-information"><!--/product-information-->
             <img src="images/product-details/new.jpg" class="newarrival" alt="" />
             <h2>{{$pro_detail->product_name}}</h2>
-            <p>Web ID: {{$pro_detail->product_id}}</p>
             <img src="images/product-details/rating.png" alt="" />
-            <span>
-                <span>US {{number_format($pro_detail->product_price)}}</span>
-                <label>Quantity:</label>
-                <input type="text" value="3" />
-                <button type="button" class="btn btn-fefault cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    Add to cart
-                </button>
-            </span>
+            
+            <form action="{{URL::to('/save-cart')}}" method="post">
+                {{ csrf_field() }} 
+                <span>
+                    <span>US {{number_format($pro_detail->product_price)}}</span>
+                    <label>Quantity:</label>
+                    <input type="number" value="1" min="1" name="qty" />
+                    <input type="hidden" value="{{$pro_detail->product_id}}" name="productId_hidden" />
+                    <button type="submit" name="add_to_cart" class="btn btn-fefault cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                </span>
+            </form>
+            
             <p><b>Availability:</b> In Stock</p>
             <p><b>Condition:</b> New</p>
             <p><b>Brand:</b> {{$pro_detail->brand_name}}</p>
@@ -129,33 +134,24 @@
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="item active">	
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/images/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                @foreach ($related_products as $key => $related_pro)
+                <a href="{{URL::to('/product-detail/'.$related_pro->product_id)}}">
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="{{URL::to('public/uploads/product/'.$related_pro->product_image)}}" width="50" height="250"alt="" />
+                                    <h2>${{number_format($related_pro->product_price)}}</h2>
+                                    <p>{{$related_pro->product_name}}</p>
+                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>             
+                @endforeach
             </div>
-            <div class="item">	
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{URL::to('public/frontend/images/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </div>
             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
             <i class="fa fa-angle-left"></i>
