@@ -16,47 +16,47 @@
             ?>
             <div class="panel-body">
                 <div class="position-center row">
-                    <form role="form" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
+                    <form role="form" id="productForm" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group col-lg-6">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter title product">
+                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter title product" required>
                         </div>
 
                         <div class="form-group col-lg-6">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" name="price" id="price" placeholder="Enter price product">
+                            <input type="number" class="form-control" name="price" id="price" placeholder="Enter price product" required >
                         </div>
                         
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="desc" id="description">
+                            <textarea id="description-product" class="form-control" name="desc" id="description" required>
 
                             </textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="content">Content</label>
-                            <textarea class="form-control" name="content" id="content">
+                            <textarea id="content-product" class="form-control" name="content" id="content" required>
 
                             </textarea>
                         </div>
                         
                         <div class="form-group col-lg-6">
                             <label for="">Category</label>
-                                <select class="form-control input-sm m-bot15" name="category">
-                                    @foreach($cat_product as $key => $value)
-                                    <option value="{{$value->category_id}}">{{$value->category_name}}</option>
-                                    @endforeach
+                            <select class="form-control input-sm m-bot15" name="category" required>
+                                @foreach($cat_product as $key => $value)
+                                <option value="{{$value->category_id}}">{{$value->category_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         
                         <div class="form-group col-lg-6">
                             <label for="">Brand</label>
-                                <select class="form-control input-sm m-bot15" name="brand">
-                                    @foreach($brand_product as $key => $value)
-                                    <option value="{{$value->brand_id}}">{{$value->brand_name}}</option>
-                                    @endforeach
+                            <select class="form-control input-sm m-bot15" name="brand" required>
+                                @foreach($brand_product as $key => $value)
+                                <option value="{{$value->brand_id}}">{{$value->brand_name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -67,13 +67,14 @@
 
                         <div class="form-group col-lg-6">
                             <label for="">Status</label>
-                                <select class="form-control input-sm m-bot15" name="status">
+                                <select class="form-control input-sm m-bot15" name="status" required>
                                     <option value="0">Hide</option>
                                     <option value="1">Show</option>
                             </select>
                         </div>
-                        
-                        <button type="submit" name="add" class="btn btn-info">Add</button>
+                        <div class="form-group col-lg-12">
+                            <button type="submit" name="add" class="btn btn-info">Add</button>  
+                        </div>
                     </form>
                 </div>
             </div>

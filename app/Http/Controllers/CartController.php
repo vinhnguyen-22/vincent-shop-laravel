@@ -12,7 +12,7 @@ class CartController extends Controller
     public function saveCart(Request $request){
         $data = array();
         $product_id =
-         $request->productId_hidden;
+        $request->productId_hidden;
         $quantity = $request->qty;
         $product_info = DB::table('tbl_product')-> where('product_id', $product_id)->first();
 

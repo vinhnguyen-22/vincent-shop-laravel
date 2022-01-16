@@ -20,7 +20,7 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="title" class="form-control" name="title" id="title" placeholder="Enter title brand">
+                            <input type="title" class="form-control title" name="title" id="title" placeholder="Enter title brand">
                         </div>
                         
                         <div class="form-group">

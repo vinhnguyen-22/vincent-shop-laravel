@@ -104,6 +104,11 @@ i.fa-eye-style {
 #sidebar ul li {
     position: relative;
 }
+
+form .error {
+    color: coral;
+}
+
 .leftside-navigation,
 .right-stat-bar {
     height: 100%;
