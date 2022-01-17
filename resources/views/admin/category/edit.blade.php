@@ -25,8 +25,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" name="desc" id="description">
+                                <textarea style="resize:none" class="form-control" name="desc" id="desc-cat">
                                     {{ $edit_value->category_desc }}
+                                </textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="keywords">Keywords</label>
+                                <textarea style="resize:none" class="form-control" name="keywords" id="keywords-cat">
+                                    {{ $edit_value->category_keywords }}
                                 </textarea>
                             </div>
                         <button type="submit" name="update" class="btn btn-info">Update</button>

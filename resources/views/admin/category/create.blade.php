@@ -25,7 +25,14 @@
                         
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="desc" id="description">
+                            <textarea style="resize:none" class="form-control" name="desc" id="desc-cat">
+
+                            </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="keywords">Keywords</label>
+                            <textarea style="resize:none" class="form-control" name="keywords" id="keywords-cat">
 
                             </textarea>
                         </div>

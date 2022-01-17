@@ -3,9 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+  
+    {{-- //SEO --}}
+    <meta name="description" content="{{$meta_desc}}">
+    <meta name="keywords" content="{{$meta_keywords}}">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>{{$meta_title}}</title>
+    <link rel="canonical" href="{{$url_canonical}}" >
+     <link rel="shortcut icon" href="https://vanilla.futurecdn.net/pcgamer/392738/favicon.ico" size="16x16">    
+    {{-- //SEO --}}
+  
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -13,6 +20,7 @@
     <link href="{{asset('public/frontend/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
+  
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
