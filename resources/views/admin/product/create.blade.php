@@ -18,12 +18,17 @@
                 <div class="position-center row">
                     <form role="form" id="productForm" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-12">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter title product" required>
+                            <input type="text" class="form-control convert_slug" data-slug="slug" name="title" id="title" placeholder="Enter title category">
+                        </div>
+                        
+                        <div class="form-group col-lg-12">
+                            <label for="slug">Slug</label>
+                            <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter title category">
                         </div>
 
-                        <div class="form-group col-lg-6">
+                        <div class="form-group col-lg-12">
                             <label for="price">Price</label>
                             <input type="number" class="form-control" name="price" id="price" placeholder="Enter price product" required >
                         </div>

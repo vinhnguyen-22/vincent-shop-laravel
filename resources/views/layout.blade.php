@@ -10,8 +10,17 @@
     <meta name="author" content="">
     <title>{{$meta_title}}</title>
     <link rel="canonical" href="{{$url_canonical}}" >
+    <meta name="robots" content="INDEX, FOLLOW"/>
      <link rel="shortcut icon" href="https://vanilla.futurecdn.net/pcgamer/392738/favicon.ico" size="16x16">    
-    {{-- //SEO --}}
+    
+    
+    {{-- <meta property="og:image" content="{{$image_og}}" /> --}}
+    <meta property="og:site_name" content="http://localhost:81/lavarel%208/shop-vincent/" />
+    <meta property="og:description" content="{{$meta_desc}}" />
+    <meta property="og:title" content="{{$meta_title}}" />
+    <meta property="og:url" content="{{$url_canonical}}" />
+    <meta property="og:type" content="website" />
+     {{-- //SEO --}}
   
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -260,54 +269,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            Mens
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="mens" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li><a href="#">Fendi</a></li>
-                                            <li><a href="#">Guess</a></li>
-                                            <li><a href="#">Valentino</a></li>
-                                            <li><a href="#">Dior</a></li>
-                                            <li><a href="#">Versace</a></li>
-                                            <li><a href="#">Armani</a></li>
-                                            <li><a href="#">Prada</a></li>
-                                            <li><a href="#">Dolce and Gabbana</a></li>
-                                            <li><a href="#">Chanel</a></li>
-                                            <li><a href="#">Gucci</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                             
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            Womens
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="womens" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li><a href="#">Fendi</a></li>
-                                            <li><a href="#">Guess</a></li>
-                                            <li><a href="#">Valentino</a></li>
-                                            <li><a href="#">Dior</a></li>
-                                            <li><a href="#">Versace</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                             @foreach($cats as $key => $cat)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -343,7 +305,8 @@
                         <div class="shipping text-center"><!--shipping-->
                             <img src="{{asset('public/frontend/images/shipping.jpg')}}}" alt="" />
                         </div><!--/shipping-->
-                    
+                        
+                        <div class="fb-share-button" data-href="http://localhost:81/lavarel%208/shop-vincent/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
                     </div>
                 </div>
                 
@@ -470,8 +433,6 @@
         </div>
         
     </footer><!--/Footer-->
-    
-
   
     <script src="{{asset('public/frontend/js/jquery.js')}}"></script>
     <script src="{{asset('public/frontend/js/bootstrap.min.js')}}"></script>
@@ -479,5 +440,8 @@
     <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1542262152832776&autoLogAppEvents=1" nonce="xg4YUwcD"></script>
 </body>
 </html>

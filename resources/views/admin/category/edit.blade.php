@@ -19,10 +19,16 @@
                     @foreach($edit_category as $key => $edit_value)
                     <form role="form" action="{{URL::to('/update-category-product/'.$edit_value->category_id)}}" method="post">
                         {{csrf_field()}}
-                            <div class="form-group">
+                              <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" value="{{ $edit_value->category_name }}"class="form-control" name="title" id="title" placeholder="Enter title category">
+                                <input type="text" value="{{ $edit_value->category_name }}" class="form-control convert_slug" data-slug="slug" name="title" id="title" placeholder="Enter title category">
                             </div>
+
+                            <div class="form-group">
+                                <label for="slug">Slug</label>
+                                <input type="text" class="form-control" value="{{ $edit_value->category_slug }}" name="slug" id="slug" placeholder="Enter title category">
+                            </div>
+
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea style="resize:none" class="form-control" name="desc" id="desc-cat">

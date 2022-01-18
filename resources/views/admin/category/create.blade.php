@@ -16,11 +16,16 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-category-product')}}" method="post">
+                    <form role="form" id="categoryForm" action="{{URL::to('/save-category-product')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="title" class="form-control" name="title" id="title" placeholder="Enter title category">
+                            <input type="text" class="form-control convert_slug" data-slug="slug" name="title" id="title" placeholder="Enter title category">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" class="form-control" name="slug" id="slug" placeholder="Enter title category">
                         </div>
                         
                         <div class="form-group">

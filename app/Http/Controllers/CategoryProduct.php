@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 class categoryProduct extends Controller
@@ -38,9 +39,9 @@ class categoryProduct extends Controller
         $data['category_status'] = $request->status;
         $data['category_desc'] = $request->desc;
         $data['category_keywords'] = $request->keywords;
-
-        // $data['created_at'] = $request->time();
-        // $data['updated_at'] = $request->time();
+        $data['category_slug'] = $request->slug;
+        $data['created_at'] = Carbon::now()->toDateTimeString();
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
 
         DB::table('tbl_category_product')->insert($data);
         Session::put('message','Add category success');
@@ -77,9 +78,10 @@ class categoryProduct extends Controller
         $data = array();
         $data['category_name'] = $request->title;
         $data['category_desc'] = $request->desc;
+        $data['category_slug'] = $request->slug;
         $data['category_keywords'] = $request->keywords;
-        // $data['created_at'] = $request->time();
-        // $data['updated_at'] = $request->time();
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
+
 
         DB::table('tbl_category_product')->where('category_id', $cat_id)->update($data);
         Session::put('message','Update category success');

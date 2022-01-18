@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 
@@ -38,8 +39,10 @@ class BrandProduct extends Controller
         $data['brand_name'] = $request->title;
         $data['brand_status'] = $request->status;
         $data['brand_desc'] = $request->desc;
-        // $data['created_at'] = $request->time();
-        // $data['updated_at'] = $request->time();
+        $data['brand_slug'] = $request->slug;
+        $data['brand_keywords'] = $request->keywords;
+        $data['created_at'] = Carbon::now()->toDateTimeString();
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
 
         DB::table('tbl_brand')->insert($data);
         Session::put('message','Add brand success');
@@ -71,8 +74,9 @@ class BrandProduct extends Controller
         $data = array();
         $data['brand_name'] = $request->title;
         $data['brand_desc'] = $request->desc;
-        // $data['created_at'] = $request->time();
-        // $data['updated_at'] = $request->time();
+        $data['brand_slug'] = $request->slug;
+        $data['brand_keywords'] = $request->keywords;
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
 
         DB::table('tbl_brand')->where('brand_id', $brand_id)->update($data);
         Session::put('message','Update brand success');
@@ -86,12 +90,28 @@ class BrandProduct extends Controller
     }
     
     // end function admin
-    public function showBrandPage($brand_id){
-        $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+    
+    public function showBrandPage($brand_id, Request $request){
+        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+
         $pro_by_brand = DB::table('tbl_product')->join('tbl_brand', 'tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_product.brand_id',$brand_id)->get();
         $brand_name = DB::table('tbl_brand')->where('tbl_brand.brand_id',$brand_id)->limit(1)->get(); 
-        return view('pages.brand.show')->with('cats',$cat_product)->with('brands', $brand_product)->with('pro_by_brand',$pro_by_brand)->with('brand_name',$brand_name);
-    } 
+        
+        $meta_desc = '';
+        $meta_keywords =''; 
+        $meta_title = '';
+        $url_canonical = $request->url();
+        
+        // SEO
+        foreach ($pro_by_brand as $key => $val){
+            $meta_desc = $val->brand_desc;
+            $meta_keywords = $val->brand_keywords;
+            $meta_title = $val->brand_name;
+            $url_canonical = $request->url(); 
+        }
+        // SEO
 
+        return view('pages.brand.show')->with(compact('cats','brands','pro_by_brand','brand_name','meta_desc','meta_keywords','meta_title','url_canonical'));
+    } 
 }

@@ -1,60 +1,56 @@
 @extends('admin_layout')
 @section('admin_content')
 
-<div class="row">
-
-    <div class="table-agile-info col-sm-5">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Information customer
-            </div>      
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped b-t b-light">
-                <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$order_by_id ->customer_name}}</td>
-                        <td>{{$order_by_id ->customer_phone}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="table-agile-info ">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Information customer
+        </div>      
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{$order_by_id ->customer_name}}</td>
+                    <td>{{$order_by_id ->customer_phone}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="table-agile-info col-sm-7">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Information Shipping
-            </div>      
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped b-t b-light">
-                <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$order_by_id ->shipping_name}}</td>
-                        <td>{{$order_by_id ->shipping_address}}</td>
-                        <td>{{$order_by_id ->shipping_phone}}</td>
-                        <td>{{$order_by_id ->shipping_notes}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Information Shipping
+        </div>      
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{$order_by_id ->shipping_name}}</td>
+                    <td>{{$order_by_id ->shipping_address}}</td>
+                    <td>{{$order_by_id ->shipping_phone}}</td>
+                    <td>{{$order_by_id ->shipping_notes}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+    
 
 <br><br>
 

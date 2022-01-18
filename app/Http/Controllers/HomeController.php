@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use DB;
 class HomeController extends Controller
 {
-    
-
     public function index(Request $request){
 
         // SEO
