@@ -103,13 +103,13 @@ class BrandController extends Controller
     
     // end function admin
     
-    public function showBrandPage($brand_id, Request $request){
+    public function showBrandPage($brand_slug, Request $request){
         $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();      
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
       
-        $pro_by_brand = DB::table('tbl_product')->join('tbl_brand', 'tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_product.brand_id',$brand_id)->get();
+        $pro_by_brand = DB::table('tbl_product')->join('tbl_brand', 'tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_brand.brand_slug',$brand_slug)->get();
       
-        $brand_name = DB::table('tbl_brand')->where('tbl_brand.brand_id',$brand_id)->limit(1)->get(); 
+        $brand_name = DB::table('tbl_brand')->where('tbl_brand.brand_slug',$brand_slug)->limit(1)->get(); 
         
         $meta_desc = '';
         $meta_keywords =''; 

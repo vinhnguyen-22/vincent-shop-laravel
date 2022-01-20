@@ -102,10 +102,10 @@ class CategoryProductController extends Controller
 
     // end function admin page
     
-    public function showCategoryPage($cat_id, Request $request){
+    public function showCategoryPage($cat_slug, Request $request){
         $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.category_id',$cat_id)->get();
+        $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug',$cat_slug)->get();
         
         $meta_desc = '';
         $meta_keywords =''; 
@@ -119,7 +119,7 @@ class CategoryProductController extends Controller
             $url_canonical = $request->url(); 
         }
         // SEO
-        $cat_name = DB::table('tbl_category_product')->select('category_name')->where('tbl_category_product.category_id',$cat_id)->limit(1)->get(); 
+        $cat_name = DB::table('tbl_category_product')->select('category_name')->where('tbl_category_product.category_slug',$cat_slug)->limit(1)->get(); 
 
         return view('pages.category.show')->with(compact('cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical'));
     } 

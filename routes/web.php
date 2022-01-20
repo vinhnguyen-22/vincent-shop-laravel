@@ -27,11 +27,11 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::post('/s', [HomeController::class, 'search']);
 
 // route category product
-Route::get('/category-product/{cat_id}', [CategoryProductController::class, 'showCategoryPage']);
+Route::get('/category-product/{cat_slug}', [CategoryProductController::class, 'showCategoryPage']);
 // route brand product
-Route::get('/brand-product/{cat_id}', [BrandController::class, 'showBrandPage']);
+Route::get('/brand-product/{brand_slug}', [BrandController::class, 'showBrandPage']);
 // product page
-Route::get('/product-detail/{product_id}', [ProductController::class, 'showProductDetailPage']);
+Route::get('/product-detail/{product_slug}', [ProductController::class, 'showProductDetailPage']);
 
 // Cart
 Route::post('/save-cart', [CartController::class, 'saveCart']);

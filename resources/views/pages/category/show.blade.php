@@ -14,7 +14,7 @@
     @endforeach 
 
     @foreach($pro_by_cat as $key => $pro)
-    <a href="{{URL::to('/product-detail/'.$pro->product_id)}}">
+    <a href="{{URL::to('/product-detail/'.$pro->product_slug)}}">
         <div class="col-sm-4">
             <div class="product-image-wrapper">
                 <div class="single-products">

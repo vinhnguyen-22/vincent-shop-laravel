@@ -154,14 +154,14 @@ class ProductController extends Controller
 
     //end function admin
     
-    public function showProductDetailPage($product_id, Request $request){  
+    public function showProductDetailPage($product_slug, Request $request){  
         $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();      
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
       
         $product_details = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
-        ->where('tbl_product.product_id', $product_id)->limit(1)->get();
+        ->where('tbl_product.product_slug', $product_slug)->limit(1)->get();
    
         
         $meta_desc = '';
@@ -182,7 +182,7 @@ class ProductController extends Controller
         $related_products = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
-        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_id',[$product_id])->get();
+        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->get();
         
         return view('pages.productDetail.show')->with(compact('cats','brands','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
     } 
