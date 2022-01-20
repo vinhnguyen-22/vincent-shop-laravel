@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use Illuminate\Http\Request;
-use DB;
+use App\Models\CategoryProduct;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Session;
-class categoryProduct extends Controller
+class CategoryProductController extends Controller
 {
     public function AuthLogin(){    
-        $admin_id = Session::get('admin_id');
+        $admin_id = session()->get('admin_id');
+
 
         if(!$admin_id){
             return Redirect::to('admin')->send();
@@ -26,48 +28,50 @@ class categoryProduct extends Controller
     
     public function showAllCategory(){
         $this->AuthLogin();
-        $list_category = DB::table('tbl_category_product')->get();
+        $list_category = CategoryProduct::orderBy('category_id','DESC')->get();
         $manager_category_product = view('admin.category.list')->with('list_category',$list_category);
         return view('admin_layout')->with('admin.category.list',$manager_category_product);
     }
     
     public function createCategory(Request $request){
         $this->AuthLogin();
-    
-        $data = array();
-        $data['category_name'] = $request->title;
-        $data['category_status'] = $request->status;
-        $data['category_desc'] = $request->desc;
-        $data['category_keywords'] = $request->keywords;
-        $data['category_slug'] = $request->slug;
-        $data['created_at'] = Carbon::now()->toDateTimeString();
-        $data['updated_at'] = Carbon::now()->toDateTimeString();
 
-        DB::table('tbl_category_product')->insert($data);
-        Session::put('message','Add category success');
+        $data = $request->all();
+        $category = new CategoryProduct();
+        $category->category_name = $data['title'];
+        $category->category_status = $data['status'];
+        $category->category_desc = $data['desc'];
+        $category->category_slug = $data['slug'];
+        $category->category_keywords = $data['keywords'];
+        $category->created_at = Carbon::now()->toDateTimeString();
+        $category->updated_at = Carbon::now()->toDateTimeString();
+        $category->save();
+
+        session(['message'=>'Add category success']);
         return Redirect::to('add-category-product'); 
     }   
 
     public function inactiveCategory ($cat_id){
         $this->AuthLogin();
-    
-        DB::table('tbl_category_product')->where('category_id',$cat_id)->update(['category_status' => 0]);
-        Session::put ('message', 'Don\'t show category');
+        $category = CategoryProduct::find($cat_id);
+        $category->category_status = 0;
+        $category->save();
+        session(['message'=> 'Don\'t show category']);
         return Redirect::to('all-category-product');
     }
     
     public function activeCategory ($cat_id){
         $this->AuthLogin();
-    
-        DB::table('tbl_category_product')->where('category_id',$cat_id)->update(['category_status' => 1]);
-        Session::put ('message', 'show category');
+        $category = CategoryProduct::find($cat_id);
+        $category->category_status = 1;
+        $category->save();
+        session(['message'=> 'show category']);
         return Redirect::to('all-category-product');
     }
     
     public function editCategory($cat_id){
         $this->AuthLogin();
-    
-        $edit_category = DB::table('tbl_category_product')->where('category_id',$cat_id)->get();
+        $edit_category = CategoryProduct::find($cat_id);
         $manager_category_product = view('admin.category.edit')->with('edit_category',$edit_category);
         return view('admin_layout')->with('admin.category.edit', $manager_category_product);
     }
@@ -75,32 +79,32 @@ class categoryProduct extends Controller
     public function updateCategory(Request $request,$cat_id){
         $this->AuthLogin();
     
-        $data = array();
-        $data['category_name'] = $request->title;
-        $data['category_desc'] = $request->desc;
-        $data['category_slug'] = $request->slug;
-        $data['category_keywords'] = $request->keywords;
-        $data['updated_at'] = Carbon::now()->toDateTimeString();
+        $data = $request->all();
+        $category = CategoryProduct::find($cat_id);
+        $category->category_name = $data['title'];
+        $category->category_desc = $data['desc'];
+        $category->category_slug = $data['slug'];
+        $category->category_keywords = $data['keywords'];
+        $category->updated_at = Carbon::now()->toDateTimeString();
+        $category->save();
 
-
-        DB::table('tbl_category_product')->where('category_id', $cat_id)->update($data);
-        Session::put('message','Update category success');
+        session(['message'=>'Update category success']);
         return Redirect::to('all-category-product'); 
     }  
     
     public function deleteCategory($cat_id){
         $this->AuthLogin();
-    
-        DB::table('tbl_category_product')->where( 'category_id',$cat_id)->delete();
-        Session::put('message', 'Xóa danh mục sản phẩm thành công');
+        $category = CategoryProduct::find($cat_id);
+        $category->delete();
+        session(['message'=> 'Delete success']);
         return Redirect::to('all-category-product');
     }
 
     // end function admin page
     
     public function showCategoryPage($cat_id, Request $request){
-        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
+        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.category_id',$cat_id)->get();
         
         $meta_desc = '';

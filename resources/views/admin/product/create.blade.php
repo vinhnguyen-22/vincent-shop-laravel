@@ -35,14 +35,21 @@
                         
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea id="description-product" class="form-control" name="desc" id="description" required>
+                            <textarea id="description-product" class="form-control" name="desc" required>
 
                             </textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="content">Content</label>
-                            <textarea id="content-product" class="form-control" name="content" id="content" required>
+                            <textarea id="content-product" class="form-control" name="content" required>
+
+                            </textarea>
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label for="keywords">Keywords</label>
+                            <textarea style="resize:none" id="keywords-product" class="form-control" name="keywords" required>
 
                             </textarea>
                         </div>

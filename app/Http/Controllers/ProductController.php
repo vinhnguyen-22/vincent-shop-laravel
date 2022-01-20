@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\CategoryProduct;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Session;
 
 
 class ProductController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
+        $admin_id = session()->get('admin_id');
 
         if(!$admin_id){
             return Redirect::to('admin')->send();
@@ -25,9 +27,9 @@ class ProductController extends Controller
     public function addPageProduct(){
         $this->AuthLogin();
         
-        $cat_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->orderby('brand_id', 'desc')->get();
-        return view('admin.product.create')->with('cat_product', $cat_product)->with('brand_product', $brand_product);
+        $cat_product = CategoryProduct::orderBy('category_id','DESC')->get();
+        $brand_product = Brand::orderBy('brand_id','DESC')->get();
+        return view('admin.product.create')->with(compact('cat_product', 'brand_product'));
     } 
     
     public function showAllProduct(){
@@ -43,16 +45,19 @@ class ProductController extends Controller
     public function createProduct(Request $request){
         $this->AuthLogin();
         
-        $data = array();
-        $data['category_id'] = $request->category;
-        $data['brand_id'] = $request->brand;
-        $data['product_name'] = $request->title;
-        $data['product_price'] = $request->price;
-        $data['product_desc'] = $request->desc;
-        $data['product_content'] = $request->content;
-        $data['product_status'] = $request->status;
-        $data['created_at'] = Carbon::now()->toDateTimeString();
-        $data['updated_at'] = Carbon::now()->toDateTimeString();
+        $data = $request->all();
+        $product = new Product();
+        $product->category_id = $data['category'];
+        $product->brand_id = $data['brand'];
+        $product->product_name = $data['title'];
+        $product->product_status = $data['status'];
+        $product->product_desc = $data['desc'];
+        $product->product_content = $data['content'];
+        $product->product_price = $data['price'];
+        $product->product_slug = $data['slug'];
+        $product->product_keywords = $data['keywords'];
+        $product->created_at = Carbon::now()->toDateTimeString();
+        $product->updated_at = Carbon::now()->toDateTimeString();
 
         $get_image = $request->file('image');
 
@@ -63,58 +68,60 @@ class ProductController extends Controller
            
             $new_image = time().'-'.$name_image.'.'.$extension;
             $get_image->move('public/uploads/product',$new_image);
-            $data['product_image'] = $new_image;
-            
-            DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Add product success');
-            return Redirect::to('add-product');
+            $product->product_image = $new_image;            
+        }else{
+            $product->product_image = '';
         }
-        $data['product_image'] = '';
-        
-        DB::table('tbl_product')->insert($data);
-        Session::put('message','Add product success');
+
+        $product->save();
+        session(['message'=>'Add product success']);
         return Redirect::to('all-product'); 
     }   
 
     public function inactiveProduct ($product_id){
         $this->AuthLogin();
-        
-        DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status' => 0]);
-        Session::put ('message', 'Don\'t show product');
+        $product = Product::find($product_id);
+        $product->product_status = 0;
+        $product->save();
+        session(['message'=>'Don\'t show product']);
         return Redirect::to('all-product');
     }
     
     public function activeProduct ($product_id){
         $this->AuthLogin();
-        
-        DB::table('tbl_product')->where('product_id',$product_id)->update(['product_status' => 1]);
-        Session::put ('message', 'show product');
+        $product = Product::find($product_id);
+        $product->product_status = 1;
+        $product->save();
+        session(['message'=>'show product']);
         return Redirect::to('all-product');
     }
     
     public function editProduct($product_id){
         $this->AuthLogin();
         
-        $cat_product = DB::table('tbl_category_product')->orderby('category_id', 'desc')->get();
-        $brand_product = DB::table('tbl_brand')->orderby('brand_id', 'desc')->get();
+        $cat_product = CategoryProduct::orderBy('category_id','DESC')->get();
+        $brand_product = Brand::orderBy('brand_id','DESC')->get();
 
-        $edit_product = DB::table('tbl_product')->where('product_id',$product_id)->get();
-        $manager_product = view('admin.product.edit')->with('edit_product',$edit_product)->with('cat_product',$cat_product)->with('brand_product',$brand_product);
+        $edit_product = Product::find($product_id);
+        $manager_product = view('admin.product.edit')->with(compact('edit_product','brand_product','cat_product'));
         return view('admin_layout')->with('admin.product.edit', $manager_product);
     }
     
     public function updateProduct(Request $request,$product_id){
         $this->AuthLogin();
         
-        $data = array();
-        $data['category_id'] = $request->category;
-        $data['brand_id'] = $request->brand;
-        $data['product_name'] = $request->title;
-        $data['product_price'] = $request->price;
-        $data['product_desc'] = $request->desc;
-        $data['product_content'] = $request->content;
-        $data['updated_at'] = Carbon::now()->toDateTimeString();
-        
+        $data = $request->all();
+        $product = Product::find($product_id);
+        $product->category_id = $data['category'];
+        $product->brand_id = $data['brand'];
+        $product->product_name = $data['title'];
+        $product->product_desc = $data['desc'];
+        $product->product_content = $data['content'];
+        $product->product_price = $data['price'];
+        $product->product_slug = $data['slug'];
+        $product->product_keywords = $data['keywords'];
+        $product->updated_at = Carbon::now()->toDateTimeString();
+
         $get_image = $request->file('image');
 
         if($get_image){
@@ -124,45 +131,60 @@ class ProductController extends Controller
            
             $new_image = time().'-'.$name_image.'.'.$extension;
             $get_image->move('public/uploads/product',$new_image);
-            $data['product_image'] = $new_image;
+            $product->product_image = $new_image;            
             
-            DB::table('tbl_product')->where('product_id', $product_id)->update($data);
-            Session::put('message', 'Update product success');
+            $product->save();
+
+            session(['message'=>'Update product success']);
             return Redirect::to('all-product');
         }
-        DB::table('tbl_product')->where('product_id', $product_id)->update($data);
-        Session::put('message','Update product success');
+        
+        $product->save();
+        session(['message'=>'Update product success']);
         return Redirect::to('all-product'); 
     }  
     
     public function deleteProduct($product_id){
         $this->AuthLogin();
-        
-        DB::table('tbl_product')->where( 'product_id',$product_id)->delete();
-        Session::put('message', 'Delete product success');
+        $product = Product::find($product_id);
+        $product->delete();
+        session(['message' => 'Delete product success']);
         return Redirect::to('all-product');
     }
 
     //end function admin
     
-    public function showProductDetailPage($product_id){
-        $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+    public function showProductDetailPage($product_id, Request $request){  
+        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();      
+        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
+      
         $product_details = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_product.product_id', $product_id)->limit(1)->get();
    
+        
+        $meta_desc = '';
+        $meta_keywords =''; 
+        $meta_title = '';
+        $url_canonical = $request->url();
+    
+        // SEO
         foreach($product_details as $key => $value){
             $category_id = $value->category_id;
+            $meta_desc = $value->product_desc;
+            $meta_keywords = $value->product_keywords;
+            $meta_title = $value->product_name;
+            $url_canonical = $request->url(); 
         }
+        // SEO
 
         $related_products = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_id',[$product_id])->get();
         
-        return view('pages.productDetail.show')->with('cats',$cat_product)->with('brands', $brand_product)->with('product_details', $product_details)->with('related_products', $related_products);
+        return view('pages.productDetail.show')->with(compact('cats','brands','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
     } 
 
 

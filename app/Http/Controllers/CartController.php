@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Cart;
+
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
@@ -30,10 +31,18 @@ class CartController extends Controller
         return Redirect::to('/show-cart');
     }
 
-    public function showCart(){        
-        $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-        return view('pages.cart.show')->with('cats',$cat_product)->with('brands', $brand_product);
+    public function showCart(Request $request){
+        // SEO
+        $meta_desc = 'Cart shopping';
+        $meta_keywords ='buy online, e-commerce'; 
+        $meta_title = 'Your cart';
+        $url_canonical = $request->url(); 
+        // SEO
+
+        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+    
+        return view('pages.cart.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
     
     public function deleteToCart($rowId){        

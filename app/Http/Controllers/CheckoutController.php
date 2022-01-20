@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
-use Session;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Session;
+
 session_start();
 class CheckoutController extends Controller
 {
@@ -32,10 +33,16 @@ class CheckoutController extends Controller
         }
     }
 
-    public function loginCheckout(){        
-        $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-        return view('pages.checkout.login')->with('cats',$cat_product)->with('brands', $brand_product);
+    public function loginCheckout(Request $request){        
+        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        
+        $meta_desc = 'Checkout page, order';
+        $meta_keywords ='checkout, order'; 
+        $meta_title = 'Your order';
+        $url_canonical = $request->url();
+        
+        return view('pages.checkout.login')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
     
     public function login(Request $request){
@@ -50,6 +57,7 @@ class CheckoutController extends Controller
             // Session::put('message','Password or email incorrect');
             return Redirect::to('/login-checkout');
         }
+        
     }
 
     public function logout(){
@@ -85,12 +93,17 @@ class CheckoutController extends Controller
         }        
     }
     
-    public function checkoutPage (){        
+    public function checkoutPage (Request $request){        
         $this->CustomerLogin();
-        $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-
-        return view('pages.checkout.show')->with('cats',$cat_product)->with('brands', $brand_product);
+        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        
+        $meta_desc = 'Checkout page, order';
+        $meta_keywords ='checkout, order'; 
+        $meta_title = 'Your order';
+        $url_canonical = $request->url();
+        
+        return view('pages.checkout.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
     
     public function saveCheckoutCustomer(Request $request){
@@ -110,12 +123,17 @@ class CheckoutController extends Controller
         return Redirect('/payment'); 
     }
 
-    public function paymentPage(){
+    public function paymentPage(Request $request){
         $this->CustomerLogin();
-        $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-
-        return view('pages.checkout.payment')->with('cats',$cat_product)->with('brands', $brand_product);
+        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        
+        $meta_desc = 'Checkout page, order';
+        $meta_keywords ='checkout, order'; 
+        $meta_title = 'Your order';
+        $url_canonical = $request->url();
+        
+        return view('pages.checkout.payment')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 
     public function orderPlace(Request $request){
@@ -153,10 +171,15 @@ class CheckoutController extends Controller
         }elseif($data['payment_method'] == 2){
             Cart::destroy();
 
-            $cat_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-            $brand_product = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-
-            return view('pages.checkout.handCash')->with('cats',$cat_product)->with('brands', $brand_product);
+            $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+            $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+            
+            $meta_desc = 'Checkout page, order';
+            $meta_keywords ='checkout, order'; 
+            $meta_title = 'Your order';
+            $url_canonical = $request->url();
+            
+            return view('pages.checkout.handCash')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
         } else {
             echo 'Paypal';
         }

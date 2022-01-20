@@ -63,6 +63,13 @@
             <p><b>Condition:</b> New</p>
             <p><b>Brand:</b> {{$pro_detail->brand_name}}</p>
             <p><b>Category:</b> {{$pro_detail->category_name}}</p>
+            
+            {{-- // SOCIAL PLUGIN FACEBOOK --}}
+            <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
+            <br>
+            <div style="width:200px; height: 10px" class="fb-share-button" data-href="http://localhost:81/lavarel%208/shop-vincent/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            {{-- // SOCIAL PLUGIN FACEBOOK --}}
+            
             <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
         </div><!--/product-information-->
     </div>
@@ -123,6 +130,7 @@
                     </button>
                 </form>
             </div>
+            <div class="fb-comments" data-href="{{$url_canonical}}" data-width="" data-numposts="20"></div>
         </div>
         
     </div>

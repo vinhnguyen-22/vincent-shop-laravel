@@ -7,7 +7,7 @@
         List brand
         </div>
         <?php
-            $message = Session::get('message');
+            $message = session()->get('message');
             if($message){
             echo '<div class="text-alert-success text-alert align-self-center">' .$message. '</div>';
                 Session::put('message' , null);    

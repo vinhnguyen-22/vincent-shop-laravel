@@ -3,10 +3,15 @@
 
 
 <div class="features_items">
+
+    {{-- // SOCIAL PLUGIN FACEBOOK --}}
+        <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+    {{-- // SOCIAL PLUGIN FACEBOOK --}}
+    
     <!--features_items-->
     @foreach($cat_name as $key => $title)
     <h2 class="title text-center">{{ $title->category_name }}</h2>
-    @endforeach
+    @endforeach 
 
     @foreach($pro_by_cat as $key => $pro)
     <a href="{{URL::to('/product-detail/'.$pro->product_id)}}">
