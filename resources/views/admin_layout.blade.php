@@ -53,10 +53,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 
                 <img alt="" src="{{asset('public/backend/images/2.png')}}">
                
-               <?php 
+               <?php
+               
                 $admin_name = Session::get('admin_name');
+                if(session()->get('login_normal')){
+                    $admin_name = Session::get('admin_name');
+                }else{
+                    
+                }
+               
                 if($admin_name){ ?>
-                <span class="username"><?php echo $admin_name; ?></span>                   
+                    <span class="username"><?php echo $admin_name; ?></span>                   
                 <?php } ?>
                
                 <b class="caret"></b>

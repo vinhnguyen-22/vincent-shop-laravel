@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 
 
@@ -21,7 +22,10 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Frontend
+////////////////////////////
+//FRONTEND
+///////////////////////////
+
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::post('/s', [HomeController::class, 'search']);
@@ -50,10 +54,15 @@ Route::get('/payment', [CheckoutController::class, 'paymentPage']);
 Route::post('/save-checkout-customer', [CheckoutController::class, 'saveCheckoutCustomer']);
 Route::post('/order-place', [CheckoutController::class, 'orderPlace']);
 
+////////////////////////////
+//FRONTEND
+///////////////////////////
 
 
 
-//Backend
+/////////////////////////
+//BACKEND
+/////////////////////////
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboard', [AdminController::class, 'showDashboard']);
@@ -99,3 +108,27 @@ Route::get('/active-product/{product_id}', [ProductController::class, 'inactiveP
 //order
 Route::get('/manage-order', [CheckoutController::class, 'manageOrder']);
 Route::get('/view-order/{order_id}', [CheckoutController::class, 'viewOrder']);
+
+/////////////////////////
+//BACKEND
+/////////////////////////
+
+/////////////////////////
+//SENDMAIL
+/////////////////////////
+Route::get('/send-mail', [MailController::class, 'sendMail']);
+/////////////////////////
+//SENDMAIL
+/////////////////////////
+
+/////////////////////////
+//LOGIN WITH SOCIAL MEDIA
+/////////////////////////
+Route::get('/login-facebook', [AdminController::class, 'loginFacebook']);
+Route::get('/admin/callback', [AdminController::class, 'callbackFacebook']);
+
+Route::get('/login-google', [AdminController::class, 'loginGoogle']);
+Route::get('/google/callback', [AdminController::class, 'callbackGoogle']);
+/////////////////////////
+//LOGIN WITH SOCIAL MEDIA
+/////////////////////////

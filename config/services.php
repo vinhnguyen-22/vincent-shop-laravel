@@ -29,5 +29,17 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    
+    //Facebook Login Provider
+    'facebook' => [
+        'client_id' =>  env('FACEBOOK_APP_ID'),  //client face của bạn
+        'client_secret' => env('FACEBOOK_APP_SECRET'),  //client app service face của bạn
+        'redirect' => env('FACEBOOK_REDIRECT') //callback trả về
+    ],
+    
+    'google' => [
+        'client_id' =>  env('GOOGLE_ID'),  //client face của bạn
+        'client_secret' => env('GOOGLE_SECRET'),  //client app service face của bạn
+        'redirect' => env('GOOGLE_URL') //callback trả về
+    ],
 ];
