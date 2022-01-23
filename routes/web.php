@@ -45,7 +45,7 @@ Route::post('/update-cart-qty', [CartController::class, 'updateQtyCart']);
 
 //Checkout
 Route::get('/login-checkout', [CheckoutController::class, 'loginCheckout']);
-Route::post('/customer-signup', [CheckoutController::class, 'customerSignup']);
+Route::post('/customer-signup', [CheckoutController::class, 'customerRegister']);
 Route::post('/customer-login', [CheckoutController::class, 'login']);
 Route::get('/customer-logout', [CheckoutController::class, 'logout']);
 

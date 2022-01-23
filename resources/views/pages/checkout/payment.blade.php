@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <section id="cart_items">
-    <div class="container">
+    <div class="">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li><a href="{{URL::to('/')}}">Home</a></li>

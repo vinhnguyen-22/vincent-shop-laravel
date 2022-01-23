@@ -33,12 +33,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     ?>
     <form action="{{URL::to('/admin-dashboard')}}" method="post">
         {{csrf_field()}}
-        <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" required="">
-        <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" required="">
+        @foreach($errors->all() as $val)
+            {{$val}}
+        @endforeach
+        <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" >
+        <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" >
         <span><input type="checkbox" />Remember Me</span>
         <h6><a href="#">Forgot Password?</a></h6>
-            <div class="clearfix"></div>
-            <input type="submit" value="Sign In" name="login">
+        <div class="clearfix"></div>
+
+        <input type="submit" value="Sign In" name="login">
+        
+        <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+        <br/>
     </form>
     <a href="{{url('/login-facebook')}}" class="">Login Facebook</a>
     <a href="{{url('/login-google')}}" class="">Login Google</a>
@@ -51,6 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/scripts.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.slimscroll.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{asset('public/backend/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 </body>

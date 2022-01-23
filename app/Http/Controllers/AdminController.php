@@ -5,7 +5,8 @@ use App\Models\Admin;
 use App\Models\Social;
 use Illuminate\Http\Request;
 use Socialite;
-
+use App\Rules\Captcha;
+use Validator;
 session_start();
 class AdminController extends Controller
 {
@@ -32,7 +33,12 @@ class AdminController extends Controller
     }
 
     public function dashboard(Request $request){
-       $data = $request->all();
+        $data = $request->validate([
+            'admin_email' => 'required',
+            'admin_password' => 'required',
+            'g-recaptcha-response' => new Captcha(), 		//dòng kiểm tra Captcha
+        ]);
+
        $admin_email = $data['admin_email'];
        $admin_password = md5($data['admin_password']);
 
