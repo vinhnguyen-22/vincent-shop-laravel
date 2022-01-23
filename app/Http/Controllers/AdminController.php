@@ -13,12 +13,12 @@ class AdminController extends Controller
         if(session()->get('login_normal')){
             $admin_id = session()->get('admin_id');
         }else{
-            
+            $admin_id = session()->get('admin_id');
         }
-        if(!$admin_id){
-            return redirect('admin')->send();
-        }else{
+        if($admin_id){
             return redirect('dashboard');
+        }else{
+            return redirect('admin')->send();
         }
     }
 
@@ -35,13 +35,12 @@ class AdminController extends Controller
        $data = $request->all();
        $admin_email = $data['admin_email'];
        $admin_password = md5($data['admin_password']);
-      
+
        $admin = Admin::where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
-       $login_count = $admin->count();
-     
-       if($login_count){
+       if($admin){
             session(['admin_name'=> $admin->admin_name]);
             session(['admin_id'=> $admin->admin_id]);
+            session(['login_normal'=>true]);
             return redirect('/dashboard');
         }else{
             session(['message'=>'Password or email incorrect']);
@@ -53,7 +52,7 @@ class AdminController extends Controller
         $this->AuthLogin();
         session(['admin_name'=>null]);
         session(['admin_id'=>null]);
-        session(['login_normal'=>null]);
+        session(['login_normal'=>false]);
         return redirect('/admin');
     }
 
@@ -69,7 +68,7 @@ class AdminController extends Controller
         if($account){
             //login in Admin  
             $account_name = Admin::where('admin_id',$account->user)->first();
-            session(['admin_login'=>$account_name->admin_name]);
+            session(['admin_name'=>$account_name->admin_name]);
             session(['admin_id'=>$account_name->admin_id]);
             session(['login_normal'=>true]);
             return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
@@ -95,8 +94,8 @@ class AdminController extends Controller
             $admin_login->save();
 
             $account_name = Admin::where('admin_id',$admin_login->user)->first();
-            session(['admin_name'=>$account_name->admin_name]);
-            session(['admin_id'=>$account_name->admin_id]);
+            session(['admin_name'=>$admin_login->admin_name]);
+            session(['admin_id'=>$admin_login->admin_id]);
             session(['login_normal'=>true]);
             return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
         }

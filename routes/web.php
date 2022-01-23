@@ -63,7 +63,7 @@ Route::post('/order-place', [CheckoutController::class, 'orderPlace']);
 /////////////////////////
 //BACKEND
 /////////////////////////
-
+//admin
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboard', [AdminController::class, 'showDashboard']);
 Route::post('/admin-dashboard', [AdminController::class, 'dashboard']);
