@@ -29,7 +29,7 @@
     <link href="{{asset('public/frontend/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
-  
+    <link rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -124,7 +124,7 @@
 
                                     "><i class="fa fa-crosshairs"></i> Checkout</a></li>
 
-                                <li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="{{URL::to('/show-cart-page')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php 
                                 if($customer_id != null){ ?>
                                     <li><a href="{{URL::to('/customer-logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>                                    
@@ -443,7 +443,8 @@
     <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
+    <script src="{{asset('public/frontend/js/index.js')}}"></script>
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <div id="fb-root"></div>

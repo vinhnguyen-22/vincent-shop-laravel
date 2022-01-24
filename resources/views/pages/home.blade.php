@@ -6,16 +6,27 @@
     <!--features_items-->
     <h2 class="title text-center">Features Items</h2>
     @foreach($all_product as $key => $allpro)
-    <a href="{{URL::to('/product-detail/'.$allpro->product_id)}}">
         <div class="col-sm-4">
             <div class="product-image-wrapper">
                 <div class="single-products">
-                    <div class="productinfo text-center">
-                        <img src="{{URL::to('public/uploads/product/'.$allpro->product_image)}}" height="250"alt="">
-                        <h2>${{number_format($allpro->product_price)}}</h2>
-                        <p>{{$allpro->product_name}}</p>
-                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    </div>
+                    <form >
+
+                        <input type="hidden" value="{{$allpro->product_id}}" class="cart_product_id_{{$allpro->product_id}}">
+                        <input type="hidden" value="{{$allpro->product_name}}" class="cart_product_name_{{$allpro->product_id}}">
+                        <input type="hidden" value="{{$allpro->product_image}}" class="cart_product_image_{{$allpro->product_id}}">
+                        <input type="hidden" value="{{$allpro->product_price}}" class="cart_product_price_{{$allpro->product_id}}">
+                        <input type="hidden" value="1" class="cart_product_qty_{{$allpro->product_id}}">
+
+                        <div class="productinfo text-center">
+                            <a href="{{URL::to('/product-detail/'.$allpro->product_slug)}}">
+                                <img src="{{URL::to('public/uploads/product/'.$allpro->product_image)}}" height="250"alt="">
+                                <h2>${{number_format($allpro->product_price)}}</h2>
+                                <p>{{$allpro->product_name}}</p>
+                            </a>
+                            {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
+                            <button data-id_product="{{$allpro->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
@@ -25,7 +36,6 @@
                 </div>
             </div>
         </div>
-    </a>
     @endforeach
 </div>
 <!--features_items-->

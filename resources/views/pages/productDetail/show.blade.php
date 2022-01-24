@@ -143,7 +143,7 @@
         <div class="carousel-inner">
             <div class="item active">	
                 @foreach ($related_products as $key => $related_pro)
-                <a href="{{URL::to('/product-detail/'.$related_pro->product_id)}}">
+                <a href="{{URL::to('/product-detail/'.$related_pro->product_slug)}}">
                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">

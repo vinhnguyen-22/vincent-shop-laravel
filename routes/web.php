@@ -54,6 +54,13 @@ Route::get('/payment', [CheckoutController::class, 'paymentPage']);
 Route::post('/save-checkout-customer', [CheckoutController::class, 'saveCheckoutCustomer']);
 Route::post('/order-place', [CheckoutController::class, 'orderPlace']);
 
+//CART WITH AJAX
+Route::post('/add-cart-ajax', [CartController::class, 'addCartAjax']);
+Route::get('/show-cart-page', [CartController::class, 'showCartAjax']);
+Route::post('/update-cart', [CartController::class, 'updateCart']);
+Route::get('/delete-item/{session_id}', [CartController::class, 'deleteItem']);
+Route::get('/delete-all-item', [CartController::class, 'deleteAllItem']);
+
 ////////////////////////////
 //FRONTEND
 ///////////////////////////
@@ -109,17 +116,12 @@ Route::get('/active-product/{product_id}', [ProductController::class, 'inactiveP
 Route::get('/manage-order', [CheckoutController::class, 'manageOrder']);
 Route::get('/view-order/{order_id}', [CheckoutController::class, 'viewOrder']);
 
+//Sendmail
+Route::get('/send-mail', [MailController::class, 'sendMail']);
 /////////////////////////
 //BACKEND
 /////////////////////////
 
-/////////////////////////
-//SENDMAIL
-/////////////////////////
-Route::get('/send-mail', [MailController::class, 'sendMail']);
-/////////////////////////
-//SENDMAIL
-/////////////////////////
 
 /////////////////////////
 //LOGIN WITH SOCIAL MEDIA

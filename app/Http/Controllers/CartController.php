@@ -56,4 +56,100 @@ class CartController extends Controller
         Cart::update($rowId, $qty);
         return Redirect::to('/show-cart');
     }
+
+    //AJAX request
+    public function addCartAjax(Request $request){
+        $data = $request->all();
+        $session_id = substr(md5(microtime()),rand(0,26),5);
+        $cart = session()->get('cart');
+        if($cart==true){
+            $is_available = 0;
+            foreach($cart as $key => $val){
+                if($val['product_id']==$data['cart_product_id']){
+                    $is_available++;
+                }
+            }
+            if($is_available == 0){
+                $cart[] = array(
+                'session_id' => $session_id,
+                'product_name' => $data['cart_product_name'],
+                'product_id' => $data['cart_product_id'],
+                'product_image' => $data['cart_product_image'],
+                'product_qty' => $data['cart_product_qty'],
+                'product_price' => $data['cart_product_price'],
+                );
+                session(['cart'=>$cart]);
+            }
+        }else{
+            $cart[] = array(
+                'session_id' => $session_id,
+                'product_name' => $data['cart_product_name'],
+                'product_id' => $data['cart_product_id'],
+                'product_image' => $data['cart_product_image'],
+                'product_qty' => $data['cart_product_qty'],
+                'product_price' => $data['cart_product_price'],
+
+            );
+            session(['cart'=>$cart]);
+        }
+        session()->save();
+    }  
+    
+    public function showCartAjax(Request $request){
+        // SEO
+        $meta_desc = 'Cart shopping';
+        $meta_keywords ='buy online, e-commerce'; 
+        $meta_title = 'Your cart';
+        $url_canonical = $request->url(); 
+        // SEO
+
+        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+    
+        return view('pages.cart.cartAjax')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
+    }
+
+    public function updateCart(Request $request){
+        $data = $request->all();
+        $cart = session()->get('cart');
+        if($cart==true){
+            foreach($data['cart_qty'] as $key=>$qty){
+                foreach($cart as $session => $val){
+                    if($val['session_id'] == $key){
+                        $cart[$session]['product_qty'] = $qty;
+                    }
+                }
+            }
+            session(['cart'=>$cart]);
+            return redirect()->back()->with('message', 'Update item success');
+        }else{
+            return redirect()->back()->with('message', 'Update item failed');
+        }
+        session()->save();
+    }  
+
+    public function deleteItem($session_id){
+        $cart = session()->get('cart');
+        if($cart == true){
+            foreach($cart as $key => $val){
+                if($val['session_id'] == $session_id){
+                    unset($cart[$key]);
+                }
+            }
+            session(['cart'=>$cart]);
+            return redirect()->back()->with('message', 'Delete item success');
+        }else{
+            return redirect()->back()->with('message', 'Delete item failed');
+        }
+    }  
+
+    public function deleteAllItem(){
+        $cart = session()->get('cart');
+        if($cart == true){
+            session()->forget('cart');
+            return redirect()->back()->with('message', 'Delete item success');
+        }else{
+            return redirect()->back()->with('message', 'Delete item failed');
+        }
+    }
 }
