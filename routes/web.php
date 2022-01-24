@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 
@@ -60,6 +61,11 @@ Route::get('/show-cart-page', [CartController::class, 'showCartAjax']);
 Route::post('/update-cart', [CartController::class, 'updateCart']);
 Route::get('/delete-item/{session_id}', [CartController::class, 'deleteItem']);
 Route::get('/delete-all-item', [CartController::class, 'deleteAllItem']);
+
+//coupon
+Route::post('/check-coupon', [CartController::class, 'checkCoupon']);
+Route::get('/delete-all-coupon', [CartController::class, 'deleteAllCoupon']);
+
 
 ////////////////////////////
 //FRONTEND
@@ -118,6 +124,13 @@ Route::get('/view-order/{order_id}', [CheckoutController::class, 'viewOrder']);
 
 //Sendmail
 Route::get('/send-mail', [MailController::class, 'sendMail']);
+
+//coupon
+Route::get('/insert-coupon', [CouponController::class, 'insertCouponPage']);
+Route::post('/save-coupon', [CouponController::class, 'saveCoupon']);
+Route::get('/all-coupon', [CouponController::class, 'showAllCoupon']);
+Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'deleteCoupon']);
+
 /////////////////////////
 //BACKEND
 /////////////////////////

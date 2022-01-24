@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -147,9 +148,53 @@ class CartController extends Controller
         $cart = session()->get('cart');
         if($cart == true){
             session()->forget('cart');
+            session()->forget('coupon');
             return redirect()->back()->with('message', 'Delete item success');
         }else{
             return redirect()->back()->with('message', 'Delete item failed');
+        }
+    }
+    
+    public function checkCoupon(Request $request){
+        $data = $request->all();
+        $coupon = Coupon::where('coupon_code', $data['coupon'])->first();
+        if($coupon){
+            $count_coupon = $coupon->count();
+            if($count_coupon > 0){
+                $coupon_session = session()->get('coupon');
+                
+                if($coupon_session){
+                    $is_available = false;
+                    if(!$is_available){
+                        $cou[]= array(
+                            'coupon_code' => $coupon->coupon_code,
+                            'coupon_method' => $coupon->coupon_method,
+                            'coupon_rate' => $coupon->coupon_rate,
+                        );
+                        session(['coupon' => $cou]);
+                    }
+                }else{
+                    $cou[]= array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_method' => $coupon->coupon_method,
+                        'coupon_rate' => $coupon->coupon_rate,
+                    );
+                    session(['coupon' => $cou]);
+                }
+                session()->save();
+                return redirect()->back()->with('message','Add coupon success');
+            }
+        }else{
+            return redirect()->back()->with('error','Coupon code incorrect');
+        }             
+    }
+    public function deleteAllCoupon(){
+        $cart = session()->get('cart');
+        if($cart == true){
+            session()->forget('coupon');
+            return redirect()->back()->with('message', 'Delete coupon success');
+        }else{
+            return redirect()->back()->with('message', 'Delete coupon failed');
         }
     }
 }

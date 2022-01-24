@@ -103,7 +103,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li><a href="{{URL::to('/manage-order')}}">Manage Order</a></li>
                     </ul>
                 </li>
-                
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Coupon</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/insert-coupon')}}">Add Coupon</a></li>
+                    </ul>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/all-coupon')}}">List Coupon</a></li>
+                    </ul>
+                </li>
+               
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
