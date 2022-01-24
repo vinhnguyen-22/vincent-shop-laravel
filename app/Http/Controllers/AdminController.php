@@ -39,20 +39,23 @@ class AdminController extends Controller
             'g-recaptcha-response' => new Captcha(), 		//dòng kiểm tra Captcha
         ]);
 
-       $admin_email = $data['admin_email'];
-       $admin_password = md5($data['admin_password']);
+        $admin_email = $data['admin_email'];
+        $admin_password = md5($data['admin_password']);
 
-       $admin = Admin::where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
-       if($admin){
-            session(['admin_name'=> $admin->admin_name]);
-            session(['admin_id'=> $admin->admin_id]);
-            session(['login_normal'=>true]);
-            return redirect('/dashboard');
+        $admin = Admin::where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
+        if($admin){
+           $login_count = $admin->count();
+            if($login_count > 0){    
+                session(['admin_name'=> $admin->admin_name]);
+                session(['admin_id'=> $admin->admin_id]);
+                session(['login_normal'=>true]);
+                return redirect('/dashboard');
+            }
         }else{
             session(['message'=>'Password or email incorrect']);
             return redirect('/admin');
         }
-    }
+}
 
     public function logout(){
         $this->AuthLogin();

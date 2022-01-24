@@ -8,6 +8,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 
@@ -130,6 +131,11 @@ Route::get('/insert-coupon', [CouponController::class, 'insertCouponPage']);
 Route::post('/save-coupon', [CouponController::class, 'saveCoupon']);
 Route::get('/all-coupon', [CouponController::class, 'showAllCoupon']);
 Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'deleteCoupon']);
+
+//Delivery
+Route::get('/delivery', [DeliveryController::class,'insertDeliveryPage']);
+Route::post('/select-delivery', [DeliveryController::class,'selectDelivery']);
+Route::post('/save-delivery', [DeliveryController::class,'saveDelivery']);
 
 /////////////////////////
 //BACKEND

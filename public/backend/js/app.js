@@ -30,6 +30,56 @@ $(document).ready(function () {
     $("#productForm").validate(validationOpt);
     $("#categoryForm").validate(validationOpt);
 
+    //AJAX PROVINCE DISTRICT WARD
+    $(".add_delivery").click(function () {
+        var province = $(".province").val();
+        var district = $(".district").val();
+        var ward = $(".ward").val();
+        var feeShip = $(".shippingfee").val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "save-delivery",
+            method: "POST",
+            data: {
+                province: province,
+                district: district,
+                ward: ward,
+                feeShip: feeShip,
+                _token: _token,
+            },
+            success: function (data) {
+                alert("add feeship success");
+            },
+        });
+    });
+
+    $(".optionSelect").on("change", function () {
+        var action = $(this).attr("id");
+        var ma_id = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        var result = "";
+
+        if (action == "province") {
+            result = "district";
+        } else {
+            result = "ward";
+        }
+
+        $.ajax({
+            url: "select-delivery",
+            method: "POST",
+            data: {
+                action: action,
+                ma_id: ma_id,
+                _token: _token,
+            },
+            success: function (data) {
+                $("#" + result).html(data);
+            },
+        });
+    });
+
     // CONVERT SLUG
     $(".convert_slug").keyup(function () {
         var value = $(this).val();
