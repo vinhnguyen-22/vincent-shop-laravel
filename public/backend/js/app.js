@@ -31,6 +31,40 @@ $(document).ready(function () {
     $("#categoryForm").validate(validationOpt);
 
     //AJAX PROVINCE DISTRICT WARD
+    $(document).on("blur", ".feeShipEdit", function () {
+        var feeId = $(this).data("fee_ship_id");
+        var feeValue = $(this).text();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "update-feeship",
+            method: "POST",
+            data: {
+                feeId,
+                feeValue,
+                _token: _token,
+            },
+            success: function (data) {
+                fetchDelivery();
+            },
+        });
+    });
+
+    function fetchDelivery() {
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "select-feeship",
+            method: "GET",
+            data: {
+                _token: _token,
+            },
+            success: function (data) {
+                $("#load-delivery").html(data);
+            },
+        });
+    }
+    fetchDelivery();
+
     $(".add_delivery").click(function () {
         var province = $(".province").val();
         var district = $(".district").val();
@@ -49,7 +83,7 @@ $(document).ready(function () {
                 _token: _token,
             },
             success: function (data) {
-                alert("add feeship success");
+                fetchDelivery();
             },
         });
     });

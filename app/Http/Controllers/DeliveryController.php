@@ -15,7 +15,7 @@ class DeliveryController extends Controller
         $province = Province::orderBy('matp','ASC')->get();
         $district = District::orderBy('maqh','ASC')->get();
         $ward = Ward::orderBy('xaid','ASC')->get();
-        return view('admin.shippingfee.create')->with(compact('district','ward','province'));
+        return view('admin.shippingfee.manageShippingFee')->with(compact('district','ward','province'));
     }   
 
     public function selectDelivery(Request $request){
@@ -46,4 +46,46 @@ class DeliveryController extends Controller
         $fee_ship->fee_shippingfee = $data['feeShip'];
         $fee_ship->save();
     }
+
+    public function selectFeeShip(){
+        $fee_ship = ShippingFee::orderby('fee_id','DESC')->get();
+        $output = '';
+        $output .= '
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thread>
+                    <tr>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>Ward</th>
+                        <th>Shipping Fee</th>
+                    </tr>
+                </thread>
+                
+                <tbody>';
+                foreach ($fee_ship as $key => $fee) {
+                    $output .='
+                    <tr>
+                        <td>'.$fee->province->province_name.'</td>
+                        <td>'.$fee->district->district_name.'</td>
+                        <td>'.$fee->ward->ward_name.'</td>
+                        <td contenteditable class="feeShipEdit" data-fee_ship_id="'.$fee->fee_id.'">'.number_format($fee->fee_shippingfee,0,',','.').'</td>
+                    </tr>
+                    ';
+                }
+                
+        $output .= '
+                </tbody>
+            </table>
+        </div>';
+        echo $output;
+    }
+
+    public function updateFeeShip(Request $request){
+        $data = $request->all();
+        $fee_ship = ShippingFee::find($data['feeId']);
+        $fee_ship->fee_shippingfee = rtrim($data['feeValue'],'.');
+        $fee_ship->save();
+    }
+   
 }

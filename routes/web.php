@@ -136,6 +136,9 @@ Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'deleteCoupon
 Route::get('/delivery', [DeliveryController::class,'insertDeliveryPage']);
 Route::post('/select-delivery', [DeliveryController::class,'selectDelivery']);
 Route::post('/save-delivery', [DeliveryController::class,'saveDelivery']);
+Route::get('/select-feeship', [DeliveryController::class,'selectFeeShip']);// load feeship
+Route::post('/update-feeship', [DeliveryController::class,'updateFeeShip']);
+
 
 /////////////////////////
 //BACKEND

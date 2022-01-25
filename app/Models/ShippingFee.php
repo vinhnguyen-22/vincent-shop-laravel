@@ -14,11 +14,22 @@ class ShippingFee extends Model
         'fee_matp',
         'fee_maqh',
         'fee_xaid',
-        'fee_shippongfee',
+        'fee_shippingfee',
     ];
 
     protected $primaryKey = 'fee_id';
 
     protected $table = 'tbl_shippingfee';
-
+    
+    public function province(){
+        return $this->belongsTo('App\Models\Province','fee_matp');
+    }
+    
+    public function district(){
+        return $this->belongsTo('App\Models\District','fee_maqh');
+    }
+    
+    public function ward(){
+        return $this->belongsTo('App\Models\Ward','fee_xaid');
+    }
 }

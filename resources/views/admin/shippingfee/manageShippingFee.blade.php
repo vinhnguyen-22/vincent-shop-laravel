@@ -27,7 +27,7 @@
                                 @endforeach;
                             </select>
                         </div>
-                        
+                         
                         <div class="form-group">
                             <label for="">District</label>
                             <select id="district" class="form-control input-sm m-bot15 optionSelect district" name="district">
@@ -55,6 +55,10 @@
 
                         <button type="button" name="add_delivery" class="btn btn-info add_delivery">Add</button>
                     </form>
+                </div>
+
+                <div id="load-delivery">
+
                 </div>
             </div>
         </section>
