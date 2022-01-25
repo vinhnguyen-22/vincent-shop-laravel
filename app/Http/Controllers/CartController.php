@@ -149,6 +149,7 @@ class CartController extends Controller
         if($cart == true){
             session()->forget('cart');
             session()->forget('coupon');
+            session()->forget('fee');
             return redirect()->back()->with('message', 'Delete item success');
         }else{
             return redirect()->back()->with('message', 'Delete item failed');

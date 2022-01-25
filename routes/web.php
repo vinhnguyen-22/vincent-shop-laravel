@@ -67,6 +67,11 @@ Route::get('/delete-all-item', [CartController::class, 'deleteAllItem']);
 Route::post('/check-coupon', [CartController::class, 'checkCoupon']);
 Route::get('/delete-all-coupon', [CartController::class, 'deleteAllCoupon']);
 
+// Delivery
+Route::post('/select-delivery-fe', [DeliveryController::class,'selectDeliveryFE']);
+Route::post('/calculate-fee', [DeliveryController::class,'calculateFee']);
+Route::get('/delete-fee', [DeliveryController::class,'deleteFee']);
+
 
 ////////////////////////////
 //FRONTEND

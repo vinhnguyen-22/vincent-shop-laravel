@@ -87,5 +87,24 @@ class DeliveryController extends Controller
         $fee_ship->fee_shippingfee = rtrim($data['feeValue'],'.');
         $fee_ship->save();
     }
-   
+    //END BACKEND FUNCTIONS
+    public function selectDeliveryFE(Request $request){
+        $this->selectDelivery($request);
+    }
+
+    public function calculateFee(Request $request){
+        $data = $request->all();
+        if($data['province']){
+            $fee_ship = ShippingFee::where('fee_matp', $data['province'])->where('fee_maqh' , $data['district'])->where('fee_xaid',$data['ward'])->get();
+            foreach($fee_ship as $key => $fee){
+                session(['fee'=>$fee->fee_shippingfee]);
+                session()->save();
+            }
+        }
+    }
+
+    public function deleteFee(){
+        session()->forget('fee');
+        return redirect()->back()->with('message', 'Delete fee success');
+    }
 }

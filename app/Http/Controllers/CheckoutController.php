@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -111,8 +114,12 @@ class CheckoutController extends Controller
         $meta_keywords ='checkout, order'; 
         $meta_title = 'Your order';
         $url_canonical = $request->url();
+
+        $province = Province::orderBy('matp','ASC')->get();
+        $district = District::orderBy('maqh','ASC')->get();
+        $ward = Ward::orderBy('xaid','ASC')->get();
         
-        return view('pages.checkout.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.checkout.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','province','district','ward'));
     }
     
     public function saveCheckoutCustomer(Request $request){

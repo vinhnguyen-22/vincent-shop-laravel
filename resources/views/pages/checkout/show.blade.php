@@ -27,26 +27,93 @@
                 </li>
             </ul>
         </div><!--/checkout-options--> --}}
-
-        <div class="register-req">
-            <p>Please Register or Login to easily pay and view purchase history.</p>
-        </div><!--/register-req-->
-
         <div class="shopper-informations">
-            <div class="row">
-                {{-- <div class="col-sm-3">
-                    <div class="shopper-info">
-                        <p>Shopper Information</p>
-                        <form>
-                            <input type="text" placeholder="Display Name">
-                            <input type="text" placeholder="User Name">
-                            <input type="password" placeholder="Password">
-                            <input type="password" placeholder="Confirm password">
+            <div class="row"> 
+                <div class="col-sm-12 clearfix">
+                    @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message')}}
+                        </div>
+                    @elseif (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{session()->get('error')}}
+                        </div>
+                    @endif
+                    <div class="table-responsive cart_info">
+                        <form action="{{url('/update-cart')}}" method="POST">
+                            {{csrf_field()}}
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr class="cart_menu">
+                                        <td class="image">Image</td>
+                                        <td class="description">Name</td>
+                                        <td  d class="price">Unit price</td>
+                                        <td class="quantity">Quatity</td>
+                                        <td class="total">Price</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $total = 0;
+                                        // echo '<pre>'; print_r(Session::get('cart')); echo '</pre>';
+                                    @endphp
+                                    @if(Session::get('cart'))
+                                        @foreach(Session::get('cart') as $key => $cart)
+                                            @php
+                                                $subtotal = $cart['product_price']*$cart['product_qty'];
+                                                $total+=$subtotal;  
+                                            @endphp
+
+                                        <tr>
+                                            <td class="cart_product" style="width:200px">
+                                                <img src="{{asset('public/uploads/product/'.$cart['product_image'])}}" width="90" alt="{{$cart['product_name']}}" />
+                                            </td>
+                                            <td class="cart_description">
+                                                <h4><a href=""></a></h4>
+                                                <p>{{$cart['product_name']}}</p>
+                                            </td>
+                                            <td class="cart_price">
+                                                <p>${{number_format($cart['product_price'],0,',','.')}}</p>
+                                            </td>
+                                            <td class="cart_quantity">
+                                                <div class="cart_quantity_button">                            
+                                                    <input class="cart_quantity" style="width:30%" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
+                                                </div>
+                                            </td>
+                                            <td class="cart_total">
+                                                <p class="cart_total_price">
+                                                    ${{number_format($subtotal,0,',','.')}}
+                                                </p>
+                                            </td>
+                                            <td class="cart_delete" style="width:50px">
+                                                <a class="cart_quantity_delete" href="{{url('/delete-item/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        <tr>
+                                            <td>
+                                                <button class="btn btn-default btn-sm">
+                                                    <a href="{{url('/delete-all-item')}}" name="delete_all" >Delete All</a>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <input type="submit" value="Update cart" name="update_qty" class="btn btn-default btn-sm checkout">
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <td colspan="5" style="text-align:center">
+                                            @php
+                                                echo "Go shopping now"
+                                            @endphp
+                                        </td>
+                                    @endif
+                                </tbody>
+                            </table>
                         </form>
-                        <a class="btn btn-primary" href="">Get Quotes</a>
-                        <a class="btn btn-primary" href="">Continue</a>
                     </div>
-                </div> --}}
+                </div>	
+
                 <div class="col-sm-12 clearfix">
                     <div class="bill-to">
                         <p>Fill in shipping information</p>
@@ -57,174 +124,113 @@
                                 <input type="text"name="shipping_name" placeholder="Full name *">
                                 <input type="text" name="shipping_address" placeholder="Address *">
                                 <input type="text" name="shipping_phone" placeholder="Phone">
-                                <textarea name="shipping_notes" placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-                                <input type="submit" value="Order" name="order" class="btn btn-primary btn-sm">
+                                <textarea name="shipping_notes" placeholder="Notes about your order, Special Notes for Delivery" rows="5    "></textarea>
+                                <input type="submit" value="Confirm Order" name="order" class="btn btn-primary btn-sm">
                             </form>
                         </div>
-                        {{-- <div class="form-two">
-                            <form>
-                                <input type="text" placeholder="Zip / Postal Code *">
-                                <select>
-                                    <option>-- Country --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <select>
-                                    <option>-- State / Province / Region --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <input type="password" placeholder="Confirm password">
-                                <input type="text" placeholder="Phone *">
-                                <input type="text" placeholder="Mobile Phone">
-                                <input type="text" placeholder="Fax">
+                        
+                        <div class="form-two">
+                            <form >
+                                @csrf
+                                <div class="form-group">
+                                    <label for="">Province</label>
+                                    <select id="province" class="form-control input-sm m-bot15 optionSelect province" name="province">
+                                        <option value="0">--choose--</option>
+                                        @foreach($province as $key => $val)
+                                        <option value="{{$val->matp}}">{{$val->province_name}}</option>
+                                        @endforeach;
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="">District</label>
+                                    <select id="district" class="form-control input-sm m-bot15 optionSelect district" name="district">
+                                        <option value="0">--choose--</option>
+                                        @foreach($district as $key => $val)
+                                        <option value="{{$val->maqh}}">{{$val->district_name}}</option>
+                                        @endforeach;
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Ward</label>
+                                    <select id="ward" class="form-control input-sm m-bot15 ward" name="ward">
+                                        <option value="0">--choose--</option>
+                                        @foreach($ward as $key => $val)
+                                        <option value="{{$val->xaid}}">{{$val->ward_name}}</option>
+                                        @endforeach;
+                                    </select>
+                                </div>
+                                <input type="button" value="Calculate Shipping Fee" name="calculate_shipping_fee" class="btn btn-primary btn-sm calculate_shipping_fee">
                             </form>
-                        </div> --}}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="total_area">
+                                    <ul>
+                                        <li>Sub Total <span>${{number_format($total,0,',','.')}}</span></li>
+                                        @if(session()->get('coupon'))
+                                        <li>Coupon: <span>
+                                            @foreach(session()->get('coupon') as $key => $cou)
+                                                @if($cou['coupon_method'] == 1)
+                                                    Decrease ${{$cou['coupon_rate']}}
+                                                    <span style="margin-left: 5px">
+                                                        @php 
+                                                        $total =  $total - $cou['coupon_rate'];
+                                                        @endphp
+                                                        total coupon: {{number_format(($total),0,',','.')}}
+                                                    </span>
+                                                @elseif($cou['coupon_method'] == 2)
+                                                    Decrease {{$cou['coupon_rate']}}%
+                                                    <span style="margin-left: 5px">
+                                                        @php
+                                                        $total_coupon = ($total * $cou['coupon_rate'])/100;
+                                                        $total =  $total - $total_coupon;                                                    
+                                                       @endphp
+                                                        total coupon: {{number_format(($total_coupon),0,',','.')}}
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        </span></li>
+                                        @endif
+                                        <li>Eco Tax <span>${{number_format((0.1 * $total),0,',','.')}}</span></li>
+                                        @php
+                                            $total = 1.1 * $total; 
+                                        @endphp
+                                        @if(session()->get('fee'))
+                                        @php
+                                            $total =  $total + session()->get('fee');
+                                        @endphp
+                                        <li>
+                                            <a class="cart_quantity_delete" href="{{url('/delete-fee')}}"><i class="fa fa-times"></i></a>
+                                            Shipping Cost <span>{{number_format(session()->get('fee'),0,',','.')}}</span>
+                                        </li>
+                                        @endif
+                                        <li>Total <span>${{number_format(($total),0,',','.')}}</span></li>
+                                        @if(session()->get('cart'))
+                                        <br>
+                                        <form method="POST" action="{{url('/check-coupon')}}">
+                                            {{csrf_field()}}
+                                                <input type="text" class="form-control" placeholder="Enter coupon" name="coupon" id=""> <br>
+                                            @if(session()->get('coupon'))
+                                                <button class="btn btn-default btn-md">
+                                                    <a href="{{url('/delete-all-coupon')}}" name="delete_all" >Delete all coupon</a>
+                                                </button>
+                                            @endif
+                                            <input type="submit" class="btn btn-default check_coupon" name="check_coupon" value="Confirm Coupon">
+                                        </form>
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>		
+                </div>
             </div>
         </div>
         <div class="review-payment">
             <h2>Review &amp; Payment</h2>
-        </div>
-
-        {{-- <div class="table-responsive cart_info">
-            <table class="table table-condensed">
-                <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Item</td>
-                        <td class="description"></td>
-                        <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
-                        <td class="total">Total</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/two.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/three.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                        <td colspan="2">
-                            <table class="table table-condensed total-result">
-                                <tbody><tr>
-                                    <td>Cart Sub Total</td>
-                                    <td>$59</td>
-                                </tr>
-                                <tr>
-                                    <td>Exo Tax</td>
-                                    <td>$2</td>
-                                </tr>
-                                <tr class="shipping-cost">
-                                    <td>Shipping Cost</td>
-                                    <td>Free</td>										
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td><span>$61</span></td>
-                                </tr>
-                            </tbody></table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> --}}
-        <div class="payment-options">
-            <span>
-                <label><input type="checkbox"> Direct Bank Transfer</label>
-            </span>
-            <span>
-                <label><input type="checkbox"> Check Payment</label>
-            </span>
-            <span>
-                <label><input type="checkbox"> Paypal</label>
-            </span>
         </div>
     </div>
 </section>
