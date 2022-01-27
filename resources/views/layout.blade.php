@@ -444,7 +444,7 @@
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script src="{{asset('public/frontend/js/app.js')}}"></script>
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <div id="fb-root"></div>

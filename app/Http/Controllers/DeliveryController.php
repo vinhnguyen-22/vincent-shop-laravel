@@ -87,7 +87,10 @@ class DeliveryController extends Controller
         $fee_ship->fee_shippingfee = rtrim($data['feeValue'],'.');
         $fee_ship->save();
     }
+    
     //END BACKEND FUNCTIONS
+    
+    //START FRONTEND FUNCTIONS
     public function selectDeliveryFE(Request $request){
         $this->selectDelivery($request);
     }
@@ -96,9 +99,18 @@ class DeliveryController extends Controller
         $data = $request->all();
         if($data['province']){
             $fee_ship = ShippingFee::where('fee_matp', $data['province'])->where('fee_maqh' , $data['district'])->where('fee_xaid',$data['ward'])->get();
-            foreach($fee_ship as $key => $fee){
-                session(['fee'=>$fee->fee_shippingfee]);
-                session()->save();
+            
+            if($fee_ship){
+                $count_fee_ship = $fee_ship->count();
+                if($count_fee_ship > 0){
+                    foreach($fee_ship as $key => $fee){
+                    session(['fee'=>$fee->fee_shippingfee]);
+                    session()->save();
+                    }
+                }else{
+                    session(['fee'=> 10]);
+                    session()->save();
+                }      
             }
         }
     }

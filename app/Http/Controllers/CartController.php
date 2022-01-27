@@ -182,6 +182,7 @@ class CartController extends Controller
                     );
                     session(['coupon' => $cou]);
                 }
+                
                 session()->save();
                 return redirect()->back()->with('message','Add coupon success');
             }
@@ -189,6 +190,7 @@ class CartController extends Controller
             return redirect()->back()->with('error','Coupon code incorrect');
         }             
     }
+    
     public function deleteAllCoupon(){
         $cart = session()->get('cart');
         if($cart == true){

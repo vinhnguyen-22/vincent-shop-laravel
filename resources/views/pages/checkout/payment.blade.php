@@ -65,8 +65,7 @@
                 </tbody>
             </table>
         </div>
-        
-        <h4 style="margin:40px;font-size:20px">Choose payment</h4>
+         <h4 style="margin:40px;font-size:20px">Choose payment</h4>
         <form action="{{URL::to('/order-place')}}" method="post">
                 {{csrf_field()}}
             <div class="payment-options">
@@ -82,7 +81,6 @@
                 <input type="submit" value="Order" name="send_order_place" class="btn btn-primary btn-sm">
             </div>
         </form>
-        
     </div>
 </section>
 @endsection

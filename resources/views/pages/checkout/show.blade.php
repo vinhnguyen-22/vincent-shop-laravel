@@ -118,14 +118,41 @@
                     <div class="bill-to">
                         <p>Fill in shipping information</p>
                         <div class="form-one">
-                            <form action="{{URL::to('/save-checkout-customer')}}" method="POST">
-                                {{csrf_field()}}
-                                <input type="text"  name="shipping_email" placeholder="Email*">
-                                <input type="text"name="shipping_name" placeholder="Full name *">
-                                <input type="text" name="shipping_address" placeholder="Address *">
-                                <input type="text" name="shipping_phone" placeholder="Phone">
-                                <textarea name="shipping_notes" placeholder="Notes about your order, Special Notes for Delivery" rows="5    "></textarea>
-                                <input type="submit" value="Confirm Order" name="order" class="btn btn-primary btn-sm">
+                            <form method="POST">
+                                @csrf
+                                <input type="text"  name="shipping_email" class="shipping_email" placeholder="Email*">
+                                <input type="text" name="shipping_name" class="shipping_name" placeholder="Full name *">
+                                <input type="text" name="shipping_address" class="shipping_address" placeholder="Address *">
+                                <input type="text" name="shipping_phone" class="shipping_phone" placeholder="Phone">
+                                <textarea name="shipping_notes" class="shipping_notes" placeholder="Notes about your order, Special Notes for Delivery" rows="5">
+
+                                </textarea>
+                                <div class="review-payment">
+                                    <h2>Review &amp; Payment</h2>
+                                    <select id="payment_select" class="form-control input-sm m-bot15 optionSelect payment_select" name="payment_select">
+                                        <option value="0">By cash</option>
+                                        <option value="1">Direct Bank Transfer</option>
+                                        <option value="2">Paypal</option>
+                                    </select>
+                                </div>
+
+                                
+                                @if(session()->get('fee'))
+                                <input type="hidden" name="order_fee" class="order_fee" value="{{session()->get('fee')}}">
+                                @else
+                                <input type="hidden" name="order_fee" class="order_fee" value="10">
+                                @endif
+
+                                
+                                @if(session()->get('coupon'))
+                                    @foreach(session()->get('coupon') as $key => $cou)
+                                        <input type="hidden" name="order_coupon" class="order_coupon" value="{{$cou['coupon_code']}}">
+                                    @endforeach
+                                @else
+                                <input type="hidden" name="order_coupon" class="order_coupon" value="Empty" >
+                                @endif
+
+                                <input type="button" value="Confirm Order" name="send_order" class="btn btn-primary btn-sm send_order">
                             </form>
                         </div>
                         
@@ -207,7 +234,8 @@
                                             Shipping Cost <span>{{number_format(session()->get('fee'),0,',','.')}}</span>
                                         </li>
                                         @endif
-                                        <li>Total <span>${{number_format(($total),0,',','.')}}</span></li>
+                                        <input type="hidden" class="order_total" name="order_total" value="{{$total}}" id="order_total">
+                                        <li>Total <span >${{number_format(($total),0,',','.')}}</span></li>
                                         @if(session()->get('cart'))
                                         <br>
                                         <form method="POST" action="{{url('/check-coupon')}}">
@@ -229,9 +257,7 @@
                 </div>
             </div>
         </div>
-        <div class="review-payment">
-            <h2>Review &amp; Payment</h2>
-        </div>
+        
     </div>
 </section>
 @endsection

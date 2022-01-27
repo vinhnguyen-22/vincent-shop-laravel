@@ -121,4 +121,67 @@ $(document).ready(function () {
             });
         }
     });
+
+    //SEND ORDER CHECKOUT
+    $(".send_order").click(function () {
+        var shipping_email = $(".shipping_email").val();
+        var shipping_name = $(".shipping_name").val();
+        var shipping_address = $(".shipping_address").val();
+        var shipping_phone = $(".shipping_phone").val();
+        var shipping_notes = $(".shipping_notes").val();
+        var shipping_method = $(".payment_select").val();
+        var order_total = $(".order_total").val();
+        var order_fee = $(".order_fee").val();
+        var order_coupon = $(".order_coupon").val();
+        var _token = $('input[name="_token"]').val();
+        swal(
+            {
+                title: "Confirm your order",
+                text: "Once you place an order, you can only cancel it within an hour",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Continue checkout",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "confirm-order",
+                        method: "POST",
+                        data: {
+                            shipping_email,
+                            shipping_name,
+                            shipping_address,
+                            shipping_phone,
+                            shipping_notes,
+                            shipping_method,
+                            order_coupon,
+                            order_fee,
+                            order_total,
+                            _token: _token,
+                        },
+                        success: function () {
+                            swal(
+                                "Good job!",
+                                "Your payment has been successful. Thank you for your purchase!",
+                                "success"
+                            );
+                        },
+                    });
+                    window.setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                } else {
+                    swal(
+                        "Cancelled",
+                        "Your imaginary file is safe :)",
+                        "error"
+                    );
+                }
+            }
+        );
+    });
 });
