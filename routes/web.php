@@ -12,8 +12,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-
-
+use App\Http\Controllers\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +145,18 @@ Route::post('/save-delivery', [DeliveryController::class,'saveDelivery']);
 Route::get('/select-feeship', [DeliveryController::class,'selectFeeShip']);// load feeship
 Route::post('/update-feeship', [DeliveryController::class,'updateFeeShip']);
 
+
+//slider
+Route::get('/manage-slider', [SliderController::class,'manageSliderPage']);
+Route::get('/insert-slider', [SliderController::class,'insertSliderPage']);
+Route::post('/save-slider', [SliderController::class,'createSlider']);
+
+Route::get('/inactive-slider/{slider_id}', [SliderController::class, 'activeSlider']);
+Route::get('/active-slider/{slider_id}', [SliderController::class, 'inactiveSlider']);
+
+Route::get('/edit-slider/{slider_id}', [SliderController::class, 'editSlider']);
+Route::post('/update-slider/{slider_id}', [SliderController::class, 'updateSlider']);
+Route::get('/delete-slider/{slider_id}', [SliderController::class, 'deleteSlider']);
 
 /////////////////////////
 //BACKEND

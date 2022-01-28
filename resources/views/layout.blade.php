@@ -199,33 +199,20 @@
                         </ol>
                         
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
+                            @php $i = 0; @endphp
+                            @foreach($slider as $key => $slide)
+                            @php $i++; @endphp
+                            <div class="item {{$i == 1 ? 'active': '' }}" >
+                                <div class="col-sm-12" style="padding: 20px; background: url('public/uploads/slider/{{$slide->slider_image}}'); background-repeat: no-repeat; background-size:100%; background-position: center">
+                                    <h1 style="color:white;"><span>Vincent</span>-Gaming</h1>
+                                    <h2 style="color:white;">{{$slide->slider_name}}</h2>
+                                    <p style="color:white;">{{$slide->slider_desc}} </p>
+                                    <button type="button" class="btn btn-info get"><a style="color:white" href="/{{$slide->slider_slug}}">GO NOW</a></button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{asset('public/frontend/images/girl1.jpg')}}" class="girl img-responsive" alt="" />
-                                    <img src="{{asset('public/frontend/images/pricing.png')}}"  class="pricing" alt="" />
-                                </div>
-                            </div>
-                        <?php  for($i =1; $i < 3; $i++){ ?>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{asset('public/frontend/images/girl1.jpg')}}" class="girl img-responsive" alt="" />
-                                    <img src="{{asset('public/frontend/images/pricing.png')}}"  class="pricing" alt="" />
                                 </div>
                             </div>
-                        <?php  } ?>
-
+                            @endforeach
                         </div>
                         
                         <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">

@@ -128,7 +128,7 @@
                                 @endif
                             </span></li>
                             <li>Tax: 10%</li>
-                            <li>Feeship: ${{number_format(($order_feee),0,',','.')}}</li>
+                            <li>Feeship: ${{number_format(($order_fee),0,',','.')}}</li>
                             <li>Total: ${{number_format(($order->order_total),0,',','.')}}</li>
                         </ul>
                     </td>
