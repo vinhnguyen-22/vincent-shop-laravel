@@ -10,6 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
 
@@ -40,10 +41,10 @@ Route::get('/brand-product/{brand_slug}', [BrandController::class, 'showBrandPag
 Route::get('/product-detail/{product_slug}', [ProductController::class, 'showProductDetailPage']);
 
 // Cart
-Route::post('/save-cart', [CartController::class, 'saveCart']);
-Route::get('/show-cart', [CartController::class, 'showCart']);
-Route::get('/delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
-Route::post('/update-cart-qty', [CartController::class, 'updateQtyCart']);
+// Route::post('/save-cart', [CartController::class, 'saveCart']);
+// Route::get('/show-cart', [CartController::class, 'showCart']);
+// Route::get('/delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
+// Route::post('/update-cart-qty', [CartController::class, 'updateQtyCart']);
 
 //Checkout
 Route::get('/login-checkout', [CheckoutController::class, 'loginCheckout']);
@@ -52,8 +53,6 @@ Route::post('/customer-login', [CheckoutController::class, 'login']);
 Route::get('/customer-logout', [CheckoutController::class, 'logout']);
 
 Route::get('/checkout', [CheckoutController::class, 'checkoutPage']);
-Route::get('/payment', [CheckoutController::class, 'paymentPage']);
-Route::post('/save-checkout-customer', [CheckoutController::class, 'saveCheckoutCustomer']);
 Route::post('/order-place', [CheckoutController::class, 'orderPlace']);
 
 Route::post('/confirm-order', [CheckoutController::class, 'confirmOrder']);
@@ -127,8 +126,9 @@ Route::get('/inactive-product/{product_id}', [ProductController::class, 'activeP
 Route::get('/active-product/{product_id}', [ProductController::class, 'inactiveProduct']);
 
 //order
-// Route::get('/manage-order', [CheckoutController::class, 'manageOrder']);
-// Route::get('/view-order/{order_id}', [CheckoutController::class, 'viewOrder']);
+Route::get('/view-order/{order_code}', [OrderController::class, 'viewOrderDetails']);
+Route::get('/manage-order', [OrderController::class, 'manageOrder']);
+Route::get('/print-order', [OrderController::class, 'printOrder']);
 
 //Sendmail
 Route::get('/send-mail', [MailController::class, 'sendMail']);

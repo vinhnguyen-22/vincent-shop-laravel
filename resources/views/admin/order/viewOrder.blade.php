@@ -13,12 +13,14 @@
                 <tr>
                     <th>Customer</th>
                     <th>Phone</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{$order_by_id ->customer_name}}</td>
-                    <td>{{$order_by_id ->customer_phone}}</td>
+                    <td>{{$customer->customer_name}}</td>
+                    <td>{{$customer->customer_phone}}</td>
+                    <td>{{$customer->customer_email}}</td>
                 </tr>
             </tbody>
         </table>
@@ -34,17 +36,25 @@
             <thead>
                 <tr>
                     <th>Customer</th>
+                    <th>Email</th>
                     <th>Address</th>
                     <th>Phone</th>
                     <th>Notes</th>
+                    <th>Method</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{$order_by_id ->shipping_name}}</td>
-                    <td>{{$order_by_id ->shipping_address}}</td>
-                    <td>{{$order_by_id ->shipping_phone}}</td>
-                    <td>{{$order_by_id ->shipping_notes}}</td>
+                    <td>{{$shipping->shipping_name}}</td>
+                    <td>{{$shipping->shipping_email}}</td>
+                    <td>{{$shipping->shipping_address}}</td>
+                    <td>{{$shipping->shipping_phone}}</td>
+                    <td>{{$shipping->shipping_notes}}</td>
+                    @if ($shipping->shipping_method == 0)
+                        <td>By cash</td>
+                    @elseif($shipping->shipping_method == 1)
+                        <td>Bank</td>
+                    @endif
                 </tr>
             </tbody>
         </table>
@@ -61,25 +71,7 @@
         </div>
      
         <div class="row w3-res-tb">
-            <div class="col-sm-5 m-b-xs">
-                <select class="input-sm form-control w-sm inline v-middle">
-                <option value="0">Bulk action</option>
-                <option value="1">Delete selected</option>
-                <option value="2">Bulk edit</option>
-                <option value="3">Export</option>
-                </select>
-                <button class="btn btn-sm btn-default">Apply</button>                
-            </div>
-           
-            <div class="col-sm-4"></div>
-            <div class="col-sm-3">
-                <div class="input-group">
-                    <input type="text" class="input-sm form-control" placeholder="Search">
-                    <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">Go!</button>
-                    </span>
-                </div>
-            </div>
+            
         </div>
     </div>
     <div class="table-responsive">
@@ -93,54 +85,59 @@
                     </th>
                     <th>Product</th>
                     <th>Quantity</th>
-                    <th>Price</th>
-                    <th style="width:30px;"></th>
+                    <th>Unit</th>
+                    <th>Coupon Code</th>
+                    <th>Total price</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($detail_by_orderId as $key => $order_details)
+                @php $total = 0; @endphp
+                @foreach($order_details as $key => $detail)
+                @php $total += $detail->product_price * $detail->product_sales_quantity ; @endphp
                 <tr>
                     <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                    <td>{{$order_details ->product_name}}</td>
-                    <td>{{$order_details ->product_sales_quantity}}</td>
-                    <td>{{$order_details ->product_price}}</td>
+                    <td>{{$detail->product_name}}</td>
+                    <td>{{$detail->product_sales_quantity}}</td>
+                    <td>${{number_format(($detail->product_price),0,',','.')}}</td>
+                    <td>{{$detail->order_coupon}}</td>
+                    <td>${{number_format(($detail->product_price * $detail->product_sales_quantity),0,',','.')}}</td>
                 </tr>
                 @endforeach
+                <tr>
+                    <td colspan="6" align="left">
+                        <li >Sub Total: ${{number_format(($total),0,',','.')}}</li>
+                        <li>Coupon: <span>
+                            @if($coupon_method == 1)
+                                Decrease ${{$coupon_rate}}
+                                <span style="margin-left: 5px">
+                                    @php 
+                                    $total =  $total - $coupon_rate;
+                                    @endphp
+                                    total coupon: {{number_format(($total),0,',','.')}}
+                                </span>
+                            @elseif($coupon_method == 2)
+                                Decrease {{$coupon_rate}}%
+                                <span style="margin-left: 5px">
+                                    @php
+                                    $total_coupon = ($total * $coupon_rate)/100;
+                                    $total =  $total - $total_coupon;                                                    
+                                    @endphp
+                                    total coupon: {{number_format(($total_coupon),0,',','.')}}
+                                </span>
+                            @endif
+                        </span></li>
+                        <li>Tax: 10%</li>
+                        <li>Total: ${{number_format(($order->order_total),0,',','.')}}</li>
+                    </td>
+                    <td>
+                        <a href="{{url('/print-order')}}">Print</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
-
-    <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-6">
-            <div class="total_area">
-                <ul>
-                    {{-- <li>Sub Total <span>${{(int)$order_by_id ->order_total}}</span></li>
-                    <li>Eco Tax <span>${{(int)$order_by_id ->order_total * 0.1 }}</span></li>
-                    <li>Shipping Cost <span>Free</span></li> --}}
-                    <li>Total <span>${{$order_by_id ->order_total}}</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <footer class="panel-footer">
-      <div class="row">
+    <div>
         
-        <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-        </div>
-        <div class="col-sm-7 text-right text-center-xs">                
-            <ul class="pagination pagination-sm m-t-none m-b-none">
-                <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                <li><a href="">1</a></li>
-                <li><a href="">2</a></li>
-                <li><a href="">3</a></li>
-                <li><a href="">4</a></li>
-                <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-            </ul>
-        </div>
-      </div>
-    </footer>
-  </div>
+    </div>
 </div>
 @endsection
