@@ -178,6 +178,8 @@ return [
         //Facebook Login Provider
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        //DOM PDF
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -235,6 +237,9 @@ return [
         
         //Facebook Login Provider
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
+        //DOM PDF
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

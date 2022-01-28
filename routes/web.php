@@ -128,7 +128,7 @@ Route::get('/active-product/{product_id}', [ProductController::class, 'inactiveP
 //order
 Route::get('/view-order/{order_code}', [OrderController::class, 'viewOrderDetails']);
 Route::get('/manage-order', [OrderController::class, 'manageOrder']);
-Route::get('/print-order', [OrderController::class, 'printOrder']);
+Route::get('/print-order/{order_code}', [OrderController::class, 'printOrder']);
 
 //Sendmail
 Route::get('/send-mail', [MailController::class, 'sendMail']);

@@ -1,14 +1,22 @@
-@extends('admin_layout')
-@section('admin_content')
-
+<!DOCTYPE html>
+<head>
+<title>Order Detail</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<style>
+    body{
+        font-family: 'DejaVu Sans';
+    }
+</style>
+</head>
+<body>
 <div class="table-agile-info ">
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <h2 class="panel-heading">
             Information customer
-        </div>      
+        </h2>      
     </div>
     <div class="table-responsive">
-        <table class="table table-striped b-t b-light">
+        <table class="table table-striped b-t b-light" border="1" cellspacing="0">
             <thead>
                 <tr>
                     <th>Customer</th>
@@ -27,12 +35,12 @@
     </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <h2 class="panel-heading">
             Information Shipping
-        </div>      
+        </h2>      
     </div>
     <div class="table-responsive">
-        <table class="table table-striped b-t b-light">
+        <table class="table table-striped b-t b-light"  border="1" cellspacing="0">
             <thead>
                 <tr>
                     <th>Customer</th>
@@ -66,28 +74,23 @@
 
 <div class="table-agile-info">
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <h2 class="panel-heading">
             Order Details
-        </div>
+        </h2>
      
         <div class="row w3-res-tb">
             
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table table-striped b-t b-light">
+        <table class="table table-striped b-t b-light" border="1" cellspacing="0">
             <thead>
                 <tr>
-                    <th style="width:20px;">
-                    <label class="i-checks m-b-none">
-                        <input type="checkbox"><i></i>
-                    </label>
-                    </th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
-                    <th>Coupon Code</th>
-                    <th>Total price</th>
+                    <th style="padding:10px">Product</th>
+                    <th style="padding:10px">Quantity</th>
+                    <th style="padding:10px">Unit</th>
+                    <th style="padding:10px">Coupon Code</th>
+                    <th style="padding:10px">Total price</th>
                 </tr>             
             </thead>
             <tbody>
@@ -95,16 +98,15 @@
                 @foreach($order_details as $key => $detail)
                 @php $total += $detail->product_price * $detail->product_sales_quantity ; @endphp
                 <tr>
-                    <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                    <td>{{$detail->product_name}}</td>
-                    <td>{{$detail->product_sales_quantity}}</td>
-                    <td>${{number_format(($detail->product_price),0,',','.')}}</td>
-                    <td>{{$detail->order_coupon}}</td>
-                    <td>${{number_format(($detail->product_price * $detail->product_sales_quantity),0,',','.')}}</td>
+                    <td  style="padding:10px" >{{$detail->product_name}}</td>
+                    <td  style="padding:10px" align="center">{{$detail->product_sales_quantity}}</td>
+                    <td  style="padding:10px" align="center">${{number_format(($detail->product_price),0,',','.')}}</td>
+                    <td  style="padding:10px" align="center">{{$detail->order_coupon}}</td>
+                    <td  style="padding:10px" align="center">${{number_format(($detail->product_price * $detail->product_sales_quantity),0,',','.')}}</td>
                 </tr>
                 @endforeach
                 <tr>
-                    <td colspan="6" align="left">
+                    <td style="padding:20px" colspan="7" align="left">
                         <ul style="list-style:none">
                             <li >Sub Total: ${{number_format(($total),0,',','.')}}</li>
                             <li>Coupon: <span>
@@ -128,21 +130,14 @@
                                 @endif
                             </span></li>
                             <li>Tax: 10%</li>
-                            <li>Feeship: {{number_format(($order_fee),0,',','.')}}</li>
+                            <li>Feeship: ${{number_format(($order_fee),0,',','.')}}</li>
                             <li>Total: ${{number_format(($order->order_total),0,',','.')}}</li>
                         </ul>
-                    </td>
-                </tr>
-                <tr colspan="6" align="right">
-                    <td>
-                        <a target="_blank" class="btn btn-info" href="{{url('/print-order/'.$order->order_code)}}">Print</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div>
-        
-    </div>
 </div>
-@endsection
+</body>
+</html>
