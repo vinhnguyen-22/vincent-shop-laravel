@@ -41,7 +41,7 @@ $(document).ready(function () {
         var _token = $('input[name="_token"]').val();
 
         $.ajax({
-            url: "add-cart-ajax",
+            url: "/lavarel%208/shop-vincent/add-cart-ajax",
             method: "POST",
             data: {
                 cart_product_id: cart_product_id,
@@ -63,7 +63,8 @@ $(document).ready(function () {
                         closeOnConfirm: false,
                     },
                     function () {
-                        window.location.href = "show-cart-page";
+                        window.location.href =
+                            "/lavarel%208/shop-vincent/show-cart-page";
                     }
                 );
             },
