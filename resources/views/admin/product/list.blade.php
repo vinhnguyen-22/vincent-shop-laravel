@@ -27,7 +27,7 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-3">
                 <div class="input-group">
-                    <input type="text" class="input-sm form-control" placeholder="Search">
+                        <input type="text" class="input-sm form-control" placeholder="Search">
                     <span class="input-group-btn">
                         <button class="btn btn-sm btn-default" type="button">Go!</button>
                     </span>
@@ -87,6 +87,17 @@
                 @endforeach
             </tbody>
         </table>
+        
+        <form action="{{url('import-csv')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file" accept=".xlsx"><br>
+            <input type="submit" value="Import CSV" name="import_csv" class="btn btn-warning">
+        </form>
+        <form action="{{url('export-csv')}}" method="POST">
+            @csrf
+            <input type="submit" value="Export CSV" name="export_csv" class="btn btn-success">
+        </form>
+
     </div>
     <footer class="panel-footer">
       <div class="row">

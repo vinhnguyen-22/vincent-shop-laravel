@@ -158,6 +158,10 @@ Route::get('/edit-slider/{slider_id}', [SliderController::class, 'editSlider']);
 Route::post('/update-slider/{slider_id}', [SliderController::class, 'updateSlider']);
 Route::get('/delete-slider/{slider_id}', [SliderController::class, 'deleteSlider']);
 
+//excel
+Route::post('/export-csv', [ProductController::class, 'exportCSV']);
+Route::post('/import-csv', [ProductController::class, 'importCSV']);
+
 /////////////////////////
 //BACKEND
 /////////////////////////

@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
+use App\Imports\ProductImport;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -152,6 +155,15 @@ class ProductController extends Controller
         return Redirect::to('all-product');
     }
 
+    public function exportCSV (){
+      return Excel::download(new ProductExport , 'product.xlsx');
+    }
+
+    public function importCSV (Request $request){
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new ProductImport, $path);
+        return back();        
+    }
     //end function admin
     
     public function showProductDetailPage($product_slug, Request $request){  
