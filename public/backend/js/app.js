@@ -153,4 +153,82 @@ $(document).ready(function () {
 
         return slug;
     }
+
+    // SELECT ORDER STATUS FROM
+    $("#statusOrderSelect").change(function () {
+        var orderStatus = $(this).val();
+        var orderId = $(this).children(":selected").attr("id");
+        var _token = $('input[name="_token"]').val();
+
+        quantity = [];
+        $('input[name="product_sales_quantity"]').each(function () {
+            quantity.push($(this).val());
+        });
+
+        orderProductId = [];
+        $('input[name="order_product_id"]').each(function () {
+            orderProductId.push($(this).val());
+        });
+
+        j = 0;
+        if (orderStatus == 2) {
+            for (i = 0; i < orderProductId.length; i++) {
+                var orderQty = $(".order_qty_" + orderProductId[i]).val();
+                var orderQtyStorage = $(
+                    ".order_qty_storage_" + orderProductId[i]
+                ).val();
+
+                if (parseInt(orderQty) > parseInt(orderQtyStorage)) {
+                    j = j + 1;
+
+                    $(".color_qty_" + orderProductId[i]).css(
+                        "background",
+                        "rgba(255,0,0,0.3)"
+                    );
+                    if (j == 1) {
+                        alert("Not enough quantity in stock");
+                    }
+                }
+            }
+        }
+        if (j == 0) {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/update-order-qty",
+                method: "POST",
+                data: {
+                    _token: _token,
+                    orderStatus,
+                    orderId,
+                    quantity,
+                    orderProductId,
+                },
+                success: function (data) {
+                    alert("Update status success");
+                    location.reload();
+                },
+            });
+        }
+    });
+
+    $(".update_quantity_order").click(function () {
+        var orderProductId = $(this).data("product_id");
+        var orderCode = $(".order_code").val();
+        var orderQty = $(".order_qty_" + orderProductId).val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/update-qty",
+            method: "POST",
+            data: {
+                orderProductId,
+                orderCode,
+                orderQty,
+                _token: _token,
+            },
+            success: function (data) {
+                alert("Update quantity success");
+                location.reload();
+            },
+        });
+    });
 });

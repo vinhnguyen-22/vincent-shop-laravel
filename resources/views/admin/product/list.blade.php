@@ -49,6 +49,7 @@
                     <th>Category</th>
                     <th>Brand</th>
                     <th>Price</th>
+                    <th>Quantity</th>
                     <th>Status</th>
                     <th style="width:30px;"></th>
                 </tr>
@@ -64,6 +65,7 @@
                     <td>{{$product ->category_name}}</td>
                     <td>{{$product ->brand_name}}</td>
                     <td>{{$product ->product_price}}</td>
+                    <td>{{$product ->product_quantity}}</td>
                     <td>
                         @if($product ->product_status == 0)
                             <a href="{{URL::to('/inactive-product/'.$product->product_id)}}">

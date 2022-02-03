@@ -129,6 +129,9 @@ Route::get('/view-order/{order_code}', [OrderController::class, 'viewOrderDetail
 Route::get('/manage-order', [OrderController::class, 'manageOrder']);
 Route::get('/print-order/{order_code}', [OrderController::class, 'printOrder']);
 
+Route::post('/update-order-qty', [OrderController::class, 'updateOrderQty']);
+Route::post('/update-qty', [OrderController::class, 'updateQty']);
+
 //Sendmail
 Route::get('/send-mail', [MailController::class, 'sendMail']);
 

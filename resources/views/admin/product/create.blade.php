@@ -32,6 +32,11 @@
                             <label for="price">Price</label>
                             <input type="number" class="form-control" name="price" id="price" placeholder="Enter price product" required >
                         </div>
+
+                        <div class="form-group col-lg-12">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Enter quantity product" required >
+                        </div>
                         
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>

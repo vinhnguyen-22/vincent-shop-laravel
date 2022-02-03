@@ -43,10 +43,13 @@
                             {{'Pending'}}
                             @break
                         @case(2)
-                            {{'Completed'}}
+                            {{'Processed'}}
+                            @break
+                        @case(2)
+                            {{'Deliveried'}}
                             @break
                         @default
-                            {{'Pending'}}
+                            {{'Cancel'}}
                     @endswitch    
                     </td>
                     <td>{{$order ->created_at}}</td>

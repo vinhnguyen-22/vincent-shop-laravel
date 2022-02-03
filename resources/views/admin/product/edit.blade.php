@@ -34,6 +34,11 @@
                         </div>
                         
                         <div class="form-group col-lg-12">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" value="{{$edit_product->product_quantity}}" name="quantity" id="quantity" placeholder="Enter quantity product">
+                        </div>
+
+                        <div class="form-group col-lg-12">
                             <label for="description">Description</label>
                             <textarea id="description-product" class="form-control" name="desc" id="description">
                                 {{$edit_product->product_desc}}

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Province;
 use App\Models\Shipping;
+use App\Models\Slider;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 
@@ -42,13 +43,14 @@ class CheckoutController extends Controller
     public function loginCheckout(Request $request){        
         $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         
         $meta_desc = 'Checkout page, order';
         $meta_keywords ='checkout, order'; 
         $meta_title = 'Your order';
         $url_canonical = $request->url();
         
-        return view('pages.checkout.login')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.checkout.login')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     }
     
     public function login(Request $request){
@@ -111,6 +113,7 @@ class CheckoutController extends Controller
         $this->CustomerLogin();
         $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         
         $meta_desc = 'Checkout page, order';
         $meta_keywords ='checkout, order'; 
@@ -124,7 +127,7 @@ class CheckoutController extends Controller
         if(!session()->get('cart')){
             return redirect('/show-cart-page')->with('message', 'Please buy something before checkout');
         }else{
-            return view('pages.checkout.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','province','district','ward'));
+            return view('pages.checkout.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','province','district','ward','slider'));
         }
     }
     

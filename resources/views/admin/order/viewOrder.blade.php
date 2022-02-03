@@ -84,6 +84,7 @@
                     </label>
                     </th>
                     <th>Product</th>
+                    <th>Quantity In Stock</th>
                     <th>Quantity</th>
                     <th>Unit</th>
                     <th>Coupon Code</th>
@@ -94,17 +95,28 @@
                 @php $total = 0; @endphp
                 @foreach($order_details as $key => $detail)
                 @php $total += $detail->product_price * $detail->product_sales_quantity ; @endphp
-                <tr>
+                <tr class="color_qty_{{$detail->product_id}}">
                     <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                     <td>{{$detail->product_name}}</td>
-                    <td>{{$detail->product_sales_quantity}}</td>
+                    <td>{{$detail->product->product_quantity}}</td>
+                    <td>
+                        <input type="number" min="1" {{($order->order_status >= 2 && $order->order_status < 4 ) ? 'disabled':""}} class="order_qty_{{$detail->product_id}}" value="{{$detail->product_sales_quantity}}" name="product_sales_quantity">
+                     
+                        <input type="hidden" value="{{$detail->product->product_quantity}}" name="order_qty_storage" class="order_qty_storage_{{$detail->product_id}}">
+                        <input type="hidden" value="{{$detail->order_code}}" name="order_code" class="order_code">
+                        <input type="hidden" value="{{$detail->product_id}}" name="order_product_id" class="order_product_id">
+                        
+                        @if($order->order_status < 2 ||  $order->order_status == 4)
+                        <button class="btn btn-primary update_quantity_order" data-product_id="{{$detail->product_id}}" name="update_quantity_order">Update</button>
+                        @endif
+                    </td>
                     <td>${{number_format(($detail->product_price),0,',','.')}}</td>
                     <td>{{$detail->order_coupon}}</td>
                     <td>${{number_format(($detail->product_price * $detail->product_sales_quantity),0,',','.')}}</td>
                 </tr>
                 @endforeach
                 <tr>
-                    <td colspan="6" align="left">
+                    <td colspan="7" align="left">
                         <ul style="list-style:none">
                             <li >Sub Total: ${{number_format(($total),0,',','.')}}</li>
                             <li>Coupon: <span>
@@ -133,7 +145,26 @@
                         </ul>
                     </td>
                 </tr>
-                <tr colspan="6" align="right">
+
+                <tr>
+                    <td colspan="7">
+                        <form action="">
+                            @csrf
+                            <select name="statusOrderSelect" class="form-control statusOrderSelect" id="statusOrderSelect">
+                                <option id="{{$order->order_id}}" {{$order->order_status == 1 ? 'selected' : ''}} value="1">Pending</option>
+                                @if($order->order_status == 1)
+                                <option id="{{$order->order_id}}" {{$order->order_status == 2 ? 'selected' : ''}} value="2">Processed</option>
+                                @endif
+                                @if($order->order_status == 2 || $order->order_status == 3)
+                                <option id="{{$order->order_id}}" {{$order->order_status == 3 ? 'selected' : ''}} value="3">Deliveried</option>
+                                @endif
+                                <option id="{{$order->order_id}}" {{$order->order_status == 4 ? 'selected' : ''}} value="4">Cancel</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr colspan="7" align="right">
                     <td>
                         <a target="_blank" class="btn btn-info" href="{{url('/print-order/'.$order->order_code)}}">Print</a>
                     </td>

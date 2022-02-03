@@ -23,6 +23,7 @@ class ProductExport implements FromCollection
             'product_price',
             'product_image',
             'product_status',
+            'product_quantity',
             'created_at',
             'updated_at',
         );

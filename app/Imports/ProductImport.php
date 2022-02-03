@@ -27,6 +27,7 @@ class ProductImport implements ToModel, WithHeadingRow
             'product_price' => $row['price'],
             'product_image' => $row['image'],
             'product_status' => $row['status'],
+            'product_quantity' => $row['quantity'],
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);

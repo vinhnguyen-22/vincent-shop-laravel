@@ -57,6 +57,7 @@ class ProductController extends Controller
         $product->product_desc = $data['desc'];
         $product->product_content = $data['content'];
         $product->product_price = $data['price'];
+        $product->product_quantity = $data['quantity'];
         $product->product_slug = $data['slug'];
         $product->product_keywords = $data['keywords'];
         $product->created_at = Carbon::now()->toDateTimeString();
@@ -121,6 +122,7 @@ class ProductController extends Controller
         $product->product_desc = $data['desc'];
         $product->product_content = $data['content'];
         $product->product_price = $data['price'];
+        $product->product_quantity = $data['quantity'];
         $product->product_slug = $data['slug'];
         $product->product_keywords = $data['keywords'];
         $product->updated_at = Carbon::now()->toDateTimeString();
@@ -164,6 +166,7 @@ class ProductController extends Controller
         Excel::import(new ProductImport, $path);
         return back();        
     }
+
     //end function admin
     
     public function showProductDetailPage($product_slug, Request $request){  
@@ -197,7 +200,5 @@ class ProductController extends Controller
         ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->get();
         
         return view('pages.productDetail.show')->with(compact('cats','brands','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
-    } 
-
-
+    }
 }

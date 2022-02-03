@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -106,8 +107,9 @@ class CartController extends Controller
 
         $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
     
-        return view('pages.cart.cartAjax')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.cart.cartAjax')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     }
 
     public function updateCart(Request $request){

@@ -6,7 +6,10 @@ use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use App\Models\Shipping;
+use Illuminate\Http\Request;
+
 use PDF;
 class OrderController extends Controller
 {
@@ -55,11 +58,13 @@ class OrderController extends Controller
         }
         return view('admin.order.viewOrder')->with(compact('customer','shipping','order','order_details','coupon_method','coupon_rate','order_fee'));
     }
+
     public function printOrder($order_code){
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->printOrderConvert($order_code));
         return $pdf->stream();
     }
+
     public function printOrderConvert($order_code){
         $order = Order::where('order_code', $order_code)->first();
         
@@ -85,5 +90,49 @@ class OrderController extends Controller
             $coupon_rate = 0;
         }
         return view('admin.order.orderPDF')->with(compact('customer','shipping','order','order_details','coupon_method','coupon_rate','order_fee'));
+    }
+
+    public function updateOrderQty(Request $request){
+        $data = $request->all();
+        $order = Order::find($data['orderId']);
+        $order->order_status = $data['orderStatus'];
+        $order->save();
+         
+        if($order->order_status == 2){
+            foreach($data['orderProductId'] as $key => $product_id){
+                $product = Product::find($product_id); 
+                $product_quantity = $product->product_quantity;
+                $product_sold = $product->product_sold;
+                foreach($data['quantity'] as $key2 => $qty){
+                    if($key ==  $key2){
+                        $product->product_quantity  = $product_quantity - $qty;
+                        $product->product_sold = $product_sold + $qty;
+                        $product->save();
+                    }
+                }
+            }
+        }elseif($order->order_status != 2 && $order->order_status != 1 && $order->order_status != 3 ){
+            foreach ($data['orderProductId'] as $key => $product_id) {
+                $product = Product::find($product_id);
+                $product_quantity = $product->product_quantity;
+                $product_sold = $product->product_sold;
+                foreach ($data['quantity'] as $key2 => $qty) {
+                    if($key == $key2){
+                        $product_remain = $product_quantity + $qty;
+                        $product->product_quantity = $product_remain;
+                        $product->product_sold = $product_sold - $qty;
+                        $product->save();
+                    }
+                }
+            }
+        }
+    }
+    
+    public function updateQty(Request $request){
+        $data = $request->all();
+        $order_details = OrderDetails::where('product_id',$data['orderProductId'])->where('order_code',$data['orderCode'])->first();
+
+        $order_details->product_sales_quantity = $data['orderQty'];
+        $order_details->save();         
     }
 }
