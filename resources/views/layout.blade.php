@@ -436,7 +436,43 @@
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
+    <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat"
+    attribution='setup_tool'
+    page_id="113066507098247"
+    theme color="#ff7e29"
+    logged_in_greet ing="Hi bạn! Chào mừng bạn đến Shop"
+    logged out_greeting="Hi bạn! Chào mừng bạn đến Shop"
+    >
+        
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "131939792730877");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v12.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1542262152832776&autoLogAppEvents=1" nonce="xg4YUwcD"></script>
 </body>
 </html>
