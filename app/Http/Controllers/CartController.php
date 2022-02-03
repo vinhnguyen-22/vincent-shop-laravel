@@ -12,52 +12,52 @@ use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
-    public function saveCart(Request $request){
-        $data = array();
-        $product_id =
-        $request->productId_hidden;
-        $quantity = $request->qty;
-        $product_info = DB::table('tbl_product')-> where('product_id', $product_id)->first();
+    // public function saveCart(Request $request){
+    //     $data = array();
+    //     $product_id =
+    //     $request->productId_hidden;
+    //     $quantity = $request->qty;
+    //     $product_info = DB::table('tbl_product')-> where('product_id', $product_id)->first();
 
-        $data['id'] = $product_info->product_id;
-        $data['name'] = $product_info->product_name;
-        $data['qty'] = $quantity;
-        $data['price'] = $product_info->product_price;
-        $data['weight'] = $product_info->product_price;
-        $data['options']['image'] = $product_info->product_image;
+    //     $data['id'] = $product_info->product_id;
+    //     $data['name'] = $product_info->product_name;
+    //     $data['qty'] = $quantity;
+    //     $data['price'] = $product_info->product_price;
+    //     $data['weight'] = $product_info->product_price;
+    //     $data['options']['image'] = $product_info->product_image;
 
-        // Cart::destroy();
-        Cart::add($data);
-        Cart::setGlobalTax(10);
+    //     // Cart::destroy();
+    //     Cart::add($data);
+    //     Cart::setGlobalTax(10);
         
-        return Redirect::to('/show-cart');
-    }
+    //     return Redirect::to('/show-cart');
+    // }
 
-    public function showCart(Request $request){
-        // SEO
-        $meta_desc = 'Cart shopping';
-        $meta_keywords ='buy online, e-commerce'; 
-        $meta_title = 'Your cart';
-        $url_canonical = $request->url(); 
-        // SEO
+    // public function showCart(Request $request){
+    //     // SEO
+    //     $meta_desc = 'Cart shopping';
+    //     $meta_keywords ='buy online, e-commerce'; 
+    //     $meta_title = 'Your cart';
+    //     $url_canonical = $request->url(); 
+    //     // SEO
 
-        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
+    //     $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+    //     $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
     
-        return view('pages.cart.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
-    }
+    //     return view('pages.cart.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
+    // }
     
-    public function deleteToCart($rowId){        
-        Cart::update($rowId,0);
-        return Redirect::to('/show-cart');
-    }
+    // public function deleteToCart($rowId){        
+    //     Cart::update($rowId,0);
+    //     return Redirect::to('/show-cart');
+    // }
     
-    public function updateQtyCart(Request $request){        
-        $rowId = $request->rowId_cart;
-        $qty = $request->cart_qty;
-        Cart::update($rowId, $qty);
-        return Redirect::to('/show-cart');
-    }
+    // public function updateQtyCart(Request $request){        
+    //     $rowId = $request->rowId_cart;
+    //     $qty = $request->cart_qty;
+    //     Cart::update($rowId, $qty);
+    //     return Redirect::to('/show-cart');
+    // }
 
     //AJAX request
     public function addCartAjax(Request $request){

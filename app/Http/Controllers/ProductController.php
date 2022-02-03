@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 
 use App\Imports\ProductImport;
 use App\Exports\ProductExport;
+use App\Models\Slider;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -172,6 +173,7 @@ class ProductController extends Controller
     public function showProductDetailPage($product_slug, Request $request){  
         $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();      
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
+        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
       
         $product_details = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
@@ -199,6 +201,6 @@ class ProductController extends Controller
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->get();
         
-        return view('pages.productDetail.show')->with(compact('cats','brands','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.productDetail.show')->with(compact('cats','brands','slider','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 }

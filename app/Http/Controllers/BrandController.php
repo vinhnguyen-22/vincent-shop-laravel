@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Brand;
 use App\Models\CategoryProduct;
+use App\Models\Slider;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 class BrandController extends Controller
@@ -106,6 +107,7 @@ class BrandController extends Controller
     public function showBrandPage($brand_slug, Request $request){
         $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();      
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
+        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
       
         $pro_by_brand = DB::table('tbl_product')->join('tbl_brand', 'tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_brand.brand_slug',$brand_slug)->get();
       
@@ -125,6 +127,6 @@ class BrandController extends Controller
         }
         // SEO
 
-        return view('pages.brand.show')->with(compact('cats','brands','pro_by_brand','brand_name','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.brand.show')->with(compact('cats','brands','pro_by_brand','brand_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     } 
 }

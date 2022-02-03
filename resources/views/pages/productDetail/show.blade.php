@@ -50,12 +50,14 @@
                 <span>
                     <span>US {{number_format($pro_detail->product_price)}}</span>
                     <label>Quantity:</label>
-                    <input type="number" value="1" min="1" name="qty" />
-                    <input type="hidden" value="{{$pro_detail->product_id}}" name="productId_hidden" />
-                    <button type="submit" name="add_to_cart" class="btn btn-fefault cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        Add to cart
-                    </button>
+                    <input type="number" value="1" min="1" max="{{$pro_detail->product_quantity}}" class="cart_product_qty_{{$pro_detail->product_id}}">
+                    <form >
+                        <input type="hidden" value="{{$pro_detail->product_id}}" class="cart_product_id_{{$pro_detail->product_id}}">
+                        <input type="hidden" value="{{$pro_detail->product_name}}" class="cart_product_name_{{$pro_detail->product_id}}">
+                        <input type="hidden" value="{{$pro_detail->product_image}}" class="cart_product_image_{{$pro_detail->product_id}}">
+                        <input type="hidden" value="{{$pro_detail->product_price}}" class="cart_product_price_{{$pro_detail->product_id}}">
+                        <button data-id_product="{{$pro_detail->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
+                    </form>
                 </span>
             </form>
             
