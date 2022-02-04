@@ -40,6 +40,8 @@
         @endforeach
     </div>
 </div>
+
+{{$all_product->links()}}
 <!--features_items-->
 {{-- 
 <div class="category-tab">

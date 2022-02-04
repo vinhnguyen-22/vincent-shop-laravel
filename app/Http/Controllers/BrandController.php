@@ -29,7 +29,7 @@ class BrandController extends Controller
     
     public function showAllBrand(){
         $this->AuthLogin();
-        $list_brand = Brand::orderBy('brand_id','DESC')->get();
+        $list_brand = Brand::orderBy('brand_id','DESC')->paginate(5);
         $manager_brand_product = view('admin.brand.list')->with('list_brand',$list_brand);
         return view('admin_layout')->with('admin.brand.list',$manager_brand_product);
     }

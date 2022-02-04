@@ -29,7 +29,7 @@ class CategoryProductController extends Controller
     
     public function showAllCategory(){
         $this->AuthLogin();
-        $list_category = CategoryProduct::orderBy('category_id','DESC')->get();
+        $list_category = CategoryProduct::orderBy('category_id','DESC')->paginate(5);
         $manager_category_product = view('admin.category.list')->with('list_category',$list_category);
         return view('admin_layout')->with('admin.category.list',$manager_category_product);
     }

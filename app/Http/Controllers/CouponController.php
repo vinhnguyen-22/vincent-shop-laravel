@@ -38,7 +38,7 @@ class CouponController extends Controller
     }
     public function showAllCoupon(){
         $this->AuthLogin();
-        $list_coupon = Coupon::orderBy('coupon_id','DESC')->get();
+        $list_coupon = Coupon::orderBy('coupon_id','DESC')->paginate(5);
         return view('admin.coupon.list')->with(compact('list_coupon'));
     }
     

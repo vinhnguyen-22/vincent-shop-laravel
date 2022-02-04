@@ -28,7 +28,7 @@ class OrderController extends Controller
 
     public function manageOrder(){
         $this->AuthLogin();
-        $all_order = Order::orderby('created_at','DESC')->get();
+        $all_order = Order::orderby('created_at','DESC')->paginate(5);
         return view('admin.order.manage')->with(compact('all_order'));
     }
     

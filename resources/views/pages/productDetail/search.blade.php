@@ -38,6 +38,8 @@
             </div>
     @endforeach
 </div>
+{{$search_product->links()}}    
+
 <!--features_items-->
 {{-- 
 <div class="category-tab">

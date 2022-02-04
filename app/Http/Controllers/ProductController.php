@@ -41,9 +41,9 @@ class ProductController extends Controller
         
         $list_product = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
-        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')->orderby('tbl_product.product_id','desc')->get();
-        $manager_product = view('admin.product.list')->with('list_product',$list_product);
-        return view('admin_layout')->with('admin.product.list',$manager_product);
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')->orderby('tbl_product.product_id','desc')->paginate(5);
+        
+        return view('admin.product.list',['list_product' => $list_product]);
     }
     
     public function createProduct(Request $request){

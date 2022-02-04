@@ -21,7 +21,7 @@ class HomeController extends Controller
         
         $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $all_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id','desc')->limit(10)->get();
+        $all_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id','desc')->paginate(6);
 
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
 
@@ -41,7 +41,7 @@ class HomeController extends Controller
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
        
         $keywords = $request->search_box; 
-        $search_product = DB::table('tbl_product')->where('product_name', 'like', '%'.$keywords.'%')->get();
+        $search_product = DB::table('tbl_product')->where('product_name', 'like', '%'.$keywords.'%')->paginate(6);
 
 
         return view('pages.productDetail.search')->with(compact('brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','search_product','slider'));
