@@ -205,7 +205,7 @@
                             @foreach($slider as $key => $slide)
                             @php $i++; @endphp
                             <div class="item {{$i == 1 ? 'active': '' }}" >
-                                <div class="col-sm-12" style="padding: 20px; background: url('public/uploads/slider/{{$slide->slider_image}}'); background-repeat: no-repeat; background-size:100%; background-position: center">
+                                <div class="col-sm-12" style="padding: 20px; background: url({{asset('public/uploads/slider/'.$slide->slider_image)}}); background-repeat: no-repeat; background-size:100%; background-position: center">
                                     <h1 style="color:white;"><span>Vincent</span>-Gaming</h1>
                                     <h2 style="color:white;">{{$slide->slider_name}}</h2>
                                     <p style="color:white;">{{$slide->slider_desc}} </p>
@@ -294,11 +294,6 @@
                         <div class="shipping text-center"><!--shipping-->
                             <img src="{{asset('public/frontend/images/shipping.jpg')}}}" alt="" />
                         </div><!--/shipping-->
-                                                
-                        {{-- // SOCIAL PLUGIN FACEBOOK --}}
-                        <div class="fb-share-button" data-href="http://localhost:81/lavarel%208/shop-vincent/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-                        {{-- // SOCIAL PLUGIN FACEBOOK --}}
-                    
                     </div>
                 </div>
                 
@@ -433,7 +428,7 @@
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script src="{{asset('public/frontend/js/app.js')}}"></script>
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <!-- Messenger Plugin chat Code -->

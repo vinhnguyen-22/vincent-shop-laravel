@@ -38,37 +38,45 @@ $(document).ready(function () {
         var cart_product_image = $(".cart_product_image_" + id).val();
         var cart_product_price = $(".cart_product_price_" + id).val();
         var cart_product_qty = $(".cart_product_qty_" + id).val();
+        var cart_product_stock = $(".cart_product_stock_" + id).val();
         var _token = $('input[name="_token"]').val();
 
-        $.ajax({
-            url: "/lavarel%208/shop-vincent/add-cart-ajax",
-            method: "POST",
-            data: {
-                cart_product_id: cart_product_id,
-                cart_product_name: cart_product_name,
-                cart_product_image: cart_product_image,
-                cart_product_price: cart_product_price,
-                cart_product_qty: cart_product_qty,
-                _token: _token,
-            },
-            success: function () {
-                swal(
-                    {
-                        title: "Đã thêm sản phẩm vào giỏ hàng",
-                        text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
-                        showCancelButton: true,
-                        cancelButtonText: "Xem tiếp",
-                        confirmButtonClass: "btn-success",
-                        confirmButtonText: "Đi đến giỏ hàng",
-                        closeOnConfirm: false,
-                    },
-                    function () {
-                        window.location.href =
-                            "/lavarel%208/shop-vincent/show-cart-page";
-                    }
-                );
-            },
-        });
+        if (parseInt(cart_product_stock) > parseInt(cart_product_qty)) {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/add-cart-ajax",
+                method: "POST",
+                data: {
+                    cart_product_id: cart_product_id,
+                    cart_product_name: cart_product_name,
+                    cart_product_image: cart_product_image,
+                    cart_product_price: cart_product_price,
+                    cart_product_qty: cart_product_qty,
+                    cart_product_stock: cart_product_stock,
+                    _token: _token,
+                },
+                success: function () {
+                    swal(
+                        {
+                            title: "Đã thêm sản phẩm vào giỏ hàng",
+                            text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                            showCancelButton: true,
+                            cancelButtonText: "Xem tiếp",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Đi đến giỏ hàng",
+                            closeOnConfirm: false,
+                        },
+                        function () {
+                            window.location.href =
+                                "/lavarel%208/shop-vincent/show-cart-page";
+                        }
+                    );
+                },
+            });
+        } else {
+            alert(
+                "Please buy lower than quantity in stock " + cart_product_stock
+            );
+        }
     });
 
     // CHECK SHIPPING FE

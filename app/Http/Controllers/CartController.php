@@ -77,6 +77,7 @@ class CartController extends Controller
                 'product_name' => $data['cart_product_name'],
                 'product_id' => $data['cart_product_id'],
                 'product_image' => $data['cart_product_image'],
+                'product_stock' => $data['cart_product_stock'],
                 'product_qty' => $data['cart_product_qty'],
                 'product_price' => $data['cart_product_price'],
                 );
@@ -88,6 +89,7 @@ class CartController extends Controller
                 'product_name' => $data['cart_product_name'],
                 'product_id' => $data['cart_product_id'],
                 'product_image' => $data['cart_product_image'],
+                'product_stock' => $data['cart_product_stock'],
                 'product_qty' => $data['cart_product_qty'],
                 'product_price' => $data['cart_product_price'],
 
@@ -116,17 +118,23 @@ class CartController extends Controller
         $data = $request->all();
         $cart = session()->get('cart');
         if($cart==true){
-            foreach($data['cart_qty'] as $key=>$qty){
+            $message = '';
+            
+            foreach($data['cart_qty'] as $key=> $qty){
                 foreach($cart as $session => $val){
-                    if($val['session_id'] == $key){
+                    if($val['session_id'] == $key && $qty < $cart[$session]['product_stock']){
                         $cart[$session]['product_qty'] = $qty;
+                        $message .= '<p style="color:darkcyan">Update quantity: '.$cart[$session]['product_name']. ' success</p>';
+                    }elseif($val['session_id'] == $key && $qty > $cart[$session]['product_stock']){
+                        $message .= '<p style="color:coral">Update quantity: '.$cart[$session]['product_name']. ' failed</p>';
                     }
                 }
             }
+
             session(['cart'=>$cart]);
-            return redirect()->back()->with('message', 'Update item success');
+            return redirect()->back()->with('message', $message);
         }else{
-            return redirect()->back()->with('message', 'Update item failed');
+            return redirect()->back()->with('error', 'Update item failed');
         }
         session()->save();
     }  

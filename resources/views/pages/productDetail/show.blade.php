@@ -3,6 +3,10 @@
 
 @foreach ($product_details as $key => $pro_detail)
 <div class="product-details"><!--product-details-->
+
+            {{-- // SOCIAL PLUGIN FACEBOOK --}}
+            <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
+            {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <div class="col-sm-5">
         <div class="view-product">
             <img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" alt="" />
@@ -48,29 +52,29 @@
             <form action="{{URL::to('/save-cart')}}" method="post">
                 {{ csrf_field() }} 
                 <span>
-                    <span>US {{number_format($pro_detail->product_price)}}</span>
+                    <span>USD {{number_format($pro_detail->product_price)}}</span>
                     <label>Quantity:</label>
-                    <input type="number" value="1" min="1" max="{{$pro_detail->product_quantity}}" class="cart_product_qty_{{$pro_detail->product_id}}">
+                    <input type="number" value="1" min="1" class="cart_product_qty_{{$pro_detail->product_id}}">
                     <form >
                         <input type="hidden" value="{{$pro_detail->product_id}}" class="cart_product_id_{{$pro_detail->product_id}}">
                         <input type="hidden" value="{{$pro_detail->product_name}}" class="cart_product_name_{{$pro_detail->product_id}}">
                         <input type="hidden" value="{{$pro_detail->product_image}}" class="cart_product_image_{{$pro_detail->product_id}}">
                         <input type="hidden" value="{{$pro_detail->product_price}}" class="cart_product_price_{{$pro_detail->product_id}}">
+                        <input type="hidden" value="{{$pro_detail->product_quantity}}" class="cart_product_stock_{{$pro_detail->product_id}}">
+                       
                         <button data-id_product="{{$pro_detail->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
                     </form>
                 </span>
             </form>
             
-            <p><b>Availability:</b> In Stock</p>
+            <p><b>Availability:</b> {{$pro_detail->product_quantity}} In Stock</p>
             <p><b>Condition:</b> New</p>
             <p><b>Brand:</b> {{$pro_detail->brand_name}}</p>
             <p><b>Category:</b> {{$pro_detail->category_name}}</p>
             
-            {{-- // SOCIAL PLUGIN FACEBOOK --}}
-            <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
-            <br>
-            <div style="width:200px; height: 10px" class="fb-share-button" data-href="http://localhost:81/lavarel%208/shop-vincent/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-            {{-- // SOCIAL PLUGIN FACEBOOK --}}
+            <div style="" class="fb-share-button" data-href="http://localhost:81/lavarel%208/shop-vincent/" data-layout="button_count" data-size="small">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{$url_canonical}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+            </div>
             
             <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
         </div><!--/product-information-->
@@ -80,8 +84,8 @@
 <div class="category-tab shop-details-tab"><!--category-tab-->
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#companyprofile" data-toggle="tab">Description</a></li>
-            <li><a href="#details" data-toggle="tab">Details</a></li>
+            <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+            <li><a href="#companyprofile" data-toggle="tab">Description</a></li>
             <li><a href="#tag" data-toggle="tab">Tag</a></li>
             <li><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
         </ul>
