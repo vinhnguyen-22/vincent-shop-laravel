@@ -11,12 +11,12 @@ session_start();
 class AdminController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = Auth::id();
-        // if(session()->get('login_normal')){
-        //     $admin_id = session()->get('admin_id');
-        // }else{
-        //     $admin_id = session()->get('admin_id');
-        // }
+        $admin_id = null;
+        if(session()->get('login_normal')){
+            $admin_id = session()->get('admin_id');
+        }elseif(Auth::id()){
+            $admin_id = Auth::id();
+        }
         if($admin_id){
             return redirect('/dashboard');
         }else{

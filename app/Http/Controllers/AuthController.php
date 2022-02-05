@@ -11,6 +11,7 @@ class AuthController extends Controller
 {
     public function logoutAuth(){
         Auth::logout();
+        session(['login_normal'=>0]);
         return redirect('/login-auth')->with('message','Logout success');
     }
 
