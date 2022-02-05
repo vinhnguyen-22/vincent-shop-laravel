@@ -13,6 +13,8 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -164,6 +166,15 @@ Route::get('/delete-slider/{slider_id}', [SliderController::class, 'deleteSlider
 //excel
 Route::post('/export-csv', [ProductController::class, 'exportCSV']);
 Route::post('/import-csv', [ProductController::class, 'importCSV']);
+
+//Auth roles
+Route::get('/register-auth', [AuthController::class, 'showRegisterAuth']);
+Route::post('/register', [AuthController::class, 'registerAuth']);
+Route::get('/login-auth', [AuthController::class, 'showLoginAuth']);
+Route::post('/login', [AuthController::class, 'loginAuth']);
+Route::get('/logout-auth', [AuthController::class, 'logoutAuth']);
+
+
 
 /////////////////////////
 //BACKEND

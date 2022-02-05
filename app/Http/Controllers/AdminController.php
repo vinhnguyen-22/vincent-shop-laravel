@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Social;
 use Illuminate\Http\Request;
-use Socialite;
 use App\Rules\Captcha;
-use Validator;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 session_start();
 class AdminController extends Controller
 {
     public function AuthLogin(){
-        if(session()->get('login_normal')){
-            $admin_id = session()->get('admin_id');
-        }else{
-            $admin_id = session()->get('admin_id');
-        }
+        $admin_id = Auth::id();
+        // if(session()->get('login_normal')){
+        //     $admin_id = session()->get('admin_id');
+        // }else{
+        //     $admin_id = session()->get('admin_id');
+        // }
         if($admin_id){
-            return redirect('dashboard');
+            return redirect('/dashboard');
         }else{
             return redirect('admin')->send();
         }
@@ -55,7 +56,7 @@ class AdminController extends Controller
             session(['message'=>'Password or email incorrect']);
             return redirect('/admin');
         }
-}
+    }
 
     public function logout(){
         $this->AuthLogin();

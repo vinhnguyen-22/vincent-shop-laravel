@@ -23,7 +23,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 <div class="log-w3">
 <div class="w3layouts-main">
-	<h2>Sign In Now</h2>
+	<h2>Sign In Authentication</h2>
     <?php 
     $message = Session::get('message');
     if($message){
@@ -31,13 +31,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         Session::put('message',null);
     }
     ?>
-    <form action="{{URL::to('/admin-dashboard')}}" method="post">
+    <form action="{{URL::to('/login')}}" method="post">
         {{csrf_field()}}
         @foreach($errors->all() as $val)
-            {{$val}}
+            <li>{{$val}}</li>
         @endforeach
-        <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" >
-        <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" >
+        <input type="text" class="ggg" name="email" placeholder="E-MAIL" >
+        <input type="password" class="ggg" name="password" placeholder="PASSWORD" >
         <span><input type="checkbox" />Remember Me</span>
         <h6><a href="#">Forgot Password?</a></h6>
         <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
@@ -47,7 +47,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </form>
     <a href="{{url('/login-facebook')}}" class="">Login Facebook |</a>
     <a href="{{url('/login-google')}}" class="">Login Google |</a>
-    <a href="{{url('/login-auth')}}" class="">Login Auth |</a>
     <a href="{{url('/register-auth')}}" class="">Register Auth</a>
     <p>Don't Have an Account ?<a href="registration.html">Create an account</a></p>
     
