@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Rules\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDO;
@@ -12,13 +13,14 @@ class AuthController extends Controller
     public function logoutAuth(){
         Auth::logout();
         session(['login_normal'=>0]);
-        return redirect('/login-auth')->with('message','Logout success');
+        return view('admin.auth.login')->with('message','Logout success');
     }
 
     public function loginAuth(Request $request){
         $this->validate($request,[
             'email' => 'required|max:255',
             'password' => 'required|max:255',
+            'g-recaptcha-response' => new Captcha(), 	//dòng kiểm tra Captch
         ]);
         if(Auth::attempt(['admin_email'=> $request->email,'admin_password'=> $request->password])){
             return redirect('/dashboard');
@@ -37,6 +39,7 @@ class AuthController extends Controller
             'phone' => 'required|max:255',
             'email' => 'required|max:255',
             'password' => 'required|max:255',
+            'g-recaptcha-response' => new Captcha(), 	//dòng kiểm tra Captch
         ]);
     }
 

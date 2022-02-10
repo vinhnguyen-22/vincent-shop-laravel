@@ -5,19 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\Slider;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SliderController extends Controller
 {
-    //
+    public function AuthLogin(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return redirect('/dashboard');
+        }else{
+            return redirect('admin')->send();
+        }
+    }
+
     public function manageSliderPage(){
+        $this->AuthLogin();
         $all_slide = Slider::orderby('slider_id','DESC')->paginate(3);
         return view('admin.slider.list')->with(compact('all_slide'));
     }
     
     public function insertSliderPage(){
+        $this->AuthLogin();
         return view('admin.slider.create');
     } 
     public function createSlider(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         $slider = new Slider();
         $slider->slider_name = $data['title'];
@@ -45,6 +57,7 @@ class SliderController extends Controller
     }   
 
     public function inactiveSlider ($slider_id){
+        $this->AuthLogin();
         $slider = Slider::find($slider_id);
         $slider->slider_status = 0;
         $slider->save();
@@ -53,6 +66,7 @@ class SliderController extends Controller
     }
     
     public function activeSlider ($slider_id){
+        $this->AuthLogin();
         $slider = Slider::find($slider_id);
         $slider->slider_status = 1;
         $slider->save();
@@ -61,12 +75,14 @@ class SliderController extends Controller
     }
     
     public function editSlider($slider_id){
+        $this->AuthLogin();
         $edit_slider = Slider::find($slider_id);
         $manager_slider = view('admin.slider.edit')->with(compact('edit_slider'));
         return view('admin_layout')->with('admin.slider.edit', $manager_slider);
     }
     
     public function updateSlider(Request $request,$slider_id){
+        $this->AuthLogin();
         $data = $request->all();
         $slider = Slider::find($slider_id);
         $slider->slider_name = $data['title'];
@@ -96,6 +112,7 @@ class SliderController extends Controller
     }  
     
     public function deleteSlider($slider_id){
+        $this->AuthLogin();
         $slider = Slider::find($slider_id);
         $slider->delete();
         session(['message' => 'Delete slider success']);

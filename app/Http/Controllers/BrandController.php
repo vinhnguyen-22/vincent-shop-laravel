@@ -9,16 +9,16 @@ use App\Models\Brand;
 use App\Models\CategoryProduct;
 use App\Models\Slider;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 class BrandController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = session()->get('admin_id');
-
-        if(!$admin_id){
-            return Redirect::to('admin')->send();
+        $admin_id = Auth::id();
+        if($admin_id){
+            return redirect('/dashboard');
         }else{
-            return Redirect::to('dashboard');
+            return redirect('admin')->send();
         }
     }
 

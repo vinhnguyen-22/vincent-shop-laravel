@@ -14,7 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,80 +92,94 @@ Route::get('/logout', [AdminController::class, 'logout']);
 
 //category product
 Route::get('/all-category-product', [CategoryProductController::class, 'showAllCategory']);
-Route::get('/add-category-product', [CategoryProductController::class, 'addPageCategory']);
-Route::get('/edit-category-product/{cat_id}', [CategoryProductController::class, 'editCategory']);
-Route::get('/delete-category-product/{cat_id}', [CategoryProductController::class, 'deleteCategory']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/add-category-product', [CategoryProductController::class, 'addPageCategory']);
+    Route::get('/edit-category-product/{cat_id}', [CategoryProductController::class, 'editCategory']);
+    Route::get('/delete-category-product/{cat_id}', [CategoryProductController::class, 'deleteCategory']);
 
-Route::post('/save-category-product', [CategoryProductController::class, 'createCategory']);
-Route::post('/update-category-product/{cat_id}', [CategoryProductController::class, 'updateCategory']);
+    Route::post('/save-category-product', [CategoryProductController::class, 'createCategory']);
+    Route::post('/update-category-product/{cat_id}', [CategoryProductController::class, 'updateCategory']);
 
-Route::get('/inactive-category-product/{cat_id}', [CategoryProductController::class, 'activeCategory']);
-Route::get('/active-category-product/{cat_id}', [CategoryProductController::class, 'inactiveCategory']);
+    Route::get('/inactive-category-product/{cat_id}', [CategoryProductController::class, 'activeCategory']);
+    Route::get('/active-category-product/{cat_id}', [CategoryProductController::class, 'inactiveCategory']);
+});
 
 //brand product
 Route::get('/all-brand-product', [BrandController::class, 'showAllBrand']);
-Route::get('/add-brand-product', [BrandController::class, 'addPageBrand']);
-Route::get('/edit-brand-product/{brand_id}', [BrandController::class, 'editBrand']);
-Route::get('/delete-brand-product/{brand_id}', [BrandController::class, 'deleteBrand']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/add-brand-product', [BrandController::class, 'addPageBrand']);
+    Route::get('/edit-brand-product/{brand_id}', [BrandController::class, 'editBrand']);
+    Route::get('/delete-brand-product/{brand_id}', [BrandController::class, 'deleteBrand']);
 
-Route::post('/save-brand-product', [BrandController::class, 'createBrand']);
-Route::post('/update-brand-product/{brand_id}', [BrandController::class, 'updateBrand']);
+    Route::post('/save-brand-product', [BrandController::class, 'createBrand']);
+    Route::post('/update-brand-product/{brand_id}', [BrandController::class, 'updateBrand']);
 
-Route::get('/inactive-brand-product/{brand_id}', [BrandController::class, 'activeBrand']);
-Route::get('/active-brand-product/{brand_id}', [BrandController::class, 'inactiveBrand']);
+    Route::get('/inactive-brand-product/{brand_id}', [BrandController::class, 'activeBrand']);
+    Route::get('/active-brand-product/{brand_id}', [BrandController::class, 'inactiveBrand']);
+});
 
 //product
-Route::get('/all-product', [ProductController::class, 'showAllProduct']);
-Route::get('/add-product', [ProductController::class, 'addPageProduct']);
-Route::get('/edit-product/{product_id}', [ProductController::class, 'editProduct']);
-Route::get('/delete-product/{product_id}', [ProductController::class, 'deleteProduct']);
+Route::get('/all-product', [ProductController::class, 'showAllProduct']);      
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/add-product', [ProductController::class, 'addPageProduct']);
+    Route::get('/edit-product/{product_id}', [ProductController::class, 'editProduct']);
+    Route::get('/delete-product/{product_id}', [ProductController::class, 'deleteProduct']);
 
-Route::post('/save-product', [ProductController::class, 'createProduct']);
-Route::post('/update-product/{product_id}', [ProductController::class, 'updateProduct']);
+    Route::post('/save-product', [ProductController::class, 'createProduct']);
+    Route::post('/update-product/{product_id}', [ProductController::class, 'updateProduct']);
 
-Route::get('/inactive-product/{product_id}', [ProductController::class, 'activeProduct']);
-Route::get('/active-product/{product_id}', [ProductController::class, 'inactiveProduct']);
+    Route::get('/inactive-product/{product_id}', [ProductController::class, 'activeProduct']);
+    Route::get('/active-product/{product_id}', [ProductController::class, 'inactiveProduct']);    
+});
 
 //order
 Route::get('/view-order/{order_code}', [OrderController::class, 'viewOrderDetails']);
 Route::get('/manage-order', [OrderController::class, 'manageOrder']);
 Route::get('/print-order/{order_code}', [OrderController::class, 'printOrder']);
-
-Route::post('/update-order-qty', [OrderController::class, 'updateOrderQty']);
-Route::post('/update-qty', [OrderController::class, 'updateQty']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::post('/update-order-qty', [OrderController::class, 'updateOrderQty']);
+    Route::post('/update-qty', [OrderController::class, 'updateQty']);
+});
 
 //Sendmail
 Route::get('/send-mail', [MailController::class, 'sendMail']);
 
 //coupon
-Route::get('/insert-coupon', [CouponController::class, 'insertCouponPage']);
-Route::post('/save-coupon', [CouponController::class, 'saveCoupon']);
 Route::get('/all-coupon', [CouponController::class, 'showAllCoupon']);
-Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'deleteCoupon']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/insert-coupon', [CouponController::class, 'insertCouponPage']);
+    Route::post('/save-coupon', [CouponController::class, 'saveCoupon']);
+    Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'deleteCoupon']);
+});
 
 //Delivery
 Route::get('/delivery', [DeliveryController::class,'insertDeliveryPage']);
 Route::post('/select-delivery', [DeliveryController::class,'selectDelivery']);
-Route::post('/save-delivery', [DeliveryController::class,'saveDelivery']);
 Route::get('/select-feeship', [DeliveryController::class,'selectFeeShip']);// load feeship
-Route::post('/update-feeship', [DeliveryController::class,'updateFeeShip']);
-
+Route::middleware(['auth.roles'])->group(function () {
+    Route::post('/save-delivery', [DeliveryController::class,'saveDelivery']);
+    Route::post('/update-feeship', [DeliveryController::class,'updateFeeShip']);
+});
 
 //slider
 Route::get('/manage-slider', [SliderController::class,'manageSliderPage']);
-Route::get('/insert-slider', [SliderController::class,'insertSliderPage']);
-Route::post('/save-slider', [SliderController::class,'createSlider']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/insert-slider', [SliderController::class,'insertSliderPage']);
+    Route::post('/save-slider', [SliderController::class,'createSlider']);
 
-Route::get('/inactive-slider/{slider_id}', [SliderController::class, 'activeSlider']);
-Route::get('/active-slider/{slider_id}', [SliderController::class, 'inactiveSlider']);
+    Route::get('/inactive-slider/{slider_id}', [SliderController::class, 'activeSlider']);
+    Route::get('/active-slider/{slider_id}', [SliderController::class, 'inactiveSlider']);
 
-Route::get('/edit-slider/{slider_id}', [SliderController::class, 'editSlider']);
-Route::post('/update-slider/{slider_id}', [SliderController::class, 'updateSlider']);
-Route::get('/delete-slider/{slider_id}', [SliderController::class, 'deleteSlider']);
+    Route::get('/edit-slider/{slider_id}', [SliderController::class, 'editSlider']);
+    Route::post('/update-slider/{slider_id}', [SliderController::class, 'updateSlider']);
+    Route::get('/delete-slider/{slider_id}', [SliderController::class, 'deleteSlider']);
+});
 
 //excel
 Route::post('/export-csv', [ProductController::class, 'exportCSV']);
-Route::post('/import-csv', [ProductController::class, 'importCSV']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::post('/import-csv', [ProductController::class, 'importCSV']);
+});
 
 //Auth roles
 Route::get('/register-auth', [AuthController::class, 'showRegisterAuth']);
@@ -174,7 +188,16 @@ Route::get('/login-auth', [AuthController::class, 'showLoginAuth']);
 Route::post('/login', [AuthController::class, 'loginAuth']);
 Route::get('/logout-auth', [AuthController::class, 'logoutAuth']);
 
-
+//User
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/insert-user', [UserController::class, 'insertUserPage']);
+    Route::post('/save-user', [UserController::class, 'saveUser']);
+    Route::get('/manage-user', [UserController::class, 'manageUser']);
+    Route::post('/assign-roles', [UserController::class, 'assignRoles']);
+    Route::get('/delete-user/{admin_id}', [UserController::class, 'deleteUser']); 
+    Route::get('/impersonate/{admin_id}', [UserController::class, 'impersonate']); 
+});
+Route::get('/destroy-impersonate', [UserController::class, 'destroyImpersonate']); 
 
 /////////////////////////
 //BACKEND

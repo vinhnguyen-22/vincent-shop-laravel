@@ -7,18 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\CategoryProduct;
 use App\Models\Slider;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 class CategoryProductController extends Controller
 {
-    public function AuthLogin(){    
-        $admin_id = session()->get('admin_id');
-
-
-        if(!$admin_id){
-            return Redirect::to('admin')->send();
+    public function AuthLogin(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return redirect('/dashboard');
         }else{
-            return Redirect::to('dashboard');
+            return redirect('admin')->send();
         }
     }
 

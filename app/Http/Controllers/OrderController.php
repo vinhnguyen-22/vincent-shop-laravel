@@ -9,18 +9,14 @@ use App\Models\OrderDetails;
 use App\Models\Product;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use PDF;
 class OrderController extends Controller
 {
     public function AuthLogin(){
-        if(session()->get('login_normal')){
-            $admin_id = session()->get('admin_id');
-        }else{
-            $admin_id = session()->get('admin_id');
-        }
+        $admin_id = Auth::id();
         if($admin_id){
-            return redirect('dashboard');
+            return redirect('/dashboard');
         }else{
             return redirect('admin')->send();
         }
@@ -60,12 +56,14 @@ class OrderController extends Controller
     }
 
     public function printOrder($order_code){
+        $this->AuthLogin();        
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->printOrderConvert($order_code));
         return $pdf->stream();
     }
-
+    
     public function printOrderConvert($order_code){
+        $this->AuthLogin();        
         $order = Order::where('order_code', $order_code)->first();
         
         $customer_id = $order->customer_id;
@@ -93,6 +91,7 @@ class OrderController extends Controller
     }
 
     public function updateOrderQty(Request $request){
+        $this->AuthLogin();        
         $data = $request->all();
         $order = Order::find($data['orderId']);
         $order->order_status = $data['orderStatus'];
@@ -129,6 +128,7 @@ class OrderController extends Controller
     }
     
     public function updateQty(Request $request){
+        $this->AuthLogin();        
         $data = $request->all();
         $order_details = OrderDetails::where('product_id',$data['orderProductId'])->where('order_code',$data['orderCode'])->first();
 

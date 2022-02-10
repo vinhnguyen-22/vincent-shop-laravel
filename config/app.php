@@ -183,6 +183,9 @@ return [
     
         //excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        //Authenticate blade service providers
+        App\Providers\BladeServiceProvider::class,
     ],
 
     /*

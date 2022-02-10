@@ -92,6 +92,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Dashboard</span>
                     </a>
                 </li>
+                @impersonate
+                <li>
+                    <a class="btn btn-sm btn-danger" href="{{url('/destroy-impersonate')}}">
+                        Destroy Impersonate
+                    </a>
+                </li>
+                @endimpersonate
+                
+                @hasrole(['admin','author'])
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-book"></i>
+                            <span>User</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="{{URL::to('/insert-user')}}">Add User</a></li>
+                            <li><a href="{{URL::to('/manage-user')}}">Manage User</a></li>
+                        </ul>
+                    </li>
+                @endhasrole
 
                 <li class="sub-menu">
                     <a href="javascript:;">
@@ -99,9 +119,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Slider</span>
                     </a>
                     <ul class="sub">
+                    @hasrole(['admin','author'])
                         <li><a href="{{URL::to('/insert-slider')}}">Add Slider</a></li>
-                    </ul>
-                    <ul class="sub">
+                    @endhasrole
                         <li><a href="{{URL::to('/manage-slider')}}">Manage Slider</a></li>
                     </ul>
                 </li>
@@ -132,9 +152,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Coupon</span>
                     </a>
                     <ul class="sub">
+                    @hasrole(['admin','author'])
                         <li><a href="{{URL::to('/insert-coupon')}}">Add Coupon</a></li>
-                    </ul>
-                    <ul class="sub">
+                    @endhasrole
                         <li><a href="{{URL::to('/all-coupon')}}">List Coupon</a></li>
                     </ul>
                 </li>
@@ -145,7 +165,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Category</span>
                     </a>
                     <ul class="sub">
+                        @hasrole(['admin','author'])
 						<li><a href="{{URL::to('/add-category-product')}}">Add</a></li>
+                        @endhasrole
                         <li><a href="{{URL::to('/all-category-product')}}">View All</a></li>
                     </ul>
                 </li>
@@ -156,7 +178,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Brand</span>
                     </a>
                     <ul class="sub">
-						<li><a href="{{URL::to('/add-brand-product')}}">Add</a></li>
+                        @hasrole(['admin','author'])
+                        <li><a href="{{URL::to('/add-brand-product')}}">Add</a></li>
+                        @endhasrole
                         <li><a href="{{URL::to('/all-brand-product')}}">View All</a></li>
                     </ul>
                 </li>
@@ -167,7 +191,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Product</span>
                     </a>
                     <ul class="sub">
+                        @hasrole(['admin','author'])
 						<li><a href="{{URL::to('/add-product')}}">Add</a></li>
+                        @endhasrole
                         <li><a href="{{URL::to('/all-product')}}">View All</a></li>
                     </ul>
                 </li>

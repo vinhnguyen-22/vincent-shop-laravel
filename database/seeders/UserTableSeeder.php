@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\Roles;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserTableSeeder extends Seeder
 {
@@ -15,7 +16,8 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        // Admin::truncate();
+        Admin::truncate();
+        DB::table('admin_roles')->truncate();
         $adminRoles = Roles::where('role_name','admin')->first();
         $authorRoles = Roles::where('role_name','author')->first();
         $userRoles = Roles::where('role_name','user')->first();
@@ -44,5 +46,7 @@ class UserTableSeeder extends Seeder
         $admin->roles()->attach($adminRoles);
         $author->roles()->attach($authorRoles);
         $user->roles()->attach($userRoles);
+
+        Admin::factory()->count(5)->create();
     }
 }

@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\Redirect;
 use App\Imports\ProductImport;
 use App\Exports\ProductExport;
 use App\Models\Slider;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = session()->get('admin_id');
-
-        if(!$admin_id){
-            return Redirect::to('admin')->send();
+        $admin_id = Auth::id();
+        if($admin_id){
+            return redirect('/dashboard');
         }else{
-            return Redirect::to('dashboard');
+            return redirect('admin')->send();
         }
     }
 

@@ -16,7 +16,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
-use App\Rules\Captcha; 
+use App\Rules\Captcha;
+use Illuminate\Support\Facades\Auth;
+
 session_start();
 class CheckoutController extends Controller
 {
@@ -31,12 +33,11 @@ class CheckoutController extends Controller
     }
     
     public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
-
-        if(!$admin_id){
-            return Redirect::to('admin')->send();
+        $admin_id = Auth::id();
+        if($admin_id){
+            return redirect('/dashboard');
         }else{
-            return Redirect::to('dashboard');
+            return redirect('admin')->send();
         }
     }
 

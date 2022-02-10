@@ -8,10 +8,21 @@ use App\Models\ShippingFee;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DeliveryController extends Controller
 {
+    public function AuthLogin(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return redirect('/dashboard');
+        }else{
+            return redirect('admin')->send();
+        }
+    }
+    
     public function insertDeliveryPage(Request $request){   
+        $this->AuthLogin();
         $province = Province::orderBy('matp','ASC')->get();
         $district = District::orderBy('maqh','ASC')->get();
         $ward = Ward::orderBy('xaid','ASC')->get();
@@ -19,6 +30,7 @@ class DeliveryController extends Controller
     }   
 
     public function selectDelivery(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         if($data['action']){
             if($data['action'] == 'province'){
@@ -38,6 +50,7 @@ class DeliveryController extends Controller
     }
 
     public function saveDelivery(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         $fee_ship = new ShippingFee;
         $fee_ship->fee_matp = $data['province'];
@@ -48,6 +61,7 @@ class DeliveryController extends Controller
     }
 
     public function selectFeeShip(){
+        $this->AuthLogin();
         $fee_ship = ShippingFee::orderby('fee_id','DESC')->get();
         $output = '';
         $output .= '
@@ -82,6 +96,7 @@ class DeliveryController extends Controller
     }
 
     public function updateFeeShip(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         $fee_ship = ShippingFee::find($data['feeId']);
         $fee_ship->fee_shippingfee = rtrim($data['feeValue'],'.');
@@ -92,10 +107,12 @@ class DeliveryController extends Controller
     
     //START FRONTEND FUNCTIONS
     public function selectDeliveryFE(Request $request){
+        $this->AuthLogin();
         $this->selectDelivery($request);
     }
 
     public function calculateFee(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         if($data['province']){
             $fee_ship = ShippingFee::where('fee_matp', $data['province'])->where('fee_maqh' , $data['district'])->where('fee_xaid',$data['ward'])->get();
@@ -116,6 +133,7 @@ class DeliveryController extends Controller
     }
 
     public function deleteFee(){
+        $this->AuthLogin();
         session()->forget('fee');
         return redirect()->back()->with('message', 'Delete fee success');
     }
