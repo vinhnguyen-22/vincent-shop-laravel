@@ -45,6 +45,7 @@
                     </label>
                     </th>
                     <th>Title</th>
+                    <th>Parent</th>
                     <th>Status</th>
                     <th style="width:30px;"></th>
                 </tr>
@@ -54,6 +55,17 @@
                 <tr>
                     <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                     <td>{{$cat ->category_name}}</td>
+                    <td>
+                        @if($cat->category_parentId == 0)
+                            <span style="color: coral">Root</span>
+                        @else
+                            @foreach($list_category as $key => $cat_sub)
+                                @if($cat_sub->category_id == $cat->category_parentId)
+                                    <span style="color: darkcyan">{{$cat_sub ->category_name}}</span>
+                                @endif
+                            @endforeach
+                        @endif
+                    </td>
                     <td>
                         @if($cat ->category_status == 0)
                             <a href="{{URL::to('/inactive-category-product/'.$cat->category_id)}}">

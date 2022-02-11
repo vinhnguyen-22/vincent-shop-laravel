@@ -23,7 +23,8 @@ class CategoryProductController extends Controller
 
     public function addPageCategory(){
         $this->AuthLogin();
-        return view('admin.category.create');
+        $category = CategoryProduct::where('category_parentId',0)->orderBy('category_id','DESC')->get();
+        return view('admin.category.create')->with('category',$category);
     } 
     
     public function showAllCategory(){
@@ -43,6 +44,7 @@ class CategoryProductController extends Controller
         $category->category_desc = $data['desc'];
         $category->category_slug = $data['slug'];
         $category->category_keywords = $data['keywords'];
+        $category->category_parentId = $data['parent'];
         $category->created_at = Carbon::now()->toDateTimeString();
         $category->updated_at = Carbon::now()->toDateTimeString();
         $category->save();
@@ -72,8 +74,8 @@ class CategoryProductController extends Controller
     public function editCategory($cat_id){
         $this->AuthLogin();
         $edit_category = CategoryProduct::find($cat_id);
-        $manager_category_product = view('admin.category.edit')->with('edit_category',$edit_category);
-        return view('admin_layout')->with('admin.category.edit', $manager_category_product);
+        $category = CategoryProduct::where('category_id','<>',$cat_id)->orderBy('category_id','DESC')->get();
+        return view('admin.category.edit')->with(compact('edit_category','category'));
     }
     
     public function updateCategory(Request $request,$cat_id){
@@ -85,6 +87,7 @@ class CategoryProductController extends Controller
         $category->category_desc = $data['desc'];
         $category->category_slug = $data['slug'];
         $category->category_keywords = $data['keywords'];
+        $category->category_parentId = $data['parent'];
         $category->updated_at = Carbon::now()->toDateTimeString();
         $category->save();
 
@@ -103,7 +106,7 @@ class CategoryProductController extends Controller
     // end function admin page
     
     public function showCategoryPage($cat_slug, Request $request){
-        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
+        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1' )->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug',$cat_slug)->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();

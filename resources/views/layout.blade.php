@@ -237,38 +237,31 @@
                     <div class="left-sidebar">
                         <h2>Category</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            Sportswear
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="sportswear" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li><a href="#">Nike </a></li>
-                                            <li><a href="#">Under Armour </a></li>
-                                            <li><a href="#">Adidas </a></li>
-                                            <li><a href="#">Puma</a></li>
-                                            <li><a href="#">ASICS </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             @foreach($cats as $key => $cat)
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a  href="{{URL::to('category-product/'.$cat->category_slug)}}">
-                                            {{$cat->category_name}}
-                                        </a>
-                                    </h4>
-                                </div>
-                            </div>
+                                @if($cat->category_parentId == 0)
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordian" href="#{{$cat->category_slug}}">
+                                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                    {{$cat->category_name}}
+                                                </a>
+                                            </h4>
+                                        </div>
+
+                                        <div id="{{$cat->category_slug}}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <ul>
+                                                    @foreach($cats as $key => $cat_sub)
+                                                        @if($cat_sub->category_parentId == $cat->category_id)
+                                                            <li><a href="{{URL::to('category-product/'.$cat_sub->category_slug)}}"> {{$cat_sub->category_name}}</a></li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             @endforeach
                         </div><!--/category-products-->
                     

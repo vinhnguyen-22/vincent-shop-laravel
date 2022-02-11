@@ -16,6 +16,7 @@ class CategoryProduct extends Model
         'category_keywords',
         'category_desc',
         'category_status',
+        'category_parentId',
         'created_at',
         'updated_at',
     ];

@@ -41,8 +41,7 @@ class HomeController extends Controller
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
        
         $keywords = $request->search_box; 
-        $search_product = DB::table('tbl_product')->where('product_name', 'like', '%'.$keywords.'%')->paginate(6);
-
+        $search_product = DB::table('tbl_product')->where('product_name', 'like', '%'.$keywords.'%')->paginate(5);
 
         return view('pages.productDetail.search')->with(compact('brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','search_product','slider'));
     }
