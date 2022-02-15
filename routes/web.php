@@ -14,6 +14,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MenuPostController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -74,7 +76,9 @@ Route::post('/select-delivery-fe', [DeliveryController::class,'selectDeliveryFE'
 Route::post('/calculate-fee', [DeliveryController::class,'calculateFee']);
 Route::get('/delete-fee', [DeliveryController::class,'deleteFee']);
 
-
+// Post
+Route::get('/menu-post/{menu_post_slug}', [MenuPostController::class,'showMenuPostPage']);
+Route::get('/post-detail/{post_slug}', [PostController::class,'showPostPage']);
 ////////////////////////////
 //FRONTEND
 ///////////////////////////
@@ -197,7 +201,35 @@ Route::middleware(['auth.roles'])->group(function () {
     Route::get('/delete-user/{admin_id}', [UserController::class, 'deleteUser']); 
     Route::get('/impersonate/{admin_id}', [UserController::class, 'impersonate']); 
 });
-Route::get('/destroy-impersonate', [UserController::class, 'destroyImpersonate']); 
+Route::get('/destroy-impersonate', [UserController::class, 'destroyImpersonate']);
+ 
+//menuPost
+Route::get('/all-menu-post', [MenuPostController::class, 'showAllMenuPost']);      
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/add-menu-post', [MenuPostController::class, 'addPageMenuPost']);
+    Route::get('/edit-menu-post/{menu_post_id}', [MenuPostController::class, 'editMenuPost']);
+    Route::get('/delete-menu-post/{menu_post_id}', [MenuPostController::class, 'deleteMenuPost']);
+
+    Route::post('/save-menu-post', [MenuPostController::class, 'createMenuPost']);
+    Route::post('/update-menu-post/{menu_post_id}', [MenuPostController::class, 'updateMenuPost']);
+
+    Route::get('/inactive-menu-post/{menu_post_id}', [MenuPostController::class, 'activeMenuPost']);
+    Route::get('/active-menu-post/{menu_post_id}', [MenuPostController::class, 'inactiveMenuPost']);    
+});
+
+//post
+Route::get('/all-post', [PostController::class, 'showAllPost']);      
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/add-post', [PostController::class, 'addPagePost']);
+    Route::get('/edit-post/{post_id}', [PostController::class, 'editPost']);
+    Route::get('/delete-post/{post_id}', [PostController::class, 'deletePost']);
+
+    Route::post('/save-post', [PostController::class, 'createPost']);
+    Route::post('/update-post/{post_id}', [PostController::class, 'updatePost']);
+
+    Route::get('/inactive-post/{post_id}', [PostController::class, 'activePost']);
+    Route::get('/active-post/{post_id}', [PostController::class, 'inactivePost']);    
+});
 
 /////////////////////////
 //BACKEND

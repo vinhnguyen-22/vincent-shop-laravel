@@ -40,6 +40,8 @@ class OrderController extends Controller
 
         $order_details = OrderDetails::with('product')->where('order_code', $order_code)->get();
         $order_fee = OrderDetails::where('order_code', $order_code)->pluck('order_feeship')->first();
+        
+        $order_coupon = "Empty";
 
         foreach($order_details as $key => $value){
             $order_coupon = $value->order_coupon;
@@ -75,7 +77,8 @@ class OrderController extends Controller
         $order_details = OrderDetails::with('product')->where('order_code', $order_code)->get();
         $order_fee = OrderDetails::where('order_code', $order_code)->pluck('order_feeship')->first();
 
-
+        $order_coupon = "Empty";
+        
         foreach($order_details as $key => $value){
             $order_coupon = $value->order_coupon;
         }    

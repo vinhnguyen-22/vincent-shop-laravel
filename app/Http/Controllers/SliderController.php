@@ -114,6 +114,10 @@ class SliderController extends Controller
     public function deleteSlider($slider_id){
         $this->AuthLogin();
         $slider = Slider::find($slider_id);
+        if($slider->slider_image){
+            $path ='public/uploads/slider/'.$slider->slider_image;
+            unlink($path);
+        }
         $slider->delete();
         session(['message' => 'Delete slider success']);
         return redirect('manage-slider');

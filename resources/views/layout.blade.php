@@ -162,10 +162,11 @@
                                         <li><a href="login.html">Login</a></li> 
                                     </ul>
                                 </li> 
-                                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                <li class="dropdown"><a href="#">News<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
+                                        @foreach($catsPost as $key => $value)
+                                        <li><a href="{{url('/menu-post/'.$value->menu_post_slug)}}">{{$value->menu_post_name}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li> 
                                 <li><a href="404.html">404</a></li>

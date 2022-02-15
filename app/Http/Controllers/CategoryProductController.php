@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Models\CategoryProduct;
+use App\Models\MenuPost;
 use App\Models\Slider;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -110,6 +111,7 @@ class CategoryProductController extends Controller
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug',$cat_slug)->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
+        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
         
         $meta_desc = '';
         $meta_keywords =''; 
@@ -125,6 +127,6 @@ class CategoryProductController extends Controller
         // SEO
         $cat_name = DB::table('tbl_category_product')->select('category_name')->where('tbl_category_product.category_slug',$cat_slug)->limit(1)->get(); 
 
-        return view('pages.category.show')->with(compact('cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        return view('pages.category.show')->with(compact('catsPost','cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     } 
 }

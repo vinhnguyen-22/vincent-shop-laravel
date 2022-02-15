@@ -197,6 +197,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li><a href="{{URL::to('/all-product')}}">View All</a></li>
                     </ul>
                 </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Menu Post</span>
+                    </a>
+                    <ul class="sub">
+                        @hasrole(['admin','author'])
+						<li><a href="{{URL::to('/add-menu-post')}}">Add</a></li>
+                        @endhasrole
+                        <li><a href="{{URL::to('/all-menu-post')}}">View All</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Post</span>
+                    </a>
+                    <ul class="sub">
+                        @hasrole(['admin','author'])
+						<li><a href="{{URL::to('/add-post')}}">Add</a></li>
+                        @endhasrole
+                        <li><a href="{{URL::to('/all-post')}}">View All</a></li>
+                    </ul>
+                </li>
             </ul>            
         </div>
         <!-- sidebar menu end-->
@@ -232,6 +258,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript">
     CKEDITOR.replace('description-product');
     CKEDITOR.replace('content-product');
+
+    CKEDITOR.replace('description-post');
+    CKEDITOR.replace('content-post');
 </script>
 <!-- morris JavaScript -->	
 {{-- <script>
