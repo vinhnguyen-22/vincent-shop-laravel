@@ -193,4 +193,19 @@ $(document).ready(function () {
             }
         );
     });
+
+    //gallery
+    $("#lightSlider").lightSlider({
+        gallery: true,
+        item: 1,
+        loop: true,
+        slideMargin: 0,
+        slideMove: 1,
+        thumbItem: 3,
+        slideMargin: 10,
+        speed: 400, //ms'
+        auto: true,
+        pause: 5000,
+        enableDrag: true,
+    });
 });

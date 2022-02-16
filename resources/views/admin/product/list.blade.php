@@ -51,6 +51,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Status</th>
+                    <th>Gallery</th>
                     <th style="width:30px;"></th>
                 </tr>
             </thead>
@@ -77,6 +78,7 @@
                         </a>
                         @endif 
                     </td>
+                    <td><a href="{{URL::to('/manage-gallery-product/'.$product->product_id)}}">Add</a></td>
                     <td>
                         <a href="{{URL::to('/edit-product/'.$product->product_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>

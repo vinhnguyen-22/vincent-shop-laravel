@@ -1,46 +1,72 @@
 @extends('layout')
 @section('content')
-
+<style>
+    .demo {
+    width:420px;
+}
+ul {
+    list-style: none outside none;
+    padding-left: 0;
+    margin-bottom:0;
+}
+li {
+    display: block;
+    float: left;
+    margin-right: 6px;
+    cursor:pointer;
+}
+img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+</style>
 @foreach ($product_details as $key => $pro_detail)
 <div class="product-details"><!--product-details-->
 
-            {{-- // SOCIAL PLUGIN FACEBOOK --}}
-            <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
-            {{-- // SOCIAL PLUGIN FACEBOOK --}}
+    {{-- // SOCIAL PLUGIN FACEBOOK --}}
+    <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
+    {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <div class="col-sm-5">
-        <div class="view-product">
-            <img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" alt="" />
-            <h3>ZOOM</h3>
-        </div>
-        <div id="similar-product" class="carousel slide" data-ride="carousel">
-            
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                    </div>
-                    <div class="item">
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                    </div>
-                    <div class="item">
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                        <a href=""><img src="{{URL::to('/public/uploads/product/'.$pro_detail->product_image)}}" width="80" height="80" alt=""></a>
-                    </div>
-                    
-                </div>
-
-                <!-- Controls -->
-                <a class="left item-control" href="#similar-product" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right item-control" href="#similar-product" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-                </a>
+        <div class="lSSlideWrapper usingCss" style="transition-timing-function: ease; transition-duration: 500ms;">
+            <ul id="lightSlider">
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
+                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col-sm-7">
