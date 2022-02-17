@@ -17,7 +17,7 @@
             <div class="panel-body">
                 <div class="position-center row">
                     <form role="form" id="productForm" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
-                        {{csrf_field()}}
+                        @csrf
                         <div class="form-group col-lg-12">
                             <label for="title">Title</label>
                             <input type="text" class="form-control convert_slug" data-slug="slug" name="title" id="title" placeholder="Enter title category">

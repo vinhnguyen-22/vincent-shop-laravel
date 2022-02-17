@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GalleryProductController;
 use App\Http\Controllers\MenuPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -230,6 +231,17 @@ Route::middleware(['auth.roles'])->group(function () {
     Route::get('/inactive-post/{post_id}', [PostController::class, 'activePost']);
     Route::get('/active-post/{post_id}', [PostController::class, 'inactivePost']);    
 });
+
+//gallery
+Route::get('/manage-gallery-product/{product_id}', [GalleryProductController::class, 'showManageGalleryPage']);      
+Route::post('/show-gallery-img', [GalleryProductController::class,'showImgGallery']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::post('/save-gallery-product/{product_id}', [GalleryProductController::class,'saveGalleryProduct']);
+    Route::post('/update-name-gallery', [GalleryProductController::class,'updateNameGallery']);
+    Route::post('/update-gallery', [GalleryProductController::class,'updateGallery']);
+    Route::post('/delete-gallery', [GalleryProductController::class,'deleteGallery']);
+});
+
 
 /////////////////////////
 //BACKEND

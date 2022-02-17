@@ -17,7 +17,7 @@ class MenuPostController extends Controller
         if($admin_id){
             return redirect('/dashboard');
         }else{
-            return redirect('admin')->send();
+            return redirect('login-auth')->send();
         }
     }
 

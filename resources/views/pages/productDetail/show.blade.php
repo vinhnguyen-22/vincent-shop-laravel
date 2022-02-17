@@ -30,42 +30,11 @@ img {
     <div class="col-sm-5">
         <div class="lSSlideWrapper usingCss" style="transition-timing-function: ease; transition-duration: 500ms;">
             <ul id="lightSlider">
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
+                @foreach($gallery as $key => $gal)
+                <li data-thumb="{{asset('/public/uploads/gallery/'.$gal->gallery_image)}}">
+                    <img src="{{asset('/public/uploads/gallery/'.$gal->gallery_image)}}" alt="{{$gal->gallery_name}}" />
                 </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
-                <li data-thumb="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}">
-                    <img src="{{asset('/public/uploads/product/'.$pro_detail->product_image)}}" />
-                </li>
+                @endforeach
             </ul>
         </div>
     </div>

@@ -231,4 +231,128 @@ $(document).ready(function () {
             },
         });
     });
+
+    //gallery
+    function fetchGallery() {
+        var product_id = $(".pro_id").val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/show-gallery-img",
+            method: "POST",
+            data: {
+                product_id,
+                _token: _token,
+            },
+            success: function (data) {
+                $("#load-gallery").html(data);
+            },
+        });
+    }
+    fetchGallery();
+
+    $("#gallery_image").change(function () {
+        var error = "";
+        var files = $("#gallery_image")[0].files;
+        if (files.length > 5) {
+            error = "<p>Bạn chọn tối đa chỉ được 5 ảnh</p>";
+        } else if (files.length == 0) {
+            error = "<p>Bạn không được bỏ trống ảnh</p>";
+        } else if (files.size > 2000000) {
+            error = "<p>File ånh không được lớn hơn 2MB</p>";
+        }
+        if (error == "") {
+        } else {
+            $("#gallery_image").val("");
+            $("#error_gallery").html(
+                "<span class='text-danger'>" + error + "</span>"
+            );
+            return false;
+        }
+    });
+
+    $("#file_image").change(function () {
+        var error = "";
+        var files = $("#file_image")[0].files;
+        if (files.length > 5) {
+            error = "<p>Bạn chọn tối đa chỉ được 5 ảnh</p>";
+        } else if (files.length == 0) {
+            error = "<p>Bạn không được bỏ trống ảnh</p>";
+        } else if (files.size > 2000000) {
+            error = "<p>File ånh không được lớn hơn 2MB</p>";
+        }
+        if (error == "") {
+        } else {
+            $("#file_image").val("");
+            $("#error_image").html(
+                "<span class='text-danger'>" + error + "</span>"
+            );
+            return false;
+        }
+    });
+
+    $(document).on("blur", ".edit-gallery-name", function () {
+        var gallery_id = $(this).data("gallery_id");
+        var gallery_name = $(this).text();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/update-name-gallery",
+            method: "POST",
+            data: {
+                gallery_id,
+                gallery_name,
+                _token: _token,
+            },
+            success: function (data) {
+                fetchGallery();
+            },
+        });
+    });
+
+    $(document).on("click", ".delete-gallery", function () {
+        var gallery_id = $(this).data("gallery_id");
+        var _token = $('input[name="_token"]').val();
+        $delete = confirm("Are you sure you want to delete this image?");
+
+        if ($delete) {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/delete-gallery",
+                method: "POST",
+                data: {
+                    gallery_id,
+                    _token: _token,
+                },
+                success: function (data) {
+                    fetchGallery();
+                },
+            });
+        }
+    });
+
+    $(document).on("change", ".file_image", function () {
+        var gallery_id = $(this).data("gallery_id");
+        var image = document.getElementById("file-" + gallery_id).files[0];
+        var form_data = new FormData();
+
+        form_data.append("file_image", image);
+        form_data.append("gallery_id", gallery_id);
+        console.log({ form_data, image, gallery_id });
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/update-gallery",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: form_data,
+            success: function (data) {
+                fetchGallery();
+                $("#error_image").html(
+                    "<span class='text-success'>update success</span>"
+                );
+            },
+        });
+    });
 });

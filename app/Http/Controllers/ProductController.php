@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Redirect;
 
 use App\Imports\ProductImport;
 use App\Exports\ProductExport;
+use App\Models\GalleryProduct;
 use App\Models\MenuPost;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -25,7 +27,7 @@ class ProductController extends Controller
         if($admin_id){
             return redirect('/dashboard');
         }else{
-            return redirect('admin')->send();
+            return redirect('login-auth')->send();
         }
     }
 
@@ -50,7 +52,7 @@ class ProductController extends Controller
     public function createProduct(Request $request){
         $this->AuthLogin();
         
-        $data = $request->all();
+        $data = $request->except('_token');
         $product = new Product();
         $product->category_id = $data['category'];
         $product->brand_id = $data['brand'];
@@ -66,6 +68,8 @@ class ProductController extends Controller
         $product->updated_at = Carbon::now()->toDateTimeString();
 
         $get_image = $request->file('image');
+        $path = 'public/uploads/product/';
+        $path_gallery = 'public/uploads/gallery/';
 
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();
@@ -73,13 +77,19 @@ class ProductController extends Controller
             $extension = pathinfo($get_name_image, PATHINFO_EXTENSION);
            
             $new_image = time().'-'.$name_image.'.'.$extension;
-            $get_image->move('public/uploads/product',$new_image);
-            $product->product_image = $new_image;            
-        }else{
-            $product->product_image = '';
-        }
+            $get_image->move($path,$new_image);
 
+            File::copy($path.$new_image,$path_gallery.$new_image);
+            $product->product_image = $new_image;            
+        }
         $product->save();
+        $product_id = $product->product_id;
+        $gallery = new GalleryProduct();
+        $gallery->gallery_image = $new_image;
+        $gallery->gallery_name = $new_image;
+        $gallery->product_id = $product_id;
+        $gallery->save();
+        
         session(['message'=>'Add product success']);
         return Redirect::to('all-product'); 
     }   
@@ -130,23 +140,29 @@ class ProductController extends Controller
         $product->updated_at = Carbon::now()->toDateTimeString();
 
         $get_image = $request->file('image');
-
+        $path = 'public/uploads/product/';
+        $path_gallery = 'public/uploads/gallery/';
+        
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();
             $name_image =  pathinfo($get_name_image, PATHINFO_FILENAME);
             $extension = pathinfo($get_name_image, PATHINFO_EXTENSION);
            
             $new_image = time().'-'.$name_image.'.'.$extension;
-            $get_image->move('public/uploads/product',$new_image);
+            $get_image->move($path,$new_image);
+            File::copy($path.$new_image,$path_gallery.$new_image);
+            if($product->product_image){
+                unlink($path.$product->product_image);
+                unlink($path_gallery.$product->product_image);
+            }
             $product->product_image = $new_image;            
-            
-            $product->save();
-
-            session(['message'=>'Update product success']);
-            return Redirect::to('all-product');
         }
-        
+
         $product->save();
+        $gallery = GalleryProduct::where('product_id',$product_id)->first();
+        $gallery->gallery_image = $new_image;
+        $gallery->save();
+        
         session(['message'=>'Update product success']);
         return Redirect::to('all-product'); 
     }  
@@ -154,9 +170,11 @@ class ProductController extends Controller
     public function deleteProduct($product_id){
         $this->AuthLogin();
         $product = Product::find($product_id);
+        $path = 'public/uploads/product/';
+        $path_gallery = 'public/uploads/gallery/';
         if($product->product_image){
-            $path ='public/uploads/product/'.$product->product_image;
-            unlink($path);
+            unlink($path.$product->product_image);
+            unlink($path_gallery.$product->product_image);
         }
         $product->delete();
         session(['message' => 'Delete product success']);
@@ -185,8 +203,7 @@ class ProductController extends Controller
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_product.product_slug', $product_slug)->limit(1)->get();
-   
-        
+           
         $meta_desc = '';
         $meta_keywords =''; 
         $meta_title = '';
@@ -195,6 +212,7 @@ class ProductController extends Controller
         // SEO
         foreach($product_details as $key => $value){
             $category_id = $value->category_id;
+            $product_id = $value->product_id;
             $meta_desc = $value->product_desc;
             $meta_keywords = $value->product_keywords;
             $meta_title = $value->product_name;
@@ -202,11 +220,14 @@ class ProductController extends Controller
         }
         // SEO
 
+        //gallery
+        $gallery = GalleryProduct::where('product_id',$product_id)->get();
+
         $related_products = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->get();
         
-        return view('pages.productDetail.show')->with(compact('catsPost','cats','brands','slider','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.productDetail.show')->with(compact('gallery','catsPost','cats','brands','slider','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 }
