@@ -355,4 +355,148 @@ $(document).ready(function () {
             },
         });
     });
+
+    //video
+
+    function fetchVideo() {
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/show-video",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            data: {},
+            success: function (data) {
+                $("#load-video").html(data);
+            },
+        });
+    }
+    fetchVideo();
+
+    $(".add-video").click(function () {
+        var video_title = $(".video_title").val();
+        var video_link = $(".video_link").val();
+        var video_desc = $(".video_desc").val();
+        var video_slug = $(".video_slug").val();
+
+        var video_image = document.getElementById("video_image").files[0];
+        var form_data = new FormData();
+        form_data.append("video_image", video_image);
+        form_data.append("video_title", video_title);
+        form_data.append("video_link", video_link);
+        form_data.append("video_desc", video_desc);
+        form_data.append("video_slug", video_slug);
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/save-video",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: form_data,
+            success: function (data) {
+                fetchVideo();
+            },
+        });
+    });
+
+    $(document).on("click", ".watch-video", function () {
+        var video_id = $(this).data("video_id");
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/show-modal-video",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            data: {
+                video_id,
+            },
+            success: function (data) {
+                $(".modal-video-body").html(data);
+            },
+        });
+    });
+
+    $(document).on("blur", ".video_edit", function () {
+        var video_type = $(this).data("video_type");
+        var video_id = $(this).data("video_id");
+
+        switch (video_type) {
+            case "video_title":
+                var video_edit = $("#" + video_type + "_" + video_id).text();
+                break;
+            case "video_desc":
+                var video_edit = $("#" + video_type + "_" + video_id).text();
+                break;
+            case "video_link":
+                var video_edit = $("#" + video_type + "_" + video_id).text();
+                break;
+            default:
+                var video_edit = $("#" + video_type + "_" + video_id).text();
+                break;
+        }
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/update-video",
+            method: "POST",
+            data: {
+                video_id,
+                video_type,
+                video_edit,
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (data) {
+                fetchVideo();
+            },
+        });
+    });
+
+    $(document).on("click", ".delete-video", function () {
+        var video_id = $(this).data("video_id");
+        var _token = $('input[name="_token"]').val();
+        $delete = confirm("Are you sure you want to delete video?");
+
+        if ($delete) {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/delete-video",
+                method: "POST",
+                data: {
+                    video_id,
+                    _token: _token,
+                },
+                success: function (data) {
+                    fetchVideo();
+                },
+            });
+        }
+    });
+
+    $(document).on("change", ".file_video", function () {
+        var video_id = $(this).data("video_id");
+        var image = document.getElementById("file-video-" + video_id).files[0];
+        var form_data = new FormData();
+        form_data.append("file_image", image);
+        form_data.append("video_id", video_id);
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/update-img-video",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: form_data,
+            success: function (data) {
+                fetchVideo();
+                $("#error_image").html(
+                    "<span class='text-success'>update success</span>"
+                );
+            },
+        });
+    });
 });

@@ -18,6 +18,7 @@ use App\Http\Controllers\GalleryProductController;
 use App\Http\Controllers\MenuPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,12 @@ Route::get('/delete-fee', [DeliveryController::class,'deleteFee']);
 // Post
 Route::get('/menu-post/{menu_post_slug}', [MenuPostController::class,'showMenuPostPage']);
 Route::get('/post-detail/{post_slug}', [PostController::class,'showPostPage']);
+
+// video
+Route::get('/video-page', [VideoController::class,'showVideoPage']);
+Route::post('/delete-video', [VideoController::class,'deleteVideo']);
+Route::post('/show-modal-view-video', [VideoController::class,'showModalViewVideo']);
+
 ////////////////////////////
 //FRONTEND
 ///////////////////////////
@@ -242,6 +249,16 @@ Route::middleware(['auth.roles'])->group(function () {
     Route::post('/delete-gallery', [GalleryProductController::class,'deleteGallery']);
 });
 
+//video
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/manage-video', [VideoController::class, 'showManageVideoPage']);      
+    Route::post('/show-video', [VideoController::class,'showVideo']);
+    Route::post('/show-modal-video', [VideoController::class,'showModalVideo']);
+    Route::post('/save-video', [VideoController::class,'saveVideo']);
+    Route::post('/update-img-video', [VideoController::class,'updateImgVideo']);
+    Route::post('/update-video', [VideoController::class,'updateVideo']);
+    Route::post('/delete-video', [VideoController::class,'deleteVideo']);
+});
 
 /////////////////////////
 //BACKEND

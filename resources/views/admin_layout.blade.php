@@ -203,6 +203,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
+                        <span>Video</span>
+                    </a>
+                    <ul class="sub">
+                        @hasrole(['admin','author'])
+						<li><a href="{{URL::to('/manage-video')}}">Manage</a></li>
+                        @endhasrole
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
                         <span>Menu Post</span>
                     </a>
                     <ul class="sub">
@@ -255,7 +267,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{asset('public/backend/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
-<script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/main.js')}}"></script>
 
 <script type="text/javascript">
     CKEDITOR.replace('description-product');

@@ -208,4 +208,22 @@ $(document).ready(function () {
         pause: 5000,
         enableDrag: true,
     });
+
+    //video
+    $(document).on("click", ".view-video", function () {
+        var video_id = $(this).data("video_id");
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/show-modal-view-video",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            data: {
+                video_id,
+            },
+            success: function (data) {
+                $(".modal-video-view").html(data);
+            },
+        });
+    });
 });

@@ -23,7 +23,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
     public function AuthLogin(){
-        $admin_id = Auth::id();
+        $admin_id = Auth::id(); 
         if($admin_id){
             return redirect('/dashboard');
         }else{
@@ -156,13 +156,11 @@ class ProductController extends Controller
                 unlink($path_gallery.$product->product_image);
             }
             $product->product_image = $new_image;            
+            $gallery = GalleryProduct::where('product_id',$product_id)->first();
+            $gallery->gallery_image = $new_image;
+            $gallery->save();
         }
-
         $product->save();
-        $gallery = GalleryProduct::where('product_id',$product_id)->first();
-        $gallery->gallery_image = $new_image;
-        $gallery->save();
-        
         session(['message'=>'Update product success']);
         return Redirect::to('all-product'); 
     }  

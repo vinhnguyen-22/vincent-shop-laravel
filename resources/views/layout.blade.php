@@ -10,6 +10,7 @@
     <meta name="author" content="">
     <title>{{$meta_title}}</title>
     <link rel="canonical" href="{{$url_canonical}}" >
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="INDEX, FOLLOW"/>
      <link rel="shortcut icon" href="https://vanilla.futurecdn.net/pcgamer/392738/favicon.ico" size="16x16">    
     
@@ -76,7 +77,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="{{URL::to('/')}}"><img src="{{asset('public/frontend/images/logo.png')}}" alt="" /></a>
+                            <a href="{{url('/')}}"><img src="{{asset('public/frontend/images/logo.png')}}" alt="" /></a>
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -119,19 +120,19 @@
 
                                 <li><a href="
                                     @if($shipping_id == null)
-                                    {{URL::to('/checkout')}}
+                                    {{url('/checkout')}}
                                     @else
-                                    {{URL::to('/payment')}}
+                                    {{url('/payment')}}
                                     @endif
 
                                     "><i class="fa fa-crosshairs"></i> Checkout</a></li>
 
-                                <li><a href="{{URL::to('/show-cart-page')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="{{url('/show-cart-page')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php 
                                 if($customer_id != null){ ?>
-                                    <li><a href="{{URL::to('/customer-logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>                                    
+                                    <li><a href="{{url('/customer-logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>                                    
                                 <?php } else{ ?>
-                                    <li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-lock"></i> Login</a></li>                                    
+                                    <li><a href="{{url('/login-checkout')}}"><i class="fa fa-lock"></i> Login</a></li>                                    
                                 <?php }  ?>
                             </ul>
                         </div>
@@ -154,12 +155,11 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{URL::to('/home')}}" class="active">Home</a></li>
+                                <li><a href="{{url('/home')}}" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li> 
-                                        <li><a href="checkout.html">Checkout</a></li> 
+                                        <li><a href="{{url('/home')}}">Products</a></li>
+                                        <li><a href="{{url('/checkout')}}">Checkout</a></li> 
                                         <li><a href="cart.html">Cart</a></li> 
                                         <li><a href="login.html">Login</a></li> 
                                     </ul>
@@ -171,13 +171,13 @@
                                         @endforeach
                                     </ul>
                                 </li> 
-                                <li><a href="404.html">404</a></li>
-                                <li><a href="contact-us.html">Contact</a></li>
+                                <li><a href="{{url('/show-cart-page')}}">Cart</a></li>
+                                <li><a href="{{url('/video-page')}}">Videos</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <form action="{{URL::to('/s')}}" method="post">
+                        <form action="{{url('/s')}}" method="post">
                             {{csrf_field()}}
                             <div class="search_box pull-right">
                                 <input type="text" name="search_box" id="search_box" placeholder="Search"/>
@@ -257,7 +257,7 @@
                                                 <ul>
                                                     @foreach($cats as $key => $cat_sub)
                                                         @if($cat_sub->category_parentId == $cat->category_id)
-                                                            <li><a href="{{URL::to('category-product/'.$cat_sub->category_slug)}}"> {{$cat_sub->category_name}}</a></li>
+                                                            <li><a href="{{url('category-product/'.$cat_sub->category_slug)}}"> {{$cat_sub->category_name}}</a></li>
                                                         @endif
                                                     @endforeach
                                                 </ul>
@@ -273,7 +273,7 @@
                             <div class="brands-name">
                                 <ul class="nav nav-pills nav-stacked">
                                     @foreach($brands as $key => $brand)
-                                    <li><a href="{{URL::to('brand-product/'.$brand->brand_slug)}}"> <span class="pull-right">(50)</span>{{$brand->brand_name}}</a></li>
+                                    <li><a href="{{url('brand-product/'.$brand->brand_slug)}}"> <span class="pull-right">(50)</span>{{$brand->brand_name}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -426,7 +426,7 @@
     <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script src="{{asset('public/frontend/js/app.js')}}"></script>
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <!-- Messenger Plugin chat Code -->
