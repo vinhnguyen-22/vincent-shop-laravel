@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table table-striped b-t b-light">
+        <table class="table table-striped b-t b-light" id="categoryProductTable">
             <thead>
                 <tr>
                     <th style="width:20px;">
@@ -90,17 +90,6 @@
             </tbody>
         </table>
     </div>
-    <footer class="panel-footer">
-      <div class="row">
-        
-        <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-        </div>
-        <div class="col-sm-7 text-right text-center-xs">
-            {{ $list_category->links() }}
-        </div>
-      </div>
-    </footer>
   </div>
 </div>
 @endsection

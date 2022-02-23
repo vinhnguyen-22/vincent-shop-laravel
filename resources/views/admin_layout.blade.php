@@ -21,6 +21,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
 <link rel="stylesheet" href="{{asset('public/backend/css/morris.css')}}" type="text/css"/>
 <!-- calendar -->
+
+<!-- dataTables -->
+<link rel="stylesheet" href="{{asset('public/backend/css/responsive.dataTables.min.css')}}" type="text/css"/>
+{{-- taginput --}}
+<link rel="stylesheet" href="{{asset('public/backend/css/boostrap-tagsinput.css')}}" type="text/css"/>
+
 <link rel="stylesheet" href="{{asset('public/backend/css/monthly.css')}}" type="text/css"/>
 <!-- //calendar -->
 <!-- //font-awesome icons -->
@@ -267,7 +273,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{asset('public/backend/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
-<script type="text/javascript" src="{{asset('public/backend/js/main.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/jquery.dataTables.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
 
 <script type="text/javascript">
     CKEDITOR.replace('description-product');

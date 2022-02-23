@@ -72,6 +72,34 @@ img {
             </div>
             
             <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+            <style type="text/css">
+                a.tags-style{
+                    margin:3px 2px;
+                    border:1px solid #ccc;
+
+                    height: auto;
+                    background:#428bac;
+                    color:#fff;
+                    padding:5px;
+                }
+                a.tags-style:hover{
+                    background:black;
+                }
+            </style>
+
+            <fieldset>
+                <legend>Tags</legend> 
+                <p><i class="fa fa-tag">
+                    @php 
+                    $tags = $pro_detail->product_tags;
+                    $tags = explode(",",$tags);
+                    @endphp    
+
+                    @foreach($tags as $tag)
+                        <a href="{{url('/tags/'.Str::slug($tag, '-'))}}" class="tags-style">{{$tag}}</a>
+                    @endforeach
+                </i></p>
+            </fieldset>
         </div><!--/product-information-->
     </div>
 </div><!--/product-details-->

@@ -499,4 +499,8 @@ $(document).ready(function () {
             },
         });
     });
+
+    //dataTables
+    $("#productTable").DataTable();
+    $("#categoryProductTable").DataTable({});
 });

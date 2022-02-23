@@ -42,14 +42,10 @@ Route::post('/s', [HomeController::class, 'search']);
 Route::get('/category-product/{cat_slug}', [CategoryProductController::class, 'showCategoryPage']);
 // route brand product
 Route::get('/brand-product/{brand_slug}', [BrandController::class, 'showBrandPage']);
+
 // product page
 Route::get('/product-detail/{product_slug}', [ProductController::class, 'showProductDetailPage']);
-
-// Cart
-// Route::post('/save-cart', [CartController::class, 'saveCart']);
-// Route::get('/show-cart', [CartController::class, 'showCart']);
-// Route::get('/delete-to-cart/{rowId}', [CartController::class, 'deleteToCart']);
-// Route::post('/update-cart-qty', [CartController::class, 'updateQtyCart']);
+Route::get('/tags/{product_tag}', [ProductController::class, 'tag']);
 
 //Checkout
 Route::get('/login-checkout', [CheckoutController::class, 'loginCheckout']);

@@ -29,6 +29,11 @@
                         </div>
 
                         <div class="form-group col-lg-12">
+                            <label for="tag">Tag</label>
+                            <input type="text" value="{{ $edit_product->product_tags }}" class="form-control" data-role="tagsinput" name="tag" id="tag">
+                        </div>
+                        
+                        <div class="form-group col-lg-12">
                             <label for="price">Price</label>
                             <input type="number" class="form-control" value="{{$edit_product->product_price}}" name="price" id="price" placeholder="Enter price product">
                         </div>
