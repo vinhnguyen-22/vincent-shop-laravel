@@ -26,6 +26,9 @@
                                 </a>
                                 {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
                                 <button data-id_product="{{$allpro->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
+                                <button data-product_id="{{$allpro->product_id}}" type="button" class="btn btn-primary quick-view" data-toggle="modal" data-target="#quickViewModal" style="margin-bottom: 25px">
+                                    Quick view
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -41,168 +44,68 @@
     </div>
 </div>
 
-{{$all_product->links()}}
-<!--features_items-->
-{{-- 
-<div class="category-tab">
-    <!--category-tab-->
-    <div class="col-sm-12">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tshirt" data-toggle="tab">T-Shirt</a></li>
-            <li><a href="#blazers" data-toggle="tab">Blazers</a></li>
-            <li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>
-            <li><a href="#kids" data-toggle="tab">Kids</a></li>
-            <li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>
-        </ul>
-    </div>
-    <div class="tab-content">
-        <div class="tab-pane fade active in" id="tshirt">
-            <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{('public/frontend/images/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                cart</a>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
+<!-- Modal -->
+<div class="modal fade " style="" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" style="width: 1200px; max-height: 350px;" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="quickViewModalLabel">
+                <strong>
+                    <span id="product_quickView_title"></span>
+                </strong>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-
-        <div class="tab-pane fade" id="blazers">
-            <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{('public/frontend/images/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                cart</a>
+        <div class="modal-body">
+            <div class="product-details" style="padding:0px">
+                <div class="col-sm-5">
+                    <div class="lSSlideWrapper usingCss" style="transition-timing-function: ease; transition-duration: 500ms;">
+                        <ul id="lightSlider">
+                        
+                        </ul>
+                        <span id="product_quickView_image"></span>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="product-information" style="padding-top:0px">
+                        <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                        <img src="images/product-details/rating.png" alt="" />
+                        
+                        <form action="{{URL::to('/save-cart')}}" method="post">
+                            {{ csrf_field() }} 
+                            <span>
+                                <span id="product_quickView_price"></span>
+                                <label>Quantity:</label>
+                                <form >
+                                    <div id="product_quickView_inputValue">
+                                    
+                                    </div>
+                                </form>
+                            </span>
+                        </form>
+                        <h5><strong>Description: </strong></h5>
+                        <hr>
+                        <div style="max-height:200px">
+                            <span id="product_quickView_desc"></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php } ?>
         </div>
-
-        <div class="tab-pane fade" id="sunglass">
-            <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{('public/frontend/images/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                cart</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-        </div>
-
-        <div class="tab-pane fade" id="kids">
-            <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{('public/frontend/images/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                cart</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-        </div>
-
-        <div class="tab-pane fade" id="poloshirt">
-            <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="{{('public/frontend/images/gallery1.jpg')}}" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                cart</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
+        <div class="modal-footer">
+            <button  class="btn btn-primary" type="button" style="color: white" name="add-to-cart">
+                <a id="goToProductPage" style="color: white">
+                    Go to product page
+                </a>
+            </button>
         </div>
     </div>
+  </div>
 </div>
-<!--/category-tab-->
 
-<div class="recommended_items">
-    <!--recommended_items-->
-    <h2 class="title text-center">recommended items</h2>
+{{$all_product->links()}}
 
-    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="item active">
-                <?php  for($i =1; $i < 4; $i++){ ?>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{('public/frontend/images/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
-                                    to cart</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
-            </div>
-            <div class="item">
-                <?php  for($i =1; $i < 4; $i++){ ?>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{('public/frontend/images/recommend1.jpg')}}" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
-                                    to cart</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
-            </div>
-        </div>
-        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-        </a>
-        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-        </a>
-    </div>
-</div> --}}
-<!--/recommended_items-->
 @endsection 

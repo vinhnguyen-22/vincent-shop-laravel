@@ -177,11 +177,14 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <form action="{{url('/s')}}" method="post">
+                        <form action="{{url('/s')}}" autocomplete="off" method="post">
                             {{csrf_field()}}
-                            <div class="search_box pull-right">
-                                <input type="text" name="search_box" id="search_box" placeholder="Search"/>
-                                <input type="submit" style="margin-top:0px; width:70px; color:white" name="search_items" value="Search" class="btn btn-primary btn-sm">
+                            <div class="search_box">
+                                <input type="text" name="search_box" style="width:70%; resize:none;" placeholder="Search" id="search-box"/>
+                                <input type="submit" style="margin-top:0px; width:20%; color:white" name="search_items" value="Search" class="btn btn-primary btn-sm">
+                                <div id="keywords-box" >
+                                    
+                                </div>
                             </div>
                         </form>
                     </div>

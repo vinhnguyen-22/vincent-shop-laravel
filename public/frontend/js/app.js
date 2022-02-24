@@ -226,4 +226,111 @@ $(document).ready(function () {
             },
         });
     });
+
+    //search ajax
+    $("#search-box").keyup(function () {
+        var keywords = $(this).val();
+        if (keywords != "") {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/search-ajax",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                method: "POST",
+                data: {
+                    keywords,
+                },
+                success: function (data) {
+                    $("#keywords-box").fadeIn();
+                    $("#keywords-box").html(data);
+                },
+            });
+        } else {
+            $("#keywords-box").fadeOut();
+        }
+    });
+
+    $(document).on("click", ".li-search-ajax", function () {
+        $("#search-box").val($(this).text());
+        $("#keywords-box").fadeOut();
+    });
+
+    // quick view
+    $(".quick-view").click(function () {
+        var product_id = $(this).data("product_id");
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/quick-view",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            dataType: "JSON",
+            data: {
+                product_id,
+            },
+            success: function (data) {
+                $("#product_quickView_title").html(data.product_title);
+                $("#product_quickView_price").html(data.product_price);
+                $("#product_quickView_id").html(data.product_id);
+                $("#product_quickView_image").html(data.product_image);
+                $("#product_quickView_gallery").html(data.product_gallery);
+                $("#product_quickView_desc").html(data.product_desc);
+                $("#product_quickView_content").html(data.product_content);
+                $("#product_quickView_inputValue").html(
+                    data.product_inputValue
+                );
+                $("#goToProductPage").attr("href", data.product_slug);
+            },
+        });
+    });
+
+    $(document).on("click", ".add-to-cart-quickView", function () {
+        var id = $(this).data("id_product");
+        var cart_product_id = $(".cart_product_id_" + id).val();
+        var cart_product_name = $(".cart_product_name_" + id).val();
+        var cart_product_image = $(".cart_product_image_" + id).val();
+        var cart_product_price = $(".cart_product_price_" + id).val();
+        var cart_product_qty = $(".cart_product_qty_" + id).val();
+        var cart_product_stock = $(".cart_product_stock_" + id).val();
+        var _token = $('input[name="_token"]').val();
+
+        if (parseInt(cart_product_stock) > parseInt(cart_product_qty)) {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/add-cart-ajax",
+                method: "POST",
+                data: {
+                    cart_product_id: cart_product_id,
+                    cart_product_name: cart_product_name,
+                    cart_product_image: cart_product_image,
+                    cart_product_price: cart_product_price,
+                    cart_product_qty: cart_product_qty,
+                    cart_product_stock: cart_product_stock,
+                    _token: _token,
+                },
+                success: function () {
+                    swal(
+                        {
+                            title: "Đã thêm sản phẩm vào giỏ hàng",
+                            text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                            showCancelButton: true,
+                            cancelButtonText: "Xem tiếp",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Đi đến giỏ hàng",
+                            closeOnConfirm: false,
+                        },
+                        function () {
+                            window.location.href =
+                                "/lavarel%208/shop-vincent/show-cart-page";
+                        }
+                    );
+                },
+            });
+        } else {
+            alert(
+                "Please buy lower than quantity in stock " + cart_product_stock
+            );
+        }
+    });
 });

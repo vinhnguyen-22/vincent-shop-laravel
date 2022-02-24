@@ -80,8 +80,13 @@ Route::get('/post-detail/{post_slug}', [PostController::class,'showPostPage']);
 
 // video
 Route::get('/video-page', [VideoController::class,'showVideoPage']);
-Route::post('/delete-video', [VideoController::class,'deleteVideo']);
 Route::post('/show-modal-view-video', [VideoController::class,'showModalViewVideo']);
+
+// search ajax
+Route::post('/search-ajax', [HomeController::class,'searchAjax']);
+
+//quick view
+Route::post('/quick-view', [ProductController::class,'quickView']);
 
 ////////////////////////////
 //FRONTEND

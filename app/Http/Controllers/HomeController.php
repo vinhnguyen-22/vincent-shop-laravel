@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\CategoryProduct;
 use App\Models\MenuPost;
+use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,5 +47,21 @@ class HomeController extends Controller
         $search_product = DB::table('tbl_product')->where('product_name', 'like', '%'.$keywords.'%')->paginate(5);
 
         return view('pages.productDetail.search')->with(compact('catsPost','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','search_product','slider'));
+    }
+
+    public function searchAjax(Request $request){
+        $data = $request->all();
+        if($data["keywords"]){
+            $search_product = Product::where('product_name', 'like', '%'.$data["keywords"].'%')->get();
+
+            $output = '<ul class="dropdown-menu" style="display: block; position:relative;" >';
+            foreach($search_product as $key => $val){
+                $output .= '<li class="li-search-ajax">
+                <a href="#">'. $val->product_name.'</a>
+                </li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
 }
