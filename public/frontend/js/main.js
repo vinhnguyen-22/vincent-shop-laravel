@@ -333,4 +333,113 @@ $(document).ready(function () {
             );
         }
     });
+
+    // Comment
+    function loadComment() {
+        var product_id = $(".comment_product_id").val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/load-comment",
+            method: "POST",
+            data: {
+                product_id,
+                _token: _token,
+            },
+            success: function (data) {
+                $("#comment-show").html(data);
+            },
+        });
+    }
+    loadComment();
+
+    $(".send-comment").on("click", function () {
+        var product_id = $(this).data("id_product");
+        var comment_name = $(".comment_name").val();
+        var comment_content = $(".comment_content").val();
+        var _token = $('input[name="_token"]').val();
+
+        console.log({ product_id, comment_name, comment_content, _token });
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/send-comment",
+            method: "POST",
+            data: {
+                product_id,
+                comment_name,
+                comment_content,
+                _token: _token,
+            },
+            success: function (data) {
+                loadComment();
+                $(".comment_name").val("");
+                $(".comment_content").val("");
+            },
+        });
+    });
+
+    //Rating hover đánh giá sao
+    function remove_background(product_id) {
+        for (var count = 0; count <= 5; count++) {
+            $("#" + product_id + "-" + count).css("color", "#ccc");
+        }
+    }
+
+    $(document).on("mouseenter", ".rating", function () {
+        var index = $(this).data("index");
+        var product_id = $(this).data("product_id");
+
+        remove_background(product_id);
+        for (var count = 1; count <= index; count++) {
+            $("#" + product_id + "-" + count).css("color", "#ffcc00");
+        }
+    });
+
+    $(document).on("mouseleave", ".rating", function () {
+        var index = $(this).data("index");
+        var product_id = $(this).data("product_id");
+        var rating = $(this).data("rating");
+
+        remove_background(product_id);
+        for (var count = 1; count <= rating; count++) {
+            $("#" + product_id + "-" + count).css("color", "#ffcc00");
+        }
+    });
+
+    $(document).on("click", ".rating", function () {
+        var index = $(this).data("index");
+        var product_id = $(this).data("product_id");
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/send-rating",
+            method: "POST",
+            data: {
+                index,
+                product_id,
+                _token: _token,
+            },
+            success: function (data) {
+                loadRating();
+                alert("Cám ơn bạn đã đánh giá");
+            },
+        });
+    });
+
+    function loadRating() {
+        var product_id = $(".comment_product_id").val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/load-rating",
+            method: "POST",
+            data: {
+                product_id,
+                _token: _token,
+            },
+            success: function (data) {
+                $(".list-rating").html(data);
+            },
+        });
+    }
+    loadRating();
 });

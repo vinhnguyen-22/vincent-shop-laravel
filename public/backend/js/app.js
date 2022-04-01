@@ -503,4 +503,28 @@ $(document).ready(function () {
     //dataTables
     $("#productTable").DataTable();
     $("#categoryProductTable").DataTable({});
+    $("#commentTable").DataTable();
+
+    //comments
+    $(document).on("click", ".btn-reply-comment", function () {
+        var comment_id = $(this).data("comment_id");
+        var comment_content = $(".reply-comment-" + comment_id).val();
+        var comment_product_id = $(this).attr("id");
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/reply-comment",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            method: "POST",
+            data: {
+                comment_id,
+                comment_content,
+                comment_product_id,
+            },
+            success: function (data) {
+                $(".reply-comment-" + comment_id).val("");
+                location.reload();
+            },
+        });
+    });
 });

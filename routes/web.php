@@ -19,6 +19,8 @@ use App\Http\Controllers\MenuPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,15 @@ Route::post('/search-ajax', [HomeController::class,'searchAjax']);
 
 //quick view
 Route::post('/quick-view', [ProductController::class,'quickView']);
+
+//Comment
+Route::post('/load-comment', [CommentController::class,'loadComment']);
+Route::post('/send-comment', [CommentController::class,'sendComment']);
+
+//Rating
+Route::post('/send-rating', [RatingController::class,'sendRating']);
+Route::post('/load-rating', [RatingController::class,'loadRating']);
+
 
 ////////////////////////////
 //FRONTEND
@@ -251,14 +262,22 @@ Route::middleware(['auth.roles'])->group(function () {
 });
 
 //video
+Route::get('/manage-video', [VideoController::class, 'showManageVideoPage']);      
 Route::middleware(['auth.roles'])->group(function () {
-    Route::get('/manage-video', [VideoController::class, 'showManageVideoPage']);      
     Route::post('/show-video', [VideoController::class,'showVideo']);
     Route::post('/show-modal-video', [VideoController::class,'showModalVideo']);
     Route::post('/save-video', [VideoController::class,'saveVideo']);
     Route::post('/update-img-video', [VideoController::class,'updateImgVideo']);
     Route::post('/update-video', [VideoController::class,'updateVideo']);
     Route::post('/delete-video', [VideoController::class,'deleteVideo']);
+});
+
+// comment
+Route::get('/all-comment', [CommentController::class,'listComment']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/inactive-comment/{comment_id}', [CommentController::class, 'activeComment']);
+    Route::get('/active-comment/{comment_id}', [CommentController::class, 'inactiveComment']);    
+    Route::post('/reply-comment', [CommentController::class, 'replyComment']);    
 });
 
 /////////////////////////

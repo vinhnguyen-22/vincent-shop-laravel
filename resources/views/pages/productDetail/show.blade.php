@@ -107,14 +107,13 @@ img {
 <div class="category-tab shop-details-tab"><!--category-tab-->
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+            <li><a href="#details" data-toggle="tab">Details</a></li>
             <li><a href="#companyprofile" data-toggle="tab">Description</a></li>
-            <li><a href="#tag" data-toggle="tab">Tag</a></li>
-            <li><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+            <li  class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
         </ul>
     </div>
     <div class="tab-content">
-        <div class="tab-pane fade active in" id="details" >
+        <div class="tab-pane fade " id="details" >
            <p>{!!$pro_detail->product_content!!}</p>
         </div>
         
@@ -122,40 +121,56 @@ img {
             <p>{!!$pro_detail->product_desc!!}</p>
         </div>
         
-        <div class="tab-pane fade" id="tag" >
-            <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
-                            <img src="images/home/gallery1.jpg" alt="" />
-                            <h2>$56</h2>
-                            <p>Easy Polo Black Edition</p>
-                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="tab-pane fade" id="reviews" >
+        <div class="tab-pane fade active in"  id="reviews" >
             <div class="col-sm-12">
-                <ul>
-                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <style type="text/css">
+                    .style-comment {
+                        border: 1px solid #ddd;
+                        border-radius:10px;
+                        background: #F0F0E9;
+                    }
+                </style>
+                <form >
+                    @csrf
+                    <input type="hidden"  name="comment_product_id" class="comment_product_id" value="{{$pro_detail->product_id}}" id="">
+
+                    <div id="comment-show">
+                       
+    
+                    </div>
+                </form>
                 <p><b>Write Your Review</b></p>
-                
-                <form action="#">
-                    <span>
-                        <input type="text" placeholder="Your Name"/>
-                        <input type="email" placeholder="Email Address"/>
-                    </span>
-                    <textarea name="" ></textarea>
+                <form>
+                    @csrf
+                    <input type="text" class="form-control comment_name" placeholder="Your Name" style="margin-bottom:5px" />
+                    <label for="">Content: </label>
+                    <textarea name="" class="form-control comment_content"></textarea>
+                    
                     <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                    <button type="button" class="btn btn-default pull-right">
-                        Submit
+                    <ul class="list-rating" title="average rating">
+                        {{-- @for($count = 1; $count <=5; $count++) 
+
+                            @php
+                            if($count <= $rating){
+                                $color = 'color:#ffcc00';
+                            }else{
+                                $color = 'color:#ccc';
+                            }
+                            @endphp
+                            
+                            <li title="star_rating" id="{{$pro_detail->product_id}}-{{$count}}"
+                                data-index="{{$count}}"
+                                data-product_id="{{$pro_detail->product_id}}"
+                                data-rating="{{$rating}}" class="rating" style="cursor: pointer;
+                                {{$color}}; font-size:30px; 
+                                ">
+                            &#9733;    
+                            </li>
+                        @endfor --}}
+                    </ul>
+                    
+                    <button data-id_product="{{$pro_detail->product_id}}" type="button" class="btn btn-default pull-right send-comment">
+                        Send
                     </button>
                 </form>
             </div>
