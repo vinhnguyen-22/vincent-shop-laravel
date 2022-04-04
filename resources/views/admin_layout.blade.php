@@ -120,6 +120,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </ul>
                     </li>
                 @endhasrole
+                
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Information</span>
+                    </a>
+                    <ul class="sub">
+                        @hasrole(['admin','author'])
+                        <li><a href="{{URL::to('/insert-info')}}">Add Information</a></li>
+                        @endhasrole
+                        <li><a href="{{URL::to('/all-info')}}">List Information</a></li>
+                    </ul>
+                </li>
 
                 <li class="sub-menu">
                     <a href="javascript:;">
@@ -290,10 +303,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <script type="text/javascript">
     CKEDITOR.replace('description-product');
-    CKEDITOR.replace('content-product');
+    CKEDITOR.replace('content-product',{
+        filebrowserImageUploadUrl: 'uploads-ckeditor?_token='.$csrf_token(),
+        filebrowserBrowserUrl: 'file_browser?_token='.$csrf_token(),
+    });
 
     CKEDITOR.replace('description-post');
     CKEDITOR.replace('content-post');
+
+    CKEDITOR.replace('information-contact');
+
 </script>
 <!-- morris JavaScript -->	
 {{-- <script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Order;
 use App\Models\OrderDetails;
@@ -47,13 +48,14 @@ class CheckoutController extends Controller
         $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        
+        $logo = Information::select('info_img')->first();
+
         $meta_desc = 'Checkout page, order';
         $meta_keywords ='checkout, order'; 
         $meta_title = 'Your order';
         $url_canonical = $request->url();
         
-        return view('pages.checkout.login')->with(compact('catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        return view('pages.checkout.login')->with(compact('logo','catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     }
     
     public function login(Request $request){
@@ -118,7 +120,8 @@ class CheckoutController extends Controller
         $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        
+        $logo = Information::select('info_img')->first();
+
         $meta_desc = 'Checkout page, order';
         $meta_keywords ='checkout, order'; 
         $meta_title = 'Your order';
@@ -131,7 +134,7 @@ class CheckoutController extends Controller
         if(!session()->get('cart')){
             return redirect('/show-cart-page')->with('message', 'Please buy something before checkout');
         }else{
-            return view('pages.checkout.show')->with(compact('catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','province','district','ward','slider'));
+            return view('pages.checkout.show')->with(compact('logo','catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','province','district','ward','slider'));
         }
     }
     

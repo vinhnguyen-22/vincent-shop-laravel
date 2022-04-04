@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\CategoryProduct;
+use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Post;
 use App\Models\Slider;
@@ -100,7 +101,8 @@ class MenuPostController extends Controller
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        
+        $logo = Information::select('info_img')->first();
+
         $menu_post = MenuPost::where('menu_post_slug',$menu_post_slug)->take(1)->get();
         foreach ($menu_post as $key => $val){
             // SEO
@@ -114,6 +116,6 @@ class MenuPostController extends Controller
         }
         $posts = Post::with('menuPost')->where('post_status',1)->where('menu_post_id', $menu_id)->paginate(10);
 
-        return view('pages.post.showMenu')->with(compact('posts','catsPost','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','menu_post','slider'));       
+        return view('pages.post.showMenu')->with(compact('logo','posts','catsPost','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','menu_post','slider'));       
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\CategoryProduct;
 use App\Models\GalleryProduct;
+use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Slider;
 use App\Models\Video;
@@ -182,7 +183,8 @@ class VideoController extends Controller
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-           
+        $logo = Information::select('info_img')->first();
+
         $meta_desc = '';
         $meta_keywords =''; 
         $meta_title = '';
@@ -197,7 +199,7 @@ class VideoController extends Controller
         // SEO
 
 
-        return view('pages.video.show')->with(compact('videos','catsPost','cats','brands','slider','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.video.show')->with(compact('logo','videos','catsPost','cats','brands','slider','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 
      

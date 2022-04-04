@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="{{url('/')}}"><img src="{{asset('public/frontend/images/logo.png')}}" alt="" /></a>
+                                <a href="{{url('/')}}"><img src="{{asset('public/uploads/info/'.$logo->info_img)}}" style="border-radius:50%" width="50" height="50"alt="" /></a>
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -117,6 +117,7 @@
                                 <?php }?>
                                 
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="{{url('/show-contact')}}">Contact</a></li> 
 
                                 <li><a href="
                                     @if($shipping_id == null)
@@ -127,7 +128,7 @@
 
                                     "><i class="fa fa-crosshairs"></i> Checkout</a></li>
 
-                                <li><a href="{{url('/show-cart-page')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="{{url('/show-cart-page')}}"="{{url('/show-cart-page')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php 
                                 if($customer_id != null){ ?>
                                     <li><a href="{{url('/customer-logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>                                    
@@ -156,14 +157,7 @@
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{url('/home')}}" class="active">Home</a></li>
-                                <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="{{url('/home')}}">Products</a></li>
-                                        <li><a href="{{url('/checkout')}}">Checkout</a></li> 
-                                        <li><a href="cart.html">Cart</a></li> 
-                                        <li><a href="login.html">Login</a></li> 
-                                    </ul>
-                                </li> 
+                               
                                 <li class="dropdown"><a href="#">News<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         @foreach($catsPost as $key => $value)
@@ -173,6 +167,8 @@
                                 </li> 
                                 <li><a href="{{url('/show-cart-page')}}">Cart</a></li>
                                 <li><a href="{{url('/video-page')}}">Videos</a></li>
+                                <li><a href="{{url('/show-contact')}}">Contact</a></li> 
+
                             </ul>
                         </div>
                     </div>

@@ -20,6 +20,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;
 
 /*
@@ -98,6 +99,8 @@ Route::post('/send-comment', [CommentController::class,'sendComment']);
 Route::post('/send-rating', [RatingController::class,'sendRating']);
 Route::post('/load-rating', [RatingController::class,'loadRating']);
 
+//contact page
+Route::get('/show-contact', [ContactController::class,'showContactPage']);
 
 ////////////////////////////
 //FRONTEND
@@ -278,6 +281,17 @@ Route::middleware(['auth.roles'])->group(function () {
     Route::get('/inactive-comment/{comment_id}', [CommentController::class, 'activeComment']);
     Route::get('/active-comment/{comment_id}', [CommentController::class, 'inactiveComment']);    
     Route::post('/reply-comment', [CommentController::class, 'replyComment']);    
+});
+
+// information
+Route::get('/all-info', [ContactController::class, 'showListInfoPage']);
+Route::middleware(['auth.roles'])->group(function () {
+    Route::get('/insert-info', [ContactController::class, 'showAddInfoPage']);
+    Route::post('/save-info', [ContactController::class,'createInfo']);
+
+    Route::get('/edit-info/{info_id}', [ContactController::class, 'editInfo']);
+    Route::post('/update-info/{info_id}', [ContactController::class, 'updateInfo']);
+    Route::get('/delete-info/{info_id}', [ContactController::class, 'deleteInfo']);
 });
 
 /////////////////////////

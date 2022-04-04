@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Imports\ProductImport;
 use App\Exports\ProductExport;
 use App\Models\GalleryProduct;
+use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
@@ -198,7 +199,8 @@ class ProductController extends Controller
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-      
+        $logo = Information::select('info_img')->first();
+
         $product_details = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
@@ -228,7 +230,7 @@ class ProductController extends Controller
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->get();
         
-        return view('pages.productDetail.show')->with(compact('gallery','catsPost','cats','brands','slider','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.productDetail.show')->with(compact('logo','gallery','catsPost','cats','brands','slider','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 
     public function tag(Request $request, $product_tag){
@@ -236,7 +238,8 @@ class ProductController extends Controller
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-      
+        $logo = Information::select('info_img')->first();
+
         $tag = str_replace('-'," ",$product_tag);
 
         $pro_tag = Product::where('product_status','1')
@@ -250,7 +253,7 @@ class ProductController extends Controller
         $meta_title = 'Tags: '.$product_tag;
         $url_canonical = $request->url();
     
-        return view('pages.productDetail.tag')->with(compact('catsPost','cats','brands','slider','meta_desc','meta_keywords','meta_title','url_canonical','product_tag','pro_tag'));
+        return view('pages.productDetail.tag')->with(compact('logo','catsPost','cats','brands','slider','meta_desc','meta_keywords','meta_title','url_canonical','product_tag','pro_tag'));
     }
 
     public function quickView(Request $request){

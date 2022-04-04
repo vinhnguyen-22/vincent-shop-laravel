@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\CategoryProduct;
+use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Post;
 use App\Models\Slider;
@@ -158,7 +159,8 @@ class PostController extends Controller
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        
+        $logo = Information::select('info_img')->first();
+
         $posts = Post::with('menuPost')->where('post_slug',$post_slug)->take(1)->get();
         foreach ($posts as $key => $val){
             // SEO
@@ -169,6 +171,6 @@ class PostController extends Controller
             // SEO
         }
 
-        return view('pages.post.show')->with(compact('catsPost','posts','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','slider'));       
+        return view('pages.post.show')->with(compact('logo','catsPost','posts','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','slider'));       
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -112,8 +113,9 @@ class CartController extends Controller
         $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
+        $logo = Information::select('info_img')->first();
     
-        return view('pages.cart.cartAjax')->with(compact('catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        return view('pages.cart.cartAjax')->with(compact('logo','catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     }
 
     public function updateCart(Request $request){
