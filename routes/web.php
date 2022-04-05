@@ -294,6 +294,11 @@ Route::middleware(['auth.roles'])->group(function () {
     Route::get('/delete-info/{info_id}', [ContactController::class, 'deleteInfo']);
 });
 
+//Ckeditor upload image
+Route::post('/uploads-ckeditor', [ProductController::class, 'ckeditorImage']);
+Route::get('/file-browser', [ProductController::class, 'fileBrowser']);
+
+
 /////////////////////////
 //BACKEND
 /////////////////////////

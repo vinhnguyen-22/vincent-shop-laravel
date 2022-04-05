@@ -287,7 +287,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </section>
 <!--main content end-->
 </section>
-<script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('public/backend/js/scripts.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.slimscroll.js')}}"></script>
@@ -300,12 +299,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
-
 <script type="text/javascript">
-    CKEDITOR.replace('description-product');
+    // upload ckeditor
+    CKEDITOR.replace('description-product',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
     CKEDITOR.replace('content-product',{
-        filebrowserImageUploadUrl: 'uploads-ckeditor?_token='.$csrf_token(),
-        filebrowserBrowserUrl: 'file_browser?_token='.$csrf_token(),
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
     });
 
     CKEDITOR.replace('description-post');

@@ -192,6 +192,36 @@ class ProductController extends Controller
         return back();        
     }
 
+    public function ckeditorImage(Request $request){
+        if($request->hasFile('upload')){
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName,PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName.'_'.time().'.'.$extension;
+            
+            $request->file('upload')->move('public/uploads/ckeditor',$fileName);
+
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('public/uploads/ckeditor/'.$fileName);
+            $msg = 'Tải ảnh thành công';
+            $response ="<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+            @header("Content-type: text/html; charset=utf-8");
+            echo $response;
+        }
+    }
+
+    public function fileBrowser(){
+        $paths = glob(public_path('uploads/ckeditor/*'));
+        $fileNames = array();
+        foreach ($paths as $path){
+            array_push($fileNames,basename($path));
+        }
+        $data = array(
+            'fileNames' => $fileNames
+        );
+        return view('admin.images.file_browser')->with($data);
+    }
+
     //end function admin
     
     public function showProductDetailPage($product_slug, Request $request){  
