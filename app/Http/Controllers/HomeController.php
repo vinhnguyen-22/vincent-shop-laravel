@@ -22,7 +22,7 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         // SEO
         
-        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
+        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $all_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id','desc')->paginate(6);
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
@@ -40,7 +40,7 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         // SEO
 
-        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
+        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();

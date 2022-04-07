@@ -31,8 +31,9 @@ class CategoryProductController extends Controller
     
     public function showAllCategory(){
         $this->AuthLogin();
-        $list_category = CategoryProduct::orderBy('category_id','DESC')->get();
+        $list_category = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_parentId','DESC')->get();
         $manager_category_product = view('admin.category.list')->with('list_category',$list_category);
+       
         return view('admin_layout')->with('admin.category.list',$manager_category_product);
     }
     
@@ -108,7 +109,7 @@ class CategoryProductController extends Controller
     // end function admin page
     
     public function showCategoryPage($cat_slug, Request $request){
-        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1' )->get();
+        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->orderBy('category_order','ASC')->where('category_status','1' )->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug',$cat_slug)->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
@@ -131,4 +132,16 @@ class CategoryProductController extends Controller
 
         return view('pages.category.show')->with(compact('logo','catsPost','cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     } 
+    
+    public function arrangeCategory(Request $request){
+        $this->AuthLogin();
+        $data = $request->all();
+        $cat_id = $data["page_id_array"];
+        foreach ($cat_id as $key=> $val){
+            $category = CategoryProduct::find($val);
+            $category->category_order = $key;
+            $category->save();
+        }
+        echo "updated category";
+    }
 }

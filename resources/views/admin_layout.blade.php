@@ -298,6 +298,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="{{asset('public/backend/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
 <script type="text/javascript">
     // upload ckeditor
@@ -315,8 +316,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     CKEDITOR.replace('description-post');
     CKEDITOR.replace('content-post');
 
-    CKEDITOR.replace('information-contact');
+    CKEDITOR.replace('information-contact');    
+</script>
+<script type="text/javascript">
+        //order category
+    $("#category_order").sortable({
+        placeholder: "ui-state-highlight",
+        update: function (event, ui) {
+            var page_id_array = new Array();
+            var _token = $('input[name="_token"]').val();
 
+            $("#category_order tr").each(function () {
+                page_id_array.push($(this).attr("id"));
+            });
+
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/arrange-category",
+                method: "post",
+                data: {
+                    page_id_array,
+                    _token,
+                },
+                success: function (data) {
+                    alert(data);
+                },
+            });
+        },
+    })
 </script>
 <!-- morris JavaScript -->	
 {{-- <script>

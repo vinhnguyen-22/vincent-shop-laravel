@@ -155,7 +155,7 @@ class PostController extends Controller
     //end function admin
     
     public function showPostPage(Request $request,$post_slug){  
-        $cats = CategoryProduct::orderBy('category_id','DESC')->where('category_status','1')->get();
+        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();
         $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();

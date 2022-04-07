@@ -44,7 +44,6 @@
                     <li><img src="{{asset('/public/uploads/ckeditor/'.$file)}}" alt="thumb" with="120" height="120" title="{{asset('/public/uploads/ckeditor/'.$file)}}">
                      <br>
                     <span style="color:blue">{{$file}}</span></li>
-                   
                 </ul>    
             </div>
         @endforeach

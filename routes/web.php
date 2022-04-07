@@ -129,6 +129,9 @@ Route::middleware(['auth.roles'])->group(function () {
 
     Route::get('/inactive-category-product/{cat_id}', [CategoryProductController::class, 'activeCategory']);
     Route::get('/active-category-product/{cat_id}', [CategoryProductController::class, 'inactiveCategory']);
+
+    //order category
+    Route::post('/arrange-category', [CategoryProductController::class, 'arrangeCategory']);
 });
 
 //brand product
