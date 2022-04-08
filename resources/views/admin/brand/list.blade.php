@@ -56,20 +56,20 @@
                     <td>{{$brand ->brand_name}}</td>
                     <td>
                         @if($brand ->brand_status == 0)
-                            <a href="{{URL::to('/inactive-brand-product/'.$brand->brand_id)}}">
+                            <a href="{{url('/inactive-brand-product/'.$brand->brand_id)}}">
                                 <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
                             </a>
                         @else
-                        <a href="{{URL::to('/active-brand-product/'.$brand->brand_id)}}">
+                        <a href="{{url('/active-brand-product/'.$brand->brand_id)}}">
                             <i class="fa fa-eye-style fa-eye text text-success"></i>
                         </a>
                         @endif 
                     </td>
                     <td>
-                        <a href="{{URL::to('/edit-brand-product/'.$brand->brand_id)}}">
+                        <a href="{{url('/edit-brand-product/'.$brand->brand_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-brand-product/'.$brand->brand_id)}}" onclick="return confirm('Are you sure you want to delete this brand?')">
+                        <a href="{{url('/delete-brand-product/'.$brand->brand_id)}}" onclick="return confirm('Are you sure you want to delete this brand?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

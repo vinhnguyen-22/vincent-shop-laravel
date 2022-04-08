@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center row">
-                    <form role="form" action="{{URL::to('/update-product/'.$edit_product->product_id)}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{url('/update-product/'.$edit_product->product_id)}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group col-lg-6">
                             <label for="title">Title</label>
@@ -95,7 +95,7 @@
                             <input type="file" class="form-control" name="image" id="image" placeholder="Enter image product">
                         </div>
                         <div class="form-group col-lg-6">
-                            <img src="{{URL::to('public/uploads/product/'.$edit_product->product_image)}}" width="100" height="100" alt="">
+                            <img src="{{url('public/uploads/product/'.$edit_product->product_image)}}" width="100" height="100" alt="">
                         </div>
                         
                         <div class="col-lg-12">

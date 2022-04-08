@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-shippingfee')}}" method="post">
+                    <form role="form" action="{{url('/save-shippingfee')}}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="">Province</label>

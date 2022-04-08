@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center row">
-                    <form role="form" id="productForm" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
+                    <form role="form" id="productForm" action="{{url('/save-product')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group col-lg-12">
                             <label for="title">Title</label>

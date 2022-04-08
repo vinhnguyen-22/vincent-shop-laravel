@@ -62,10 +62,10 @@
                     <td>{!!$info ->info_map!!}</td>
                     <td>{!!$info ->info_fanpage!!}</td>
                     <td>
-                        <a href="{{URL::to('/edit-info/'.$info->info_id)}}">
+                        <a href="{{url('/edit-info/'.$info->info_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-info/'.$info->info_id)}}" onclick="return confirm('Are you sure you want to delete this info?')">
+                        <a href="{{url('/delete-info/'.$info->info_id)}}" onclick="return confirm('Are you sure you want to delete this info?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

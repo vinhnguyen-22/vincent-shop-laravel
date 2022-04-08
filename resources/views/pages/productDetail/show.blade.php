@@ -44,7 +44,7 @@ img {
             <h2>{{$pro_detail->product_name}}</h2>
             <img src="images/product-details/rating.png" alt="" />
             
-            <form action="{{URL::to('/save-cart')}}" method="post">
+            <form action="{{url('/save-cart')}}" method="post">
                 {{ csrf_field() }} 
                 <span>
                     <span>USD {{number_format($pro_detail->product_price)}}</span>
@@ -187,12 +187,12 @@ img {
         <div class="carousel-inner">
             <div class="item active">	
                 @foreach ($related_products as $key => $related_pro)
-                <a href="{{URL::to('/product-detail/'.$related_pro->product_slug)}}">
+                <a href="{{url('/product-detail/'.$related_pro->product_slug)}}">
                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{URL::to('public/uploads/product/'.$related_pro->product_image)}}" width="50" height="250"alt="" />
+                                    <img src="{{url('public/uploads/product/'.$related_pro->product_image)}}" width="50" height="250"alt="" />
                                     <h2>${{number_format($related_pro->product_price)}}</h2>
                                     <p>{{$related_pro->product_name}}</p>
                                     <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>

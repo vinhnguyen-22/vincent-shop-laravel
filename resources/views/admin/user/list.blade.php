@@ -68,11 +68,11 @@
                         <td><input type="checkbox" name="user_role" {{$user->hasRole('user') ? 'checked' : ''}} id=""></td>
                         <td>
                             <input type="submit" value="Assign roles" class="btn btn-sm btn-primary">
-                            <a class="btn btn-sm btn-danger" href="{{URL::to('/delete-user/'.$user->admin_id)}}" onclick="return confirm('Are you sure you want to delete this user?')">
+                            <a class="btn btn-sm btn-danger" href="{{url('/delete-user/'.$user->admin_id)}}" onclick="return confirm('Are you sure you want to delete this user?')">
                                 Delete
                                 <i class="fa fa-trash text-default text"></i>
                             </a>
-                            <a class="btn btn-sm btn-default" href="{{URL::to('/impersonate/'.$user->admin_id)}}">
+                            <a class="btn btn-sm btn-default" href="{{url('/impersonate/'.$user->admin_id)}}">
                                 Login
                                 <i class="fa fa-right-to-bracket text-default text"></i>
                             </a>

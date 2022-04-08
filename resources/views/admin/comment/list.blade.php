@@ -69,20 +69,20 @@
                     <td>
                         @if($comment ->comment_approval == 0)
                             <button type="button" class="btn btn-primary">
-                                <a style="color:white" href="{{URL::to('/inactive-comment/'.$comment->comment_id)}}">
+                                <a style="color:white" href="{{url('/inactive-comment/'.$comment->comment_id)}}">
                                     Approve
                                 </a>                                
                             </button>
                         @else
                             <button type="button" class="btn btn-danger">
-                                <a style="color:white" href="{{URL::to('/active-comment/'.$comment->comment_id)}}">
+                                <a style="color:white" href="{{url('/active-comment/'.$comment->comment_id)}}">
                                     Deny
                                 </a>
                             </button>
                         @endif 
                     </td>
                     <td>
-                        <a href="{{URL::to('/delete-comment/'.$comment->comment_id)}}" onclick="return confirm('Are you sure you want to delete this comment?')">
+                        <a href="{{url('/delete-comment/'.$comment->comment_id)}}" onclick="return confirm('Are you sure you want to delete this comment?')">
                         </a>
                     </td>
                 </tr>

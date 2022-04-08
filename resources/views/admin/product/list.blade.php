@@ -69,21 +69,21 @@
                     <td>{{$product ->product_quantity}}</td>
                     <td>
                         @if($product ->product_status == 0)
-                            <a href="{{URL::to('/inactive-product/'.$product->product_id)}}">
+                            <a href="{{url('/inactive-product/'.$product->product_id)}}">
                                 <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
                             </a>
                         @else
-                        <a href="{{URL::to('/active-product/'.$product->product_id)}}">
+                        <a href="{{url('/active-product/'.$product->product_id)}}">
                             <i class="fa fa-eye-style fa-eye text text-success"></i>
                         </a>
                         @endif 
                     </td>
-                    <td><a href="{{URL::to('/manage-gallery-product/'.$product->product_id)}}">Add</a></td>
+                    <td><a href="{{url('/manage-gallery-product/'.$product->product_id)}}">Add</a></td>
                     <td>
-                        <a href="{{URL::to('/edit-product/'.$product->product_id)}}">
+                        <a href="{{url('/edit-product/'.$product->product_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-product/'.$product->product_id)}}" onclick="return confirm('Are you sure you want to delete this product?')">
+                        <a href="{{url('/delete-product/'.$product->product_id)}}" onclick="return confirm('Are you sure you want to delete this product?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

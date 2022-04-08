@@ -32,7 +32,7 @@ class CartController extends Controller
     //     Cart::add($data);
     //     Cart::setGlobalTax(10);
         
-    //     return Redirect::to('/show-cart');
+    //     return redirect('/show-cart');
     // }
 
     // public function showCart(Request $request){
@@ -51,14 +51,14 @@ class CartController extends Controller
     
     // public function deleteToCart($rowId){        
     //     Cart::update($rowId,0);
-    //     return Redirect::to('/show-cart');
+    //     return redirect('/show-cart');
     // }
     
     // public function updateQtyCart(Request $request){        
     //     $rowId = $request->rowId_cart;
     //     $qty = $request->cart_qty;
     //     Cart::update($rowId, $qty);
-    //     return Redirect::to('/show-cart');
+    //     return redirect('/show-cart');
     // }
 
     //AJAX request

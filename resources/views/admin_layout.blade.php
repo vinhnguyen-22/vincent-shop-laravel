@@ -40,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-    <a href="{{URL::to('/dashboard')}}" class="logo">
+    <a href="{{url('/dashboard')}}" class="logo">
         Admin
     </a>
     <div class="sidebar-toggle-box">
@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <ul class="dropdown-menu extended logout">
                 <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                 <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="{{URL::to('/logout-auth')}}"><i class="fa fa-key"></i>Log Out</a></li>
+                <li><a href="{{url('/logout-auth')}}"><i class="fa fa-key"></i>Log Out</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -95,7 +95,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="{{URL::to('/dashboard')}}">
+                    <a class="active" href="{{url('/dashboard')}}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
@@ -115,8 +115,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <span>User</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="{{URL::to('/insert-user')}}">Add User</a></li>
-                            <li><a href="{{URL::to('/manage-user')}}">Manage User</a></li>
+                            <li><a href="{{url('/insert-user')}}">Add User</a></li>
+                            <li><a href="{{url('/manage-user')}}">Manage User</a></li>
                         </ul>
                     </li>
                 @endhasrole
@@ -128,9 +128,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-                        <li><a href="{{URL::to('/insert-info')}}">Add Information</a></li>
+                        <li><a href="{{url('/insert-info')}}">Add Information</a></li>
                         @endhasrole
-                        <li><a href="{{URL::to('/all-info')}}">List Information</a></li>
+                        <li><a href="{{url('/all-info')}}">List Information</a></li>
                     </ul>
                 </li>
 
@@ -141,9 +141,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                     @hasrole(['admin','author'])
-                        <li><a href="{{URL::to('/insert-slider')}}">Add Slider</a></li>
+                        <li><a href="{{url('/insert-slider')}}">Add Slider</a></li>
                     @endhasrole
-                        <li><a href="{{URL::to('/manage-slider')}}">Manage Slider</a></li>
+                        <li><a href="{{url('/manage-slider')}}">Manage Slider</a></li>
                     </ul>
                 </li>
 
@@ -153,7 +153,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Order</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{URL::to('/manage-order')}}">Manage Order</a></li>
+                        <li><a href="{{url('/manage-order')}}">Manage Order</a></li>
                     </ul>
                 </li>
 
@@ -163,7 +163,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Shipping Fee</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{URL::to('/delivery')}}">Manage shipping</a></li>
+                        <li><a href="{{url('/delivery')}}">Manage shipping</a></li>
                     </ul>
                 </li>
 
@@ -174,9 +174,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                     @hasrole(['admin','author'])
-                        <li><a href="{{URL::to('/insert-coupon')}}">Add Coupon</a></li>
+                        <li><a href="{{url('/insert-coupon')}}">Add Coupon</a></li>
                     @endhasrole
-                        <li><a href="{{URL::to('/all-coupon')}}">List Coupon</a></li>
+                        <li><a href="{{url('/all-coupon')}}">List Coupon</a></li>
                     </ul>
                 </li>
                
@@ -187,9 +187,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-						<li><a href="{{URL::to('/add-category-product')}}">Add</a></li>
+						<li><a href="{{url('/add-category-product')}}">Add</a></li>
                         @endhasrole
-                        <li><a href="{{URL::to('/all-category-product')}}">View All</a></li>
+                        <li><a href="{{url('/all-category-product')}}">View All</a></li>
                     </ul>
                 </li>
 				
@@ -200,9 +200,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-                        <li><a href="{{URL::to('/add-brand-product')}}">Add</a></li>
+                        <li><a href="{{url('/add-brand-product')}}">Add</a></li>
                         @endhasrole
-                        <li><a href="{{URL::to('/all-brand-product')}}">View All</a></li>
+                        <li><a href="{{url('/all-brand-product')}}">View All</a></li>
                     </ul>
                 </li>
 
@@ -213,9 +213,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-						<li><a href="{{URL::to('/add-product')}}">Add</a></li>
+						<li><a href="{{url('/add-product')}}">Add</a></li>
                         @endhasrole
-                        <li><a href="{{URL::to('/all-product')}}">View All</a></li>
+                        <li><a href="{{url('/all-product')}}">View All</a></li>
                     </ul>
                 </li>
 
@@ -226,7 +226,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-						<li><a href="{{URL::to('/manage-video')}}">Manage</a></li>
+						<li><a href="{{url('/manage-video')}}">Manage</a></li>
                         @endhasrole
                     </ul>
                 </li>
@@ -238,9 +238,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-						<li><a href="{{URL::to('/add-menu-post')}}">Add</a></li>
+						<li><a href="{{url('/add-menu-post')}}">Add</a></li>
                         @endhasrole
-                        <li><a href="{{URL::to('/all-menu-post')}}">View All</a></li>
+                        <li><a href="{{url('/all-menu-post')}}">View All</a></li>
                     </ul>
                 </li>
 
@@ -251,9 +251,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-						<li><a href="{{URL::to('/add-post')}}">Add</a></li>
+						<li><a href="{{url('/add-post')}}">Add</a></li>
                         @endhasrole
-                        <li><a href="{{URL::to('/all-post')}}">View All</a></li>
+                        <li><a href="{{url('/all-post')}}">View All</a></li>
                     </ul>
                 </li>
 
@@ -263,7 +263,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Comment</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{URL::to('/all-comment')}}">Manage comment</a></li>
+                        <li><a href="{{url('/all-comment')}}">Manage comment</a></li>
                     </ul>
                 </li>
             </ul>            

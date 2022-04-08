@@ -26,8 +26,8 @@
                             <input type="hidden" value="1" class="cart_product_qty_{{$allpro->product_id}}">
 
                             <div class="productinfo text-center">
-                                <a href="{{URL::to('/product-detail/'.$allpro->product_slug)}}">
-                                    <img src="{{URL::to('public/uploads/product/'.$allpro->product_image)}}" height="250" alt="">
+                                <a href="{{url('/product-detail/'.$allpro->product_slug)}}">
+                                    <img src="{{url('public/uploads/product/'.$allpro->product_image)}}" height="250" alt="">
                                     <h2>${{number_format($allpro->product_price)}}</h2>
                                     <p>{{$allpro->product_name}}</p>
                                 </a>

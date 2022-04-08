@@ -62,20 +62,20 @@
                     <td>{{$slider->slider_desc}}</td>
                     <td>
                         @if($slider ->slider_status == 0)
-                            <a href="{{URL::to('/inactive-slider/'.$slider->slider_id)}}">
+                            <a href="{{url('/inactive-slider/'.$slider->slider_id)}}">
                                 <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
                             </a>
                         @else
-                        <a href="{{URL::to('/active-slider/'.$slider->slider_id)}}">
+                        <a href="{{url('/active-slider/'.$slider->slider_id)}}">
                             <i class="fa fa-eye-style fa-eye text text-success"></i>
                         </a>
                         @endif 
                     </td>
                     <td>
-                        <a href="{{URL::to('/edit-slider/'.$slider->slider_id)}}">
+                        <a href="{{url('/edit-slider/'.$slider->slider_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-slider/'.$slider->slider_id)}}" onclick="return confirm('Are you sure you want to delete this slider?')">
+                        <a href="{{url('/delete-slider/'.$slider->slider_id)}}" onclick="return confirm('Are you sure you want to delete this slider?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

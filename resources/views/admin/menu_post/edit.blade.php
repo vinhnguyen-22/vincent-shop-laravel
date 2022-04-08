@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center row">
-                    <form role="form" action="{{URL::to('/update-menu-post/'.$edit_menu_post->menu_post_id)}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{url('/update-menu-post/'.$edit_menu_post->menu_post_id)}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group col-lg-6">
                             <label for="name">Title</label>

@@ -55,10 +55,10 @@
                     <td>{{$order ->created_at}}</td>
 
                     <td>
-                        <a href="{{URL::to('/view-order/'.$order->order_code)}}">
+                        <a href="{{url('/view-order/'.$order->order_code)}}">
                         <i class="fa fa-eye text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-order/'.$order->order_code)}}" onclick="return confirm('Are you sure you want to delete this category?')">
+                        <a href="{{url('/delete-order/'.$order->order_code)}}" onclick="return confirm('Are you sure you want to delete this category?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

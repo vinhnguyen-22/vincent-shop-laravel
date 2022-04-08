@@ -54,7 +54,7 @@ class CategoryProductController extends Controller
         $category->save();
 
         session(['message'=>'Add category success']);
-        return Redirect::to('add-category-product'); 
+        return redirect('add-category-product'); 
     }   
 
     public function inactiveCategory ($cat_id){
@@ -63,7 +63,7 @@ class CategoryProductController extends Controller
         $category->category_status = 0;
         $category->save();
         session(['message'=> 'Don\'t show category']);
-        return Redirect::to('all-category-product');
+        return redirect('all-category-product');
     }
     
     public function activeCategory ($cat_id){
@@ -72,7 +72,7 @@ class CategoryProductController extends Controller
         $category->category_status = 1;
         $category->save();
         session(['message'=> 'show category']);
-        return Redirect::to('all-category-product');
+        return redirect('all-category-product');
     }
     
     public function editCategory($cat_id){
@@ -96,7 +96,7 @@ class CategoryProductController extends Controller
         $category->save();
 
         session(['message'=>'Update category success']);
-        return Redirect::to('all-category-product'); 
+        return redirect('all-category-product'); 
     }  
     
     public function deleteCategory($cat_id){
@@ -104,7 +104,7 @@ class CategoryProductController extends Controller
         $category = CategoryProduct::find($cat_id);
         $category->delete();
         session(['message'=> 'Delete success']);
-        return Redirect::to('all-category-product');
+        return redirect('all-category-product');
     }
     
     public function arrangeCategory(Request $request){

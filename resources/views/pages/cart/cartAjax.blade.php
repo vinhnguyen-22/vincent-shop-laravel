@@ -6,7 +6,7 @@
     <div class="">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li><a href="{{URL::to('/')}}">Home</a></li>
+                <li><a href="{{url('/')}}">Home</a></li>
                 <li class="active">Shopping Cart</li>
             </ol>
         </div>
@@ -99,9 +99,9 @@
                 $shipping_id = Session::get('shipping_id');
                 ?>
             @if($shipping_id == null)
-            {{URL::to('/checkout')}}
+            {{url('/checkout')}}
             @else
-            {{URL::to('/payment')}}
+            {{url('/payment')}}
             @endif
             ">Check Out</a>
         </div>    

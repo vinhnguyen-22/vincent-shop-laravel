@@ -64,20 +64,20 @@
                     <td>{{$post ->post_author}}</td>
                     <td>
                         @if($post ->post_status == 0)
-                            <a href="{{URL::to('/inactive-post/'.$post->post_id)}}">
+                            <a href="{{url('/inactive-post/'.$post->post_id)}}">
                                 <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
                             </a>
                         @else
-                        <a href="{{URL::to('/active-post/'.$post->post_id)}}">
+                        <a href="{{url('/active-post/'.$post->post_id)}}">
                             <i class="fa fa-eye-style fa-eye text text-success"></i>
                         </a>
                         @endif 
                     </td>
                     <td>
-                        <a href="{{URL::to('/edit-post/'.$post->post_id)}}">
+                        <a href="{{url('/edit-post/'.$post->post_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-post/'.$post->post_id)}}" onclick="return confirm('Are you sure you want to delete this post?')">
+                        <a href="{{url('/delete-post/'.$post->post_id)}}" onclick="return confirm('Are you sure you want to delete this post?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

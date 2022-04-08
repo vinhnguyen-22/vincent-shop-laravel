@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center row">
-                    <form role="form" action="{{URL::to('/update-info/'.$edit_info->info_id)}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{url('/update-info/'.$edit_info->info_id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group col-lg-12">
                             <label for="information">Information</label>

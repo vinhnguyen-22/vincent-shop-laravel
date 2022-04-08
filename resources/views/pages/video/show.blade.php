@@ -18,8 +18,8 @@ echo "<pre>";print_r($posts);echo "</pre>";
                     <div class="single-products">
                         <form >
                             <div class="productinfo text-center">
-                                <a href="{{URL::to('/video-detail/'.$video->video_slug)}}">
-                                    <img src="{{URL::to('public/uploads/video/'.$video->video_image)}}" height="250" alt="">
+                                <a href="{{url('/video-detail/'.$video->video_slug)}}">
+                                    <img src="{{url('public/uploads/video/'.$video->video_image)}}" height="250" alt="">
                                     {{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/v9_K_6VQMDg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
                                     <p>{{$video->video_title}}</p>
                                 </a>

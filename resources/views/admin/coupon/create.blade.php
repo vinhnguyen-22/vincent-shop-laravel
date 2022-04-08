@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" id="couponForm" action="{{URL::to('/save-coupon')}}" method="post">
+                    <form role="form" id="couponForm" action="{{url('/save-coupon')}}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="title">Title coupon</label>

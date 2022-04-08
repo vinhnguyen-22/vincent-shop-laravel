@@ -68,10 +68,10 @@
                         <td>DESC By Percentage</td>
                     @endif
                     <td>
-                        <a href="{{URL::to('/edit-coupon/'.$coupon->coupon_id)}}">
+                        <a href="{{url('/edit-coupon/'.$coupon->coupon_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-coupon/'.$coupon->coupon_id)}}" onclick="return confirm('Are you sure you want to delete this coupon?')">
+                        <a href="{{url('/delete-coupon/'.$coupon->coupon_id)}}" onclick="return confirm('Are you sure you want to delete this coupon?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>

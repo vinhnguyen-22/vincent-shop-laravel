@@ -28,9 +28,9 @@ class CheckoutController extends Controller
         $customer_id = Session::get('customer_id');
 
         if(!$customer_id){
-            return Redirect::to('/login-checkout')->send();
+            return redirect('/login-checkout')->send();
         }else{
-            return Redirect::to('/');
+            return redirect('/');
         }
     }
     
@@ -65,10 +65,10 @@ class CheckoutController extends Controller
         if($result){
             Session::put('customer_name', $result->customer_name);
             Session::put('customer_id', $result->customer_id);
-            return Redirect::to('/checkout');
+            return redirect('/checkout');
         }else{
             // Session::put('message','Password or email incorrect');
-            return Redirect::to('/login-checkout');
+            return redirect('/login-checkout');
         }
         
     }
@@ -81,7 +81,7 @@ class CheckoutController extends Controller
             Session::put('customer_name',null);
             Session::put('customer_id',null);
         }
-        return  Redirect::to('/login-checkout');
+        return  redirect('/login-checkout');
     }
         
     public function customerRegister(Request $request){
@@ -106,10 +106,10 @@ class CheckoutController extends Controller
         if($customer_id){
             Session::put('customer_name', $request->customer_name);
             Session::put('customer_id', $customer_id);
-            return Redirect::to('/checkout');
+            return redirect('/checkout');
         }else{
             Session::put('message','Password or email incorrect');
-            return Redirect::to('/login-checkout');
+            return redirect('/login-checkout');
         }        
     }
     // END LOGIN SIGNUP

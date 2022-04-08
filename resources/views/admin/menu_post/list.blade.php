@@ -58,20 +58,20 @@
                     <td>{{$menu_post ->menu_post_desc}}</td>
                     <td>
                         @if($menu_post ->menu_post_status == 0)
-                            <a href="{{URL::to('/inactive-menu-post/'.$menu_post->menu_post_id)}}">
+                            <a href="{{url('/inactive-menu-post/'.$menu_post->menu_post_id)}}">
                                 <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
                             </a>
                         @else
-                        <a href="{{URL::to('/active-menu-post/'.$menu_post->menu_post_id)}}">
+                        <a href="{{url('/active-menu-post/'.$menu_post->menu_post_id)}}">
                             <i class="fa fa-eye-style fa-eye text text-success"></i>
                         </a>
                         @endif 
                     </td>
                     <td>
-                        <a href="{{URL::to('/edit-menu-post/'.$menu_post->menu_post_id)}}">
+                        <a href="{{url('/edit-menu-post/'.$menu_post->menu_post_id)}}">
                         <i class="fa fa-edit text-success text-active"></i>
                         </a>
-                        <a href="{{URL::to('/delete-menu-post/'.$menu_post->menu_post_id)}}" onclick="return confirm('Are you sure you want to delete this menu_post?')">
+                        <a href="{{url('/delete-menu-post/'.$menu_post->menu_post_id)}}" onclick="return confirm('Are you sure you want to delete this menu_post?')">
                             <i class="fa fa-trash text-danger text"></i>
                         </a>
                     </td>   

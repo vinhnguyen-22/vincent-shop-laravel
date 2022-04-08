@@ -51,7 +51,7 @@ class BrandController extends Controller
         $brand->save();
 
         session(['message' => 'Add brand success']);
-        return Redirect::to('add-brand-product'); 
+        return redirect('add-brand-product'); 
     }   
 
     public function inactiveBrand ($brand_id){
@@ -60,7 +60,7 @@ class BrandController extends Controller
         $brand->brand_status = 0;
         $brand->save();
         session(['message' => 'Don\'t show brand']);
-        return Redirect::to('all-brand-product');
+        return redirect('all-brand-product');
     }
     
     public function activeBrand ($brand_id){
@@ -69,7 +69,7 @@ class BrandController extends Controller
         $brand->brand_status = 1;
         $brand->save();
         session(['message' => 'Show brand']);
-        return Redirect::to('all-brand-product');
+        return redirect('all-brand-product');
     }
     
     public function editBrand($brand_id){
@@ -92,7 +92,7 @@ class BrandController extends Controller
         $brand->save();
 
         session(['message' =>'Update brand success']);
-        return Redirect::to('all-brand-product'); 
+        return redirect('all-brand-product'); 
     }  
     
     public function deleteBrand($brand_id){
@@ -101,7 +101,7 @@ class BrandController extends Controller
         $brand = Brand::find($brand_id);
         $brand->delete();
         session(['message' => 'Delete success']);
-        return Redirect::to('all-brand-product');
+        return redirect('all-brand-product');
     }
     
     // end function admin

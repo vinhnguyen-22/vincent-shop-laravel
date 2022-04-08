@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category-product/'.$edit_category->category_id)}}" method="post">
+                    <form role="form" action="{{url('/update-category-product/'.$edit_category->category_id)}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group col-lg-6">
                             <label for="title">Title</label>

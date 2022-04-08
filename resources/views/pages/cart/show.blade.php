@@ -5,7 +5,7 @@
     <div class="">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li><a href="{{URL::to('/')}}">Home</a></li>
+                <li><a href="{{url('/')}}">Home</a></li>
                 <li class="active">Shopping Cart</li>
             </ol>
         </div>
@@ -29,7 +29,7 @@
                     @foreach($content as $key => $cart_content)
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img src="{{URL::to('public/uploads/product/'.$cart_content->options->image)}}" width="100" height="100"alt=""></a>
+                            <a href=""><img src="{{url('public/uploads/product/'.$cart_content->options->image)}}" width="100" height="100"alt=""></a>
                         </td>
                         <td class="cart_description">
                             <h4><a href="">{{$cart_content->name}}</a></h4>
@@ -40,7 +40,7 @@
                         </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
-                                <form action="{{URL::to('/update-cart-qty')}}" method="post">
+                                <form action="{{url('/update-cart-qty')}}" method="post">
                                     {{csrf_field()}}
                                     {{-- <a class="cart_quantity_up" href=""> + </a> --}}
                                     <input class="cart_quantity_input" type="text" name="cart_qty" value="{{$cart_content->qty}}" autocomplete="off" size="2">
@@ -54,7 +54,7 @@
                             <p class="cart_total_price">${{number_format($cart_content->price * $cart_content->qty)}}</p>
                         </td>
                         <td class="cart_delete">
-                            <a class="cart_quantity_delete" href="{{URL::to('/delete-to-cart/'.$cart_content->rowId)}}"><i class="fa fa-times"></i></a>
+                            <a class="cart_quantity_delete" href="{{url('/delete-to-cart/'.$cart_content->rowId)}}"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -141,9 +141,9 @@
                         ?>
                         <a class="btn btn-default check_out" href="
                         @if($shipping_id == null)
-                        {{URL::to('/checkout')}}
+                        {{url('/checkout')}}
                         @else
-                        {{URL::to('/payment')}}
+                        {{url('/payment')}}
                         @endif
                         ">Check Out</a>
                 </div>

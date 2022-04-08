@@ -16,7 +16,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-info')}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{url('/save-info')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group col-lg-12">
                             <label for="information">Information</label>

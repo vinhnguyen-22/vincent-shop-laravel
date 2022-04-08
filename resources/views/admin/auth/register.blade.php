@@ -31,7 +31,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         Session::put('message',null);
     }
     ?>
-    <form action="{{URL::to('/register')}}" method="post">
+    <form action="{{url('/register')}}" method="post">
         @csrf
         @foreach($errors->all() as $val)
             <li>

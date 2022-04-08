@@ -93,7 +93,7 @@ class ProductController extends Controller
         $gallery->save();
         
         session(['message'=>'Add product success']);
-        return Redirect::to('all-product'); 
+        return redirect('all-product'); 
     }   
 
     public function inactiveProduct ($product_id){
@@ -102,7 +102,7 @@ class ProductController extends Controller
         $product->product_status = 0;
         $product->save();
         session(['message'=>'Don\'t show product']);
-        return Redirect::to('all-product');
+        return redirect('all-product');
     }
     
     public function activeProduct ($product_id){
@@ -111,7 +111,7 @@ class ProductController extends Controller
         $product->product_status = 1;
         $product->save();
         session(['message'=>'show product']);
-        return Redirect::to('all-product');
+        return redirect('all-product');
     }
     
     public function editProduct($product_id){
@@ -165,7 +165,7 @@ class ProductController extends Controller
         }
         $product->save();
         session(['message'=>'Update product success']);
-        return Redirect::to('all-product'); 
+        return redirect('all-product'); 
     }  
     
     public function deleteProduct($product_id){
@@ -179,7 +179,7 @@ class ProductController extends Controller
         }
         $product->delete();
         session(['message' => 'Delete product success']);
-        return Redirect::to('all-product');
+        return redirect('all-product');
     }
 
     public function exportCSV (){
