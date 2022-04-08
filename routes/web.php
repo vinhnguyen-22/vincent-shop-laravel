@@ -275,11 +275,11 @@ Route::middleware(['auth.roles'])->group(function () {
 Route::get('/manage-video', [VideoController::class, 'showManageVideoPage']);      
 Route::middleware(['auth.roles'])->group(function () {
     Route::post('/show-video', [VideoController::class,'showVideo']);
-    Route::post('/show-modal-video', [VideoController::class,'showModalVideo']);
     Route::post('/save-video', [VideoController::class,'saveVideo']);
     Route::post('/update-img-video', [VideoController::class,'updateImgVideo']);
     Route::post('/update-video', [VideoController::class,'updateVideo']);
     Route::post('/delete-video', [VideoController::class,'deleteVideo']);
+    Route::post('/show-modal-video', [VideoController::class,'showModalVideo']);
 });
 
 // comment

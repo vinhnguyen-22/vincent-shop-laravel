@@ -38,47 +38,48 @@
                     margin-top: 12px;
                 }
             </style>
-            <tbody id="category_order" >
-                @foreach($list_category as $key => $cat)
-                <form>
-                    @csrf
-                    <tr id="{{$cat->category_id}}">
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>{{$cat ->category_name}}</td>
-                        <td>
-                            @if($cat->category_parentId == 0)
-                                <span style="color: coral">Root</span>
-                            @else
-                                @foreach($list_category as $key => $cat_sub)
-                                    @if($cat_sub->category_id == $cat->category_parentId)
-                                        <span style="color: darkcyan">{{$cat_sub ->category_name}}</span>
-                                    @endif
-                                @endforeach
-                            @endif
-                        </td>
-                        <td>
-                            @if($cat ->category_status == 0)
-                                <a href="{{url('/inactive-category-product/'.$cat->category_id)}}">
-                                    <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
+            <form>
+            @csrf
+                <tbody id="category_order" >
+                    @foreach($list_category as $key => $cat)
+                    
+                        <tr id="{{$cat->category_id}}">
+                            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                            <td>{{$cat ->category_name}}</td>
+                            <td>
+                                @if($cat->category_parentId == 0)
+                                    <span style="color: coral">Root</span>
+                                @else
+                                    @foreach($list_category as $key => $cat_sub)
+                                        @if($cat_sub->category_id == $cat->category_parentId)
+                                            <span style="color: darkcyan">{{$cat_sub ->category_name}}</span>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                @if($cat ->category_status == 0)
+                                    <a href="{{url('/inactive-category-product/'.$cat->category_id)}}">
+                                        <i class="fa fa-eye-style fa-eye-slash text text-danger"></i>
+                                    </a>
+                                @else
+                                <a href="{{url('/active-category-product/'.$cat->category_id)}}">
+                                    <i class="fa fa-eye-style fa-eye text text-success"></i>
                                 </a>
-                            @else
-                            <a href="{{url('/active-category-product/'.$cat->category_id)}}">
-                                <i class="fa fa-eye-style fa-eye text text-success"></i>
-                            </a>
-                            @endif 
-                        </td>
-                        <td>
-                            <a href="{{url('/edit-category-product/'.$cat->category_id)}}">
-                            <i class="fa fa-edit text-success text-active"></i>
-                            </a>
-                            <a href="{{url('/delete-category-product/'.$cat->category_id)}}" onclick="return confirm('Are you sure you want to delete this category?')">
-                                <i class="fa fa-trash text-danger text"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </form>
-                @endforeach
-            </tbody>
+                                @endif 
+                            </td>
+                            <td>
+                                <a href="{{url('/edit-category-product/'.$cat->category_id)}}">
+                                <i class="fa fa-edit text-success text-active"></i>
+                                </a>
+                                <a href="{{url('/delete-category-product/'.$cat->category_id)}}" onclick="return confirm('Are you sure you want to delete this category?')">
+                                    <i class="fa fa-trash text-danger text"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </form>
         </table>
     </div>
   </div>

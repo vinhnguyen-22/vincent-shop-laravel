@@ -57,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </li>
         <!-- user login dropdown start-->
         <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <a data-toggle="dropdown" class="dropdown-toggle">
                 
                 <img alt="" src="{{asset('public/backend/images/2.png')}}">
                
@@ -272,34 +272,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </aside>
 <!--sidebar end-->
-<!--main content start-->
-<section id="main-content">
-	<section class="wrapper">
-        @yield('admin_content')
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            @yield('admin_content')
+        </section>
+    <!-- footer -->
+            <div class="footer">
+                <div class="wthree-copyright">
+                <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+                </div>
+            </div>
+    <!-- / footer -->
+    </section>
+    <!--main content end-->
 </section>
- <!-- footer -->
-		  <div class="footer">
-			<div class="wthree-copyright">
-			  <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
-			</div>
-		  </div>
-  <!-- / footer -->
-</section>
-<!--main content end-->
-</section>
+
+<script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('public/backend/js/scripts.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.slimscroll.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
 <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{asset('public/backend/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/jquery-ui.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
+
 <script type="text/javascript">
     // upload ckeditor
     CKEDITOR.replace('description-product',{
@@ -318,32 +320,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     CKEDITOR.replace('information-contact');    
 </script>
-<script type="text/javascript">
-        //order category
-    $("#category_order").sortable({
-        placeholder: "ui-state-highlight",
-        update: function (event, ui) {
-            var page_id_array = new Array();
-            var _token = $('input[name="_token"]').val();
 
-            $("#category_order tr").each(function () {
-                page_id_array.push($(this).attr("id"));
-            });
 
-            $.ajax({
-                url: "/lavarel%208/shop-vincent/arrange-category",
-                method: "post",
-                data: {
-                    page_id_array,
-                    _token,
-                },
-                success: function (data) {
-                    alert(data);
-                },
-            });
-        },
-    })
-</script>
 <!-- morris JavaScript -->	
 {{-- <script>
 	$(document).ready(function() {
@@ -432,5 +410,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	</script>
 	<!-- //calendar -->
+<script type="text/javascript">
+        //order category
+    $("#category_order").sortable({
+        placeholder: "ui-state-highlight",
+        update: function (event, ui) {
+            var page_id_array = new Array();
+            var _token = $('input[name="_token"]').val();
+
+            $("#category_order tr").each(function () {
+                page_id_array.push($(this).attr("id"));
+            });
+
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/arrange-category",
+                method: "post",
+                data: {
+                    page_id_array,
+                    _token,
+                },
+                success: function (data) {
+                    alert(data);
+                },
+            });
+        },
+    })
+</script>
+
 </body>
 </html>

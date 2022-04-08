@@ -204,12 +204,10 @@ class VideoController extends Controller
 
      
     public function showModalViewVideo(Request $request){
-        $this->AuthLogin();
         $data = $request->all();
         $video = Video::find($data['video_id']);
         $output = '';
         $output .= '<iframe width="100%" height="315" src="https://www.youtube.com/embed/'.$video->video_link.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
         echo $output;
     }
-    
 }

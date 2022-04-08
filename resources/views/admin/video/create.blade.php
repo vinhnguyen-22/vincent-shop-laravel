@@ -74,7 +74,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-video-body">
+        <div id="modal-video-body">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

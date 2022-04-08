@@ -42,6 +42,7 @@
             </div>
         @endforeach
     </div>
+    {{$all_product->links()}}
 
 
     <div class="category-tab">
@@ -129,7 +130,4 @@
     </div>
   </div>
 </div>
-
-{{$all_product->links()}}
-
 @endsection 

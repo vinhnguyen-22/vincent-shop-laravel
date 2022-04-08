@@ -414,7 +414,7 @@ $(document).ready(function () {
                 video_id,
             },
             success: function (data) {
-                $(".modal-video-body").html(data);
+                $("#modal-video-body").html(data);
             },
         });
     });
