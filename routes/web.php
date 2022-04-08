@@ -43,6 +43,10 @@ Route::post('/s', [HomeController::class, 'search']);
 
 // route category product
 Route::get('/category-product/{cat_slug}', [CategoryProductController::class, 'showCategoryPage']);
+
+//Tabs product category
+Route::post('/product-tabs',[CategoryProductController::class, 'productTabs']);
+
 // route brand product
 Route::get('/brand-product/{brand_slug}', [BrandController::class, 'showBrandPage']);
 

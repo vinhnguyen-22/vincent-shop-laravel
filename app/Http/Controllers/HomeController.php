@@ -28,8 +28,8 @@ class HomeController extends Controller
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $logo = Information::select('info_img')->first();
-        
-        return view('pages.home')->with(compact('logo','catsPost','brands','cats','all_product','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        $cat_tab = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->where('category_parentId','<>',0)->get();
+        return view('pages.home')->with(compact('cat_tab','logo','catsPost','brands','cats','all_product','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     }
 
     public function search(Request $request){

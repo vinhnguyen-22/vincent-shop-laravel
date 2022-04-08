@@ -42,6 +42,30 @@
             </div>
         @endforeach
     </div>
+
+
+    <div class="category-tab">
+        <form >
+        @csrf
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    @php 
+                        $i = 0;
+                    @endphp
+                    @foreach ($cat_tab as $key => $val)
+                        @php
+                            $i++;
+                        @endphp
+                        <li class="tabs_pro {{$i == 1 ? 'active':''}}" data-id="{{$val->category_id}}"><a href="#blazers" data-toggle="tab">{{$val->category_name}}</a></li>
+                    @endforeach
+
+                </ul>
+            </div>
+            <div id="tabs_product">
+
+            </div>
+        </form>
+    </div><!--/category-tab-->
 </div>
 
 

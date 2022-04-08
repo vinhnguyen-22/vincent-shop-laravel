@@ -442,4 +442,36 @@ $(document).ready(function () {
         });
     }
     loadRating();
+
+    // tabs product cateogry
+    var cate_id = $(".tabs_pro").data("id");
+    var _token = $('input[name="_token"]').val();
+
+    $.ajax({
+        url: "/lavarel%208/shop-vincent/product-tabs",
+        method: "POST",
+        data: {
+            cate_id,
+            _token,
+        },
+        success: function (data) {
+            $("#tabs_product").html(data);
+        },
+    });
+    $(".tabs_pro").click(function () {
+        var cate_id = $(this).data("id");
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/product-tabs",
+            method: "POST",
+            data: {
+                cate_id,
+                _token,
+            },
+            success: function (data) {
+                $("#tabs_product").html(data);
+            },
+        });
+    });
 });

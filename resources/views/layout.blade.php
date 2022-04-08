@@ -425,7 +425,7 @@
     <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script src="{{asset('public/frontend/js/app.js')}}"></script>
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <!-- Messenger Plugin chat Code -->

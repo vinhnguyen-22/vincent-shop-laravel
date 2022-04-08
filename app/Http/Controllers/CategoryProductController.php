@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoryProduct;
 use App\Models\Information;
 use App\Models\MenuPost;
+use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -105,7 +106,19 @@ class CategoryProductController extends Controller
         session(['message'=> 'Delete success']);
         return Redirect::to('all-category-product');
     }
-
+    
+    public function arrangeCategory(Request $request){
+        $this->AuthLogin();
+        $data = $request->all();
+        $cat_id = $data["page_id_array"];
+        foreach ($cat_id as $key=> $val){
+            $category = CategoryProduct::find($val);
+            $category->category_order = $key;
+            $category->save();
+        }
+        echo "updated category";
+    }
+    
     // end function admin page
     
     public function showCategoryPage($cat_slug, Request $request){
@@ -132,16 +145,45 @@ class CategoryProductController extends Controller
 
         return view('pages.category.show')->with(compact('logo','catsPost','cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
     } 
-    
-    public function arrangeCategory(Request $request){
-        $this->AuthLogin();
+
+    //category tabs_product
+    public function productTabs(Request $request) {
         $data = $request->all();
-        $cat_id = $data["page_id_array"];
-        foreach ($cat_id as $key=> $val){
-            $category = CategoryProduct::find($val);
-            $category->category_order = $key;
-            $category->save();
+        $output = '';
+        $product = Product::where('category_id',$data['cate_id'])->orderBy('product_id','DESC')->get();
+        $product_count =$product->count();
+        if($product_count>0){
+            $output .= '
+             <div class="tab-content">
+                <div class="tab-pane fade active in" id="blazers" >
+             ';
+                foreach($product as $key=>$value){
+                    $output .= '
+                        <div class="col-sm-3">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="'.url('public/uploads/product/'.$value->product_image).'" alt="" />
+                                        <h2>'.number_format($value->product_price,0,',','.').'</h2>
+                                        <p>'.$value->product_name.'</p>
+                                        <a href="'.url('/product-detail/'.$value->product_slug).'" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>';
+                }
+            $output .= '</div>
+                    </div>
+            ';
+            echo $output;
+        }else{
+             $output .= '
+             <div class="tab-content">
+                <div class="tab-pane fade active in" id="blazers" >
+                    <h2>Chưa có sản phẩm trong tab này</h2>
+                </div>
+            </div>
+             ';
         }
-        echo "updated category";
     }
 }
