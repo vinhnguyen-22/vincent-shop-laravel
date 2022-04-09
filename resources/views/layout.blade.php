@@ -237,6 +237,14 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="left-sidebar">
+                        <div class="price-range"><!--price-range-->
+                            <h2>Price Range</h2>
+                            <div class="well text-center">
+                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
+                                    <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                            </div>
+                        </div><!--/price-range-->
+
                         <h2>Category</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                             @foreach($cats as $key => $cat)
@@ -277,18 +285,10 @@
                                 </ul>
                             </div>
                         </div><!--/brands_products-->
-                        
-                        <div class="price-range"><!--price-range-->
-                            <h2>Price Range</h2>
-                            <div class="well text-center">
-                                 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-                                 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                            </div>
-                        </div><!--/price-range-->
-                        
-                        <div class="shipping text-center"><!--shipping-->
-                            <img src="{{asset('public/frontend/images/shipping.jpg')}}}" alt="" />
-                        </div><!--/shipping-->
+                      
+                        <div id="row_wishlist">
+                            <h2>Wishlist</h2>
+                        </div>
                     </div>
                 </div>
                 
@@ -426,7 +426,61 @@
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
     <script src="{{asset('public/frontend/js/app.js')}}"></script>
+    <script type="text/javascript">
+        //wishlist with localStorage
+        function addWishlist(clicked_id) {
+            var id = clicked_id;
+            var url = document.getElementById("wishlist_producturl" + id).href;
+            var name = document.getElementById("wishlist_productname" + id).value;
 
+            var price = document.getElementById(
+                "wishlist_productprice" + id
+            ).value;
+            var image = document.getElementById("wishlist_productimage" + id).src;
+
+            var newItem = {
+                url,
+                id,
+                name,
+                price,
+                image,
+            };
+            if (localStorage.getItem("data") == null) {
+                localStorage.setItem("data", "[]");
+            }
+            var oldData = JSON.parse(localStorage.getItem("data"));
+            //grep : Tìm các phần tử của một mảng thỏa mãn chức năng lọc. Các mảng ban đầu không bị ảnh hưởng.
+            const matches = $.grep(oldData, function (obj) {
+                // khi click vào sản phẩm thì sẽ có id và so sánh với id của oldData
+               return obj.id == id;
+            });
+
+            if (matches.length) {
+                alert("Item loved");
+            } else {
+                oldData.push(newItem);
+
+                $("#row_wishlist").append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img src="'+newItem.image+'" width="100%"></div><div class="col-md-8 info_wishlist"><p>'+newItem.name+'</p><p style="color:#FE980F">'+newItem.price+'</p><a href="'+newItem.url+'">Đặt hàng</a></div></div>');
+            }
+            localStorage.setItem("data", JSON.stringify(oldData));
+        }
+
+        function viewWishlist() {
+            if (localStorage.getItem("data") != null);
+            var data = JSON.parse(localStorage.getItem("data"));
+            data.reverse();
+            document.getElementById("row_wishlist").style.overflow = "scroll";
+            document.getElementById("row_wishlist").style.height = "600px";
+            for (i = 0; i < data.length; i++) {
+                var url = data[i].url;
+                var name = data[i].name;
+                var price = data[i].price;
+                var image = data[i].image;
+                $("#row_wishlist").append('<div class="row" style="margin:10px 0"><div class="col-md-4"><img src="'+image+'"width="100%"></div><div class="col-md-8 info_wishlist"><p>'+name+'</p><p style="color:#FE980F">'+price+'</p><a href="'+url+'">Đặt hàng</a></div></div>');
+            }
+        }
+        viewWishlist();
+    </script>
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
     <!-- Messenger Plugin chat Code -->
     <div id="fb-root"></div>
@@ -466,5 +520,6 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1542262152832776&autoLogAppEvents=1" nonce="xg4YUwcD"></script>
+   
 </body>
 </html>

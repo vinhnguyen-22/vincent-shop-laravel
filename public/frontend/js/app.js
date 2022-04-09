@@ -474,33 +474,4 @@ $(document).ready(function () {
             },
         });
     });
-
-    //wishlist with localStorage
-    function addWishlist(clicked_id) {
-        var url = document.getElementsById("wishlist_producturl" + id).href;
-        var newItem = {
-            url,
-            id,
-            name,
-            price,
-            image,
-        };
-
-        var oldData = JSON.parse(localStorage.getItem("data"));
-        if (oldData == null) {
-            localStorage.setItem("data", "[]");
-            // grep : Tìm các phần tử của một mảng thỏa mãn chức năng lọc. Các mảng ban đầu không bị ảnh hưởng.
-            var matches = $.grep(oldData, function (obj) {
-                return obj.id == id;
-            });
-        }
-        if (matches.length) {
-            alert("Item loved");
-        } else {
-            oldData.push(newItem);
-            $("#row_wishlist").append("");
-        }
-
-        localStorage.setItem("data", JSON.stringify(oldData));
-    }
 });

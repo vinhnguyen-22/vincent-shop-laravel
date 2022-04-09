@@ -15,13 +15,16 @@ li {
     margin-right: 6px;
     cursor:pointer;
 }
-img {
+.img-product {
     display: block;
     height: auto;
     max-width: 100%;
 }
 </style>
 @foreach ($product_details as $key => $pro_detail)
+
+<h2 class="title text-center">{{$pro_detail->product_name}}</h2>
+
 <div class="product-details"><!--product-details-->
 
     {{-- // SOCIAL PLUGIN FACEBOOK --}}
@@ -32,7 +35,7 @@ img {
             <ul id="lightSlider">
                 @foreach($gallery as $key => $gal)
                 <li data-thumb="{{asset('/public/uploads/gallery/'.$gal->gallery_image)}}">
-                    <img src="{{asset('/public/uploads/gallery/'.$gal->gallery_image)}}" alt="{{$gal->gallery_name}}" />
+                    <img class="img-product" src="{{asset('/public/uploads/gallery/'.$gal->gallery_image)}}" alt="{{$gal->gallery_name}}" />
                 </li>
                 @endforeach
             </ul>

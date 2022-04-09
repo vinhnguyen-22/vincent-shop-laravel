@@ -1,6 +1,26 @@
 @extends('layout')
 @section('content')
-
+<style type-"text/css">
+   ul.nav.nav-pills.nav-justified li {
+       text-align: center;
+       font-size: 13px;
+   }
+   .btn_wishlist{
+       border: none;
+       background: #ffff;
+       color: #83AFA8;
+   }
+   ul.nav.nav-pills.nav-justified i {
+       color: #B3AFA8;
+   }
+    .btn_wishlist span:hover {
+    color: #FE980F;
+    }
+    .btn_wishlist:focus {
+    border: none;
+    outline: none;
+    }
+</style>
 
 <div class="features_items">
     <!--features_items-->
@@ -12,15 +32,15 @@
                     <div class="single-products">
                         <form >
                             <input type="hidden" value="{{$allpro->product_id}}" class="cart_product_id_{{$allpro->product_id}}">
-                            <input type="hidden" value="{{$allpro->product_name}}" class="cart_product_name_{{$allpro->product_id}}">
+                            <input type="hidden" value="{{$allpro->product_name}}" id="wishlist_productname{{$allpro->product_id}}" class="cart_product_name_{{$allpro->product_id}}">
                             <input type="hidden" value="{{$allpro->product_image}}" class="cart_product_image_{{$allpro->product_id}}">
-                            <input type="hidden" value="{{$allpro->product_price}}" class="cart_product_price_{{$allpro->product_id}}">
+                            <input type="hidden" value="{{$allpro->product_price}}" id="wishlist_productprice{{$allpro->product_id}}" class="cart_product_price_{{$allpro->product_id}}">
                             <input type="hidden" value="{{$allpro->product_quantity}}" class="cart_product_stock_{{$allpro->product_id}}">
                             <input type="hidden" value="1" class="cart_product_qty_{{$allpro->product_id}}">
 
                             <div class="productinfo text-center">
-                                <a href="{{url('/product-detail/'.$allpro->product_slug)}}">
-                                    <img src="{{url('public/uploads/product/'.$allpro->product_image)}}" height="250" alt="">
+                                <a id="wishlist_producturl{{$allpro->product_id}}" href="{{url('/product-detail/'.$allpro->product_slug)}}">
+                                    <img id="wishlist_productimage{{$allpro->product_id}}" src="{{url('public/uploads/product/'.$allpro->product_image)}}" height="250" alt="">
                                     <h2>${{number_format($allpro->product_price)}}</h2>
                                     <p>{{$allpro->product_name}}</p>
                                 </a>
@@ -34,7 +54,9 @@
                     </div>
                     <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                            <li><i class="fa fa-heart"></i>
+                                <button class="btn_wishlist" id="{{$allpro->product_id}}" onclick="addWishlist(this.id);">Add to wishlist</button>
+                               </li>
                             <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
                         </ul>
                     </div>
