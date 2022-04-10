@@ -474,4 +474,37 @@ $(document).ready(function () {
             },
         });
     });
+    //sort by in category
+    $("#sort").on("change", function () {
+        var url = $(this).val();
+        if (url) {
+            window.location = url;
+        }
+        return false;
+    });
+
+    //price range selected
+
+    $(function () {
+        var min = parseInt($("#min").val());
+        var max = parseInt($("#max").val());
+        $("#slider-range").slider({
+            range: true,
+            values: [min, max],
+            min: min,
+            max: max,
+            steps: 100,
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                $("#min_price").val(ui.values[0]);
+                $("#max_price").val(ui.values[1]);
+            },
+        });
+        $("#amount").val(
+            "$" +
+                $("#slider-range").slider("values", 0) +
+                " - $" +
+                $("#slider-range").slider("values", 1)
+        );
+    });
 });

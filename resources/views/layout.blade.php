@@ -33,6 +33,8 @@
     <link href="{{asset('public/frontend/css/lightslider.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettify.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
+    <!-- price range -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -75,9 +77,9 @@
         <div class="header-middle"><!--header-middle-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="logo pull-left">
-                                <a href="{{url('/')}}"><img src="{{asset('public/uploads/info/'.$logo->info_img)}}" style="border-radius:50%" width="50" height="50"alt="" /></a>
+                    <div class="col-md-5">
+                        <div class="logo pull-left" >
+                            <a href="{{url('/')}}" style="color: darkcyan"><img src="{{asset('public/uploads/info/'.$logo->info_img)}}" style="border-radius:50%; margin-right:10px" width="50" height="50"alt="" /><b>VINCENT GAMING</b></a>
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -103,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-md-7">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
                                 
@@ -237,14 +239,6 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="left-sidebar">
-                        <div class="price-range"><!--price-range-->
-                            <h2>Price Range</h2>
-                            <div class="well text-center">
-                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-                                    <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                            </div>
-                        </div><!--/price-range-->
-
                         <h2>Category</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                             @foreach($cats as $key => $cat)
@@ -293,9 +287,7 @@
                 </div>
                 
                 <div class="col-sm-9 padding-right">
-                  
                     @yield('content')
-                   
                 </div>
             </div>
         </div>
@@ -415,17 +407,16 @@
         </div>
         
     </footer><!--/Footer-->
-  
     <script src="{{asset('public/frontend/js/jquery.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" ></script>
     <script src="{{asset('public/frontend/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.scrollUp.min.js')}}"></script>
-    <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
     <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
-    <script src="{{asset('public/frontend/js/app.js')}}"></script>
+    <script src="{{asset('public/frontend/js/main.js')}}"></script>
     <script type="text/javascript">
         //wishlist with localStorage
         function addWishlist(clicked_id) {
@@ -520,6 +511,5 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1542262152832776&autoLogAppEvents=1" nonce="xg4YUwcD"></script>
-   
 </body>
 </html>

@@ -128,12 +128,16 @@ class CategoryProductController extends Controller
         $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
         $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
         $logo = Information::select('info_img')->first();
-        
+
+        $category_by_slug = CategoryProduct::where('category_slug',$cat_slug)->get();
+        $min = Product::min('product_price');
+        $max = Product::max('product_price');
+        $max += 1000;        
+        // SEO
         $meta_desc = '';
         $meta_keywords =''; 
         $meta_title = '';
         $url_canonical = $request->url();
-        // SEO
         foreach ($pro_by_cat as $key => $val){
             $meta_desc = $val->category_desc;
             $meta_keywords = $val->category_keywords;
@@ -141,9 +145,40 @@ class CategoryProductController extends Controller
             $url_canonical = $request->url(); 
         }
         // SEO
+        
+        foreach ($category_by_slug as $key => $cat){
+            $category_id = $cat->category_id;
+        }
+        //sort product by ...
+        if(isset($_GET['sort_by'])){
+            $sort_by = $_GET['sort_by'];
+            switch ($sort_by) {
+                case 'asc':
+                    $pro_by_cat = Product::with('category')->where('category_id',$category_id)->where('product_status',1)->orderBy('product_price','ASC')->paginate(6)->appends(request()->query());
+                    break;
+                case 'desc':
+                    $pro_by_cat = Product::with('category')->where('category_id',$category_id)->where('product_status',1)->orderBy('product_price','DESC')->paginate(6)->appends(request()->query());
+                    break;
+                case 'az':
+                    $pro_by_cat = Product::with('category')->where('category_id',$category_id)->where('product_status',1)->orderBy('product_name','ASC')->paginate(6)->appends(request()->query());
+                    break;
+                case 'za':
+                    $pro_by_cat = Product::with('category')->where('category_id',$category_id)->where('product_status',1)->orderBy('product_name','DESC')->paginate(6)->appends(request()->query());
+                    break;        
+                default:
+                $pro_by_cat = Product::with('category')->where('category_id',$category_id)->where('product_status',1)->orderBy('product_price','ASC')->get();    
+                break;
+            }
+        }elseif(isset($_GET['min_price']) && isset($_GET['max_price'])){
+            $min_price = $_GET['min_price'];
+            $max_price = $_GET['max_price'];
+            $pro_by_cat = Product::with('category')->where('category_id',$category_id)->whereBetween('product_price',[$min_price, $max_price])->where('product_status',1)->get();    
+        }else{
+            $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug',$cat_slug)->get();
+        }
         $cat_name = DB::table('tbl_category_product')->select('category_name')->where('tbl_category_product.category_slug',$cat_slug)->limit(1)->get(); 
 
-        return view('pages.category.show')->with(compact('logo','catsPost','cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        return view('pages.category.show')->with(compact('logo','catsPost','cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider','min','max'));
     } 
 
     //category tabs_product
