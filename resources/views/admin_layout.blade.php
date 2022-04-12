@@ -21,6 +21,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
 <link rel="stylesheet" href="{{asset('public/backend/css/morris.css')}}" type="text/css"/>
 <!-- calendar -->
+{{-- jquery-ui --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{-- jquery-ui --}}
 
 <!-- dataTables -->
 <link rel="stylesheet" href="{{asset('public/backend/css/responsive.dataTables.min.css')}}" type="text/css"/>
@@ -288,7 +291,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--main content end-->
 </section>
 
-<script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/main.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('public/backend/js/scripts.js')}}"></script>

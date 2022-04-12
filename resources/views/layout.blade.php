@@ -108,7 +108,6 @@
                     <div class="col-md-7">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                
                                 <?php 
                                 $customer_id = Session::get('customer_id');
                                 $shipping_id = Session::get('shipping_id');

@@ -54,7 +54,7 @@
                     <div class="single-products">
                         <form >
                             <input type="hidden" value="{{$allpro->product_id}}" class="cart_product_id_{{$allpro->product_id}}">
-                            <input type="hidden" value="{{$allpro->product_name}}" class="cart_product_name_{{$allpro->product_id}}">
+                            <input type="hidden" value="{{$allpro->product_name}}" id="wishlist_productname{{$allpro->product_id}}" class="cart_product_name_{{$allpro->product_id}}">
                             <input type="hidden" value="{{$allpro->product_image}}" class="cart_product_image_{{$allpro->product_id}}">
                             <input type="hidden" value="{{$allpro->product_price}}" class="cart_product_price_{{$allpro->product_id}}">
                             <input type="hidden" value="{{$allpro->product_quantity}}" class="cart_product_stock_{{$allpro->product_id}}">

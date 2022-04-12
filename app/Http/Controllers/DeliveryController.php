@@ -30,7 +30,6 @@ class DeliveryController extends Controller
     }   
 
     public function selectDelivery(Request $request){
-        $this->AuthLogin();
         $data = $request->all();
         if($data['action']){
             if($data['action'] == 'province'){
@@ -107,12 +106,10 @@ class DeliveryController extends Controller
     
     //START FRONTEND FUNCTIONS
     public function selectDeliveryFE(Request $request){
-        $this->AuthLogin();
         $this->selectDelivery($request);
     }
 
     public function calculateFee(Request $request){
-        $this->AuthLogin();
         $data = $request->all();
         if($data['province']){
             $fee_ship = ShippingFee::where('fee_matp', $data['province'])->where('fee_maqh' , $data['district'])->where('fee_xaid',$data['ward'])->get();
@@ -133,7 +130,6 @@ class DeliveryController extends Controller
     }
 
     public function deleteFee(){
-        $this->AuthLogin();
         session()->forget('fee');
         return redirect()->back()->with('message', 'Delete fee success');
     }

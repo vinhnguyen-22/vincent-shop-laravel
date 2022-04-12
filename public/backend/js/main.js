@@ -527,4 +527,101 @@ $(document).ready(function () {
             },
         });
     });
+
+    //statistic
+    $("#from-date").datepicker({
+        prevText: "Tháng trước",
+        nextText: "Tháng sau",
+        dateFormat: "yy-mm-dd",
+        dayNamesMin: [
+            "Thứ 2",
+            "Thứ 3",
+            "Thứ 4",
+            "Thứ 5",
+            "Thứ 6",
+            "Thứ 7",
+            "Chủ nhật",
+        ],
+        duration: "slow",
+    });
+    $("#to-date").datepicker({
+        prevText: "Tháng trước",
+        nextText: "Tháng sau",
+        dateFormat: "yy-mm-dd",
+        dayNamesMin: [
+            "Thứ 2",
+            "Thứ 3",
+            "Thứ 4",
+            "Thứ 5",
+            "Thứ 6",
+            "Thứ 7",
+            "Chủ nhật",
+        ],
+        duration: "slow",
+    });
+    var chart = new Morris.Bar({
+        element: "revenue-charts",
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        barColors: ["#EC407A", "#00897B", "coral", "#C0CA33", "#9CC4E4"],
+
+        pointFillColors: ["#ffffff"],
+        pointStrokeColors: ["black"],
+        fillOpacity: 0.6,
+        hideHover: "auto",
+        parseTime: false,
+
+        // The name of the data record attribute that contains x-values.
+        xkey: "period",
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ["order", "sales", "profit", "quantity"],
+        behaveLikeLine: true,
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ["order", "sales", "profit", "quantity"],
+    });
+    function chart30daysorder() {
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/days-order",
+            method: "POST",
+            dataType: "JSON",
+            data: { _token },
+            success: function (data) {
+                chart.setData(data);
+            },
+        });
+    }
+
+    chart30daysorder();
+
+    $(".filter_by").change(function () {
+        var time = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/filter-by-time",
+            method: "POST",
+            dataType: "JSON",
+            data: { time, _token },
+            success: function (data) {
+                chart.setData(data);
+            },
+        });
+    });
+
+    $("#btn-filter").click(function () {
+        var _token = $('input[name="_token"]').val();
+        var from_date = $("#from-date").val();
+        var to_date = $("#to-date").val();
+        console.log(from_date, to_date);
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/filter-by-date",
+            method: "POST",
+            dataType: "JSON",
+            data: { from_date, to_date, _token },
+            success: function (data) {
+                chart.setData(data);
+            },
+        });
+    });
 });

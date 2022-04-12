@@ -124,9 +124,7 @@
                                 <input type="text" name="shipping_name" class="shipping_name" placeholder="Full name *">
                                 <input type="text" name="shipping_address" class="shipping_address" placeholder="Address *">
                                 <input type="text" name="shipping_phone" class="shipping_phone" placeholder="Phone">
-                                <textarea name="shipping_notes" class="shipping_notes" placeholder="Notes about your order, Special Notes for Delivery" rows="5">
-
-                                </textarea>
+                                <textarea name="shipping_notes" class="shipping_notes" placeholder="Notes about your order, Special Notes for Delivery" rows="5"></textarea>
                                 <div class="review-payment">
                                     <h2>Review &amp; Payment</h2>
                                     <select id="payment_select" class="form-control input-sm m-bot15 optionSelect payment_select" name="payment_select">

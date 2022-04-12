@@ -22,6 +22,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\StatisticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -304,6 +305,11 @@ Route::middleware(['auth.roles'])->group(function () {
 //Ckeditor upload image
 Route::post('/uploads-ckeditor', [ProductController::class, 'ckeditorImage']);
 Route::get('/file-browser', [ProductController::class, 'fileBrowser']);
+
+//statistic
+Route::post('/days-order', [StatisticController::class, 'daysOrder']);
+Route::post('/filter-by-time', [StatisticController::class, 'filterByTime']);
+Route::post('/filter-by-date', [StatisticController::class, 'filterByDate']);
 
 
 /////////////////////////
