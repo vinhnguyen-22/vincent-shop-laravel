@@ -35,7 +35,7 @@ class CategoryProductController extends Controller
         $list_category = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_parentId','DESC')->get();
         $manager_category_product = view('admin.category.list')->with('list_category',$list_category);
        
-        return view('admin_layout')->with('admin.category.list',$manager_category_product);
+        return view('admin.admin_layout')->with('admin.category.list',$manager_category_product);
     }
     
     public function createCategory(Request $request){

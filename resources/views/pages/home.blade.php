@@ -1,5 +1,5 @@
 @extends('layout')
-@section('content')
+@section('custom_styles')
 <style type-"text/css">
    ul.nav.nav-pills.nav-justified li {
        text-align: center;
@@ -21,7 +21,8 @@
     outline: none;
     }
 </style>
-
+@endsection
+@section('content')
 <div class="features_items">
     <!--features_items-->
     <h2 class="title text-center">Features Items</h2>

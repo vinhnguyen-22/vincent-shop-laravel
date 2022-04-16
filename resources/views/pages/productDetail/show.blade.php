@@ -1,5 +1,5 @@
 @extends('layout')
-@section('content')
+@section('custom_styles')
 <style>
     .demo {
     width:420px;
@@ -21,6 +21,9 @@ li {
     max-width: 100%;
 }
 </style>
+@endsection
+@section('content')
+
 @foreach ($product_details as $key => $pro_detail)
 
 <h2 class="title text-center">{{$pro_detail->product_name}}</h2>

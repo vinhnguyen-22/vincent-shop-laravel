@@ -33,7 +33,7 @@ class BrandController extends Controller
         $this->AuthLogin();
         $list_brand = Brand::orderBy('brand_id','DESC')->paginate(5);
         $manager_brand_product = view('admin.brand.list')->with('list_brand',$list_brand);
-        return view('admin_layout')->with('admin.brand.list',$manager_brand_product);
+        return view('admin.admin_layout')->with('admin.brand.list',$manager_brand_product);
     }
     
     public function createBrand(Request $request){
@@ -76,7 +76,7 @@ class BrandController extends Controller
         $this->AuthLogin();
         $edit_brand = Brand::find($brand_id);
         $manager_brand_product = view('admin.brand.edit')->with('edit_brand',$edit_brand);
-        return view('admin_layout')->with('admin.brand.edit', $manager_brand_product);
+        return view('admin.admin_layout')->with('admin.brand.edit', $manager_brand_product);
     }
     
     public function updateBrand(Request $request,$brand_id){

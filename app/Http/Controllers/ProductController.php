@@ -123,7 +123,7 @@ class ProductController extends Controller
 
         $edit_product = Product::find($product_id);
         $manager_product = view('admin.product.edit')->with(compact('edit_product','brand_product','cat_product'));
-        return view('admin_layout')->with('admin.product.edit', $manager_product);
+        return view('admin.admin_layout')->with('admin.product.edit', $manager_product);
     }
     
     public function updateProduct(Request $request,$product_id){

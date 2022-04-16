@@ -78,7 +78,7 @@ class SliderController extends Controller
         $this->AuthLogin();
         $edit_slider = Slider::find($slider_id);
         $manager_slider = view('admin.slider.edit')->with(compact('edit_slider'));
-        return view('admin_layout')->with('admin.slider.edit', $manager_slider);
+        return view('admin.admin_layout')->with('admin.slider.edit', $manager_slider);
     }
     
     public function updateSlider(Request $request,$slider_id){
