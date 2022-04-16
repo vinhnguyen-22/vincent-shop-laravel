@@ -2,9 +2,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\Post;
+use App\Models\Product;
 use App\Models\Social;
+use App\Models\Video;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use App\Rules\Captcha;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 session_start();
@@ -28,9 +35,55 @@ class AdminController extends Controller
         return view('admin_login');
     }
 
-    public function showDashboard(){
+    public function showDashboard(Request $request){
         $this->AuthLogin();
-        return view('admin.dashboard');
+        //get IP address
+        $user_ip_address = $request->ip();
+        $start_last_month = Carbon::now()->subMonth()->startOfMonth()->toDateString ();
+        $end_of_last_month = Carbon::now()->subMonth()->endOfMonth()->toDateString();
+        $start_this_month = Carbon::now()->startOfMonth()->toDateString ();
+        $oneyears = Carbon::now()->subdays(365)->toDateString();
+        $now = Carbon::now()->toDateString();
+        
+        //total last month
+        $visitor_of_lastmonth = Visitor::whereBetween('date_visit',[$start_last_month,$end_of_last_month])->get();
+        $visitor_lastmonth_count = $visitor_of_lastmonth->count();
+
+        //total this month
+        $visitor_of_thismonth = Visitor::whereBetween('date_visit',[$start_this_month,$now])->get();
+        $visitor_thismonth_count = $visitor_of_thismonth->count();
+        
+        //total in one year
+        $visitor_of_year = Visitor::whereBetween('date_visit',[$oneyears,$now])->get();
+        $visitor_year_count = $visitor_of_year->count();
+
+        //current online
+        $visitor_current = Visitor::where('ip_address',$user_ip_address)->get();
+        $visitor_count = $visitor_current->count();
+        
+        //check ip trùng nhỏ hơn 1
+        if($visitor_count < 1){
+            $visitor = new Visitor();
+            $visitor->ip_address = $user_ip_address;
+            $visitor->date_visit = $now;
+            $visitor->save();
+        }
+
+        $visitor = Visitor::all();
+        $visitor_total = $visitor->count();
+
+        $product_views = Product::orderBy('product_views','DESC')->take(20)->get();
+        $post_views = Post::orderBy('post_views','DESC')->take(20)->get();
+        
+        return view('admin.dashboard', compact(
+            'visitor_total',
+            'visitor_count',
+            'visitor_thismonth_count',
+            'visitor_lastmonth_count',
+            'visitor_year_count',
+            'product_views',
+            'post_views'
+        ));
     }
 
     public function dashboard(Request $request){

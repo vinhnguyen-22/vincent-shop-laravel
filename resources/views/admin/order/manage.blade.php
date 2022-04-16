@@ -45,7 +45,7 @@
                         @case(2)
                             {{'Processed'}}
                             @break
-                        @case(2)
+                        @case(3)
                             {{'Deliveried'}}
                             @break
                         @default

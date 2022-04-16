@@ -21,6 +21,7 @@ class ProductExport implements FromCollection
             'product_desc',
             'product_content',
             'product_price',
+            'product_cost',
             'product_image',
             'product_status',
             'product_quantity',

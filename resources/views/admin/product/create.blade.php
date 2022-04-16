@@ -33,9 +33,14 @@
                             <input type="text" class="form-control" data-role="tagsinput" name="tag" id="tag">
                         </div>
 
-                        <div class="form-group col-lg-12">
+                        <div class="form-group col-lg-6">
                             <label for="price">Price</label>
                             <input type="number" class="form-control" name="price" id="price" placeholder="Enter price product" required >
+                        </div>
+            
+                        <div class="form-group col-lg-6">
+                            <label for="cost">Cost</label>
+                            <input type="number" class="form-control" name="cost" id="cost" placeholder="Enter cost product" required >
                         </div>
 
                         <div class="form-group col-lg-12">

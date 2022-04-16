@@ -306,11 +306,13 @@ Route::middleware(['auth.roles'])->group(function () {
 Route::post('/uploads-ckeditor', [ProductController::class, 'ckeditorImage']);
 Route::get('/file-browser', [ProductController::class, 'fileBrowser']);
 
-//statistic
+//statistic by revenue
 Route::post('/days-order', [StatisticController::class, 'daysOrder']);
 Route::post('/filter-by-time', [StatisticController::class, 'filterByTime']);
 Route::post('/filter-by-date', [StatisticController::class, 'filterByDate']);
 
+//statistic item
+Route::post('/statistic-item', [StatisticController::class, 'statisticItem']);
 
 /////////////////////////
 //BACKEND

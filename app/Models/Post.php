@@ -15,6 +15,7 @@ class Post extends Model
         'post_slug',
         'post_keywords',
         'post_desc',
+        'post_views',
         'post_content',
         'post_status',
         'post_thumbnail',

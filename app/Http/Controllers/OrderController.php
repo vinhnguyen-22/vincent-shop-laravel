@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
 use App\Models\Shipping;
+use App\Models\Statistic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -99,17 +101,42 @@ class OrderController extends Controller
         $order = Order::find($data['orderId']);
         $order->order_status = $data['orderStatus'];
         $order->save();
-         
+        
+        //order date
+        $order_date =  explode(" ",$order->created_at)[0];
+        $statistic = Statistic::where('order_date',$order_date)->get();
+        if($statistic){
+            $statistic_count = $statistic->count();
+        }else{
+            $statistic_count = 0; 
+        }
+        
+        $total_order = 0;
+        $sales = 0;
+        $profit = 0;
+        $quantity = 0;
+
         if($order->order_status == 2){
+         
             foreach($data['orderProductId'] as $key => $product_id){
                 $product = Product::find($product_id); 
                 $product_quantity = $product->product_quantity;
                 $product_sold = $product->product_sold;
+                $product_price = $product->product_price;
+                $product_cost = $product->product_cost;
+                $now = Carbon::now()->toDateString();
+
                 foreach($data['quantity'] as $key2 => $qty){
                     if($key ==  $key2){
                         $product->product_quantity  = $product_quantity - $qty;
                         $product->product_sold = $product_sold + $qty;
                         $product->save();
+
+                        //update doanh thu 
+                        $quantity += $qty;
+                        $total_order += 1;
+                        $sales += $product_price * $qty;
+                        $profit =  $sales - ($product_cost * $qty);
                     }
                 }
             }
@@ -127,6 +154,23 @@ class OrderController extends Controller
                     }
                 }
             }
+        }
+
+        if($statistic_count > 0){
+            $statistic_update = Statistic::where("order_date",$order_date)->first();
+            $statistic_update->sales += $sales;
+            $statistic_update->profit += $profit;
+            $statistic_update->quantity += $quantity;
+            $statistic_update->total_order += $total_order;
+            $statistic_update->save();
+        }else{
+            $statistic = new Statistic();
+            $statistic->order_date = $order_date;
+            $statistic->sales = $sales;
+            $statistic->profit = $profit;
+            $statistic->quantity = $quantity;
+            $statistic->total_order = $total_order;
+            $statistic->save();
         }
     }
     

@@ -63,6 +63,7 @@ class ProductController extends Controller
         $product->product_desc = $data['desc'];
         $product->product_content = $data['content'];
         $product->product_price = $data['price'];
+        $product->product_cost = $data['cost'];
         $product->product_quantity = $data['quantity'];
         $product->product_slug = $data['slug'];
         $product->product_keywords = $data['keywords'];
@@ -137,6 +138,7 @@ class ProductController extends Controller
         $product->product_desc = $data['desc'];
         $product->product_content = $data['content'];
         $product->product_price = $data['price'];
+        $product->product_cost = $data['cost'];
         $product->product_quantity = $data['quantity'];
         $product->product_slug = $data['slug'];
         $product->product_keywords = $data['keywords'];
@@ -252,6 +254,9 @@ class ProductController extends Controller
         }
         // SEO
 
+        $product = Product::Where('product_slug', $product_slug)->first();
+        $product->product_views += 1;
+        $product->save();
         //gallery
         $gallery = GalleryProduct::where('product_id',$product_id)->get();
 

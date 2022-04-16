@@ -49,41 +49,66 @@
     </div>
 
     <div class="row">
-            <style type="text/css">
-                table.table.table-bordered.table-dark{
-                    background: #32383e
-                }
-                table.table.table-bordered.table-dark tr th{
-                    color:#fff;
-                }
-            </style>
-            <p class="title-chart">Statistical access</p>
-            <table class="table table-bordered table-dark">
-                <thead>
-                    <tr>
-                        <th>Online</th>
-                        <th>Total in last month</th>
-                        <th>Total in this month</th>
-                        <th>Total in this year</th>
-                        <th>Total access</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <style type="text/css">
+            table.table.table-bordered.table-dark{
+                background: #32383e
+            }
+            table.table.table-bordered.table-dark tr th{
+                color:#fff;
+            }
+        </style>
+        <p class="title-chart">Statistical access</p>
+        <table class="table table-bordered table-dark m-2">
+            <thead>
+                <tr>
+                    <th>Online</th>
+                    <th>Total in last month</th>
+                    <th>Total in this month</th>
+                    <th>Total in this year</th>
+                    <th>Total access</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{$visitor_count}}</td>
+                    <td>{{$visitor_lastmonth_count}}</td>
+                    <td>{{$visitor_thismonth_count}}</td>
+                    <td>{{$visitor_year_count}}</td>
+                    <td>{{$visitor_total}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <div class="row">
+    <div class="row">
+        <div class="col-md-4 col-xs-12">
+            <p class="title-chart">Statistic total item in website</p>
+
+            <form autocomplete="off">
+                @csrf
+                <div id="donut-quantity-item" style="height: 250px;"></div>
+            </form>
+        </div>
+        
+        <div class="col-md-8">
+            <p class="title-chart">Statistic total product and post</p>
+
             <div class="col-md-4 col-xs-12">
-                <p class="title-chart"></p>
+                <ol>
+                @foreach($product_views as $key => $value)
+                    <li><a href="{{url('/product-detail/'.$value->product_slug)}}" target="_blank">{{$value->product_name}} | <span style="color:coral">({{$value->product_views}})</span></a></li>
+                @endforeach
+                </ol>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+                <ol>
+                @foreach($post_views as $key => $value)
+                    <li><a href="{{url('/post-detail/'.$value->post_slug)}}" target="_blank">{{$value->post_title}} | <span style="color:coral">({{$value->post_views}})</span></a></li>
+                @endforeach
+                </ol>
             </div>
         </div>
+    </div>
 </div>
-@endsection
+@endsection 

@@ -171,6 +171,10 @@ class PostController extends Controller
             // SEO
         }
 
+        $post = Post::Where('post_slug', $post_slug)->first();
+        $post->post_views += 1;
+        $post->save();
+
         return view('pages.post.show')->with(compact('logo','catsPost','posts','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','slider'));       
     }
 }

@@ -37,6 +37,11 @@
                             <label for="price">Price</label>
                             <input type="number" class="form-control" value="{{$edit_product->product_price}}" name="price" id="price" placeholder="Enter price product">
                         </div>
+
+                        <div class="form-group col-lg-12">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" value="{{$edit_product->product_cost}}" name="cost" id="cost" placeholder="Enter price product">
+                        </div>
                         
                         <div class="form-group col-lg-12">
                             <label for="quantity">Quantity</label>
@@ -45,23 +50,17 @@
 
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea id="description-product" class="form-control" name="desc" id="description">
-                                {{$edit_product->product_desc}}
-                            </textarea>
+                            <textarea id="description-product" class="form-control" name="desc" id="description">{{$edit_product->product_desc}}</textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="content">Content</label>
-                            <textarea id="content-product" class="form-control" name="content" id="content">
-                                {{$edit_product->product_content}}
-                            </textarea>
+                            <textarea id="content-product" class="form-control" name="content" id="content">{{$edit_product->product_content}}</textarea>
                         </div>
                         
                         <div class="form-group col-lg-12">
                             <label for="keywords">Keywords</label>
-                            <textarea style="resize:none" id="keywords-product" class="form-control" name="keywords" required>
-                                {{$edit_product->product_keywords}}
-                            </textarea>
+                            <textarea style="resize:none" id="keywords-product" class="form-control" name="keywords" required>{{$edit_product->product_keywords}}   </textarea>
                         </div>
 
                         <div class="form-group col-lg-6">

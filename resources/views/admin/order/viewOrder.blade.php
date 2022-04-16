@@ -89,6 +89,7 @@
                     <th>Unit</th>
                     <th>Coupon Code</th>
                     <th>Total price</th>
+                    <th>Total cost</th>
                 </tr>             
             </thead>
             <tbody>
@@ -110,15 +111,16 @@
                         <button class="btn btn-primary update_quantity_order" data-product_id="{{$detail->product_id}}" name="update_quantity_order">Update</button>
                         @endif
                     </td>
-                    <td>${{number_format(($detail->product_price),0,',','.')}}</td>
+                    <td>${{number_format(($detail->product_price),0,'.',',')}}</td>
                     <td>{{$detail->order_coupon}}</td>
-                    <td>${{number_format(($detail->product_price * $detail->product_sales_quantity),0,',','.')}}</td>
+                    <td>${{number_format(($detail->product_price * $detail->product_sales_quantity),0,'.',',')}}</td>
+                    <td>${{number_format(($detail->product->product_cost * $detail->product_sales_quantity),0,'.',',')}}</td>
                 </tr>
                 @endforeach
                 <tr>
                     <td colspan="7" align="left">
                         <ul style="list-style:none">
-                            <li >Sub Total: ${{number_format(($total),0,',','.')}}</li>
+                            <li >Sub Total: ${{number_format(($total),0,'.',',')}}</li>
                             <li>Coupon: <span>
                                 @if($coupon_method == 1)
                                     Decrease ${{$coupon_rate}}
@@ -126,7 +128,7 @@
                                         @php 
                                         $total =  $total - $coupon_rate;
                                         @endphp
-                                        total coupon: {{number_format(($total),0,',','.')}}
+                                        total coupon: {{number_format(($total),0,'.',',')}}
                                     </span>
                                 @elseif($coupon_method == 2)
                                     Decrease {{$coupon_rate}}%
@@ -135,13 +137,13 @@
                                         $total_coupon = ($total * $coupon_rate)/100;
                                         $total =  $total - $total_coupon;                                                    
                                         @endphp
-                                        total coupon: {{number_format(($total_coupon),0,',','.')}}
+                                        total coupon: {{number_format(($total_coupon),0,'.',',')}}
                                     </span>
                                 @endif
                             </span></li>
                             <li>Tax: 10%</li>
-                            <li>Feeship: ${{number_format(($order_fee),0,',','.')}}</li>
-                            <li>Total: ${{number_format(($order->order_total),0,',','.')}}</li>
+                            <li>Feeship: ${{number_format(($order_fee),0,'.',',')}}</li>
+                            <li>Total: ${{number_format(($order->order_total),0,'.',',')}}</li>
                         </ul>
                     </td>
                 </tr>
@@ -151,14 +153,18 @@
                         <form action="">
                             @csrf
                             <select name="statusOrderSelect" class="form-control statusOrderSelect" id="statusOrderSelect">
+                                @if($order->order_status != 3)
                                 <option id="{{$order->order_id}}" {{$order->order_status == 1 ? 'selected' : ''}} value="1">Pending</option>
+                                @endif
                                 @if($order->order_status == 1)
                                 <option id="{{$order->order_id}}" {{$order->order_status == 2 ? 'selected' : ''}} value="2">Processed</option>
                                 @endif
                                 @if($order->order_status == 2 || $order->order_status == 3)
                                 <option id="{{$order->order_id}}" {{$order->order_status == 3 ? 'selected' : ''}} value="3">Deliveried</option>
                                 @endif
+                                @if($order->order_status != 3)
                                 <option id="{{$order->order_id}}" {{$order->order_status == 4 ? 'selected' : ''}} value="4">Cancel</option>
+                                @endif
                             </select>
                         </form>
                     </td>

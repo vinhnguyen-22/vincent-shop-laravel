@@ -291,7 +291,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--main content end-->
 </section>
 
-<script type="text/javascript" src="{{asset('public/backend/js/main.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('public/backend/js/scripts.js')}}"></script>
@@ -303,6 +302,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="{{asset('public/backend/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/jquery-ui.min.js')}}"></script>
 
 <script type="text/javascript">

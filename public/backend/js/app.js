@@ -624,4 +624,39 @@ $(document).ready(function () {
             },
         });
     });
+
+    //statistic quantity item
+
+    function donutQuantityItems() {
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "/lavarel%208/shop-vincent/statistic-item",
+            method: "POST",
+            dataType: "JSON",
+            data: { _token },
+            success: function (data) {
+                var donut = Morris.Donut({
+                    element: "donut-quantity-item",
+                    resize: true,
+                    colors: [
+                        "#EC407A",
+                        "#00897B",
+                        "coral",
+                        "#C0CA33",
+                        "#9CC4E4",
+                    ],
+
+                    data: [
+                        { label: "Product", value: data["product"] },
+                        { label: "Post", value: data["post"] },
+                        { label: "Order sales", value: data["order"] },
+                        { label: "Video", value: data["video"] },
+                        { label: "Customer", value: data["customer"] },
+                    ],
+                });
+            },
+        });
+    }
+
+    donutQuantityItems();
 });
