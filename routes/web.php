@@ -259,7 +259,9 @@ Route::middleware(['auth.roles'])->group(function () {
     Route::post('/update-post/{post_id}', [PostController::class, 'updatePost']);
 
     Route::get('/inactive-post/{post_id}', [PostController::class, 'activePost']);
-    Route::get('/active-post/{post_id}', [PostController::class, 'inactivePost']);    
+    Route::get('/active-post/{post_id}', [PostController::class, 'inactivePost']);
+        
+    Route::post('/delete-document', [PostController::class, 'deleteDocument']);    
 });
 
 //gallery

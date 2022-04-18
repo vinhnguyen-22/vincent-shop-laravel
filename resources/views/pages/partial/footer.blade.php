@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-7">
                     <?php  for($i =1; $i < 4; $i++){ ?>
-                    <div class="col-sm-3">
+                    <div class="col-md-3">
                         <div class="video-gallery text-center">
                             <a href="#">
                                 <div class="iframe-img">
@@ -26,7 +26,7 @@
                     </div>
                     <?php } ?>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-md-3">
                     <div class="address">
                         <img src="images/map.png" alt="" />
                         <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
@@ -87,7 +87,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3 col-sm-offset-1">
+                <div class="col-md-3 col-sm-offset-1">
                     <div class="single-widget">
                         <h2>About Shopper</h2>
                         <form action="#" class="searchform">

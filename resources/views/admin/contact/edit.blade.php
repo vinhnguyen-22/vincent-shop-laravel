@@ -48,3 +48,9 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+    CKEDITOR.replace('information-contact');    
+</script>
+@endsection

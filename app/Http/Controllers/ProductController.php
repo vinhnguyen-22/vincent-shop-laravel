@@ -62,8 +62,8 @@ class ProductController extends Controller
         $product->product_tags = $data['tag'];
         $product->product_desc = $data['desc'];
         $product->product_content = $data['content'];
-        $product->product_price = $data['price'];
-        $product->product_cost = $data['cost'];
+        $product->product_price = filter_var($data['price'], FILTER_SANITIZE_NUMBER_INT);
+        $product->product_cost = filter_var($data['cost'],FILTER_SANITIZE_NUMBER_INT);
         $product->product_quantity = $data['quantity'];
         $product->product_slug = $data['slug'];
         $product->product_keywords = $data['keywords'];
@@ -137,8 +137,8 @@ class ProductController extends Controller
         $product->product_name = $data['title'];
         $product->product_desc = $data['desc'];
         $product->product_content = $data['content'];
-        $product->product_price = $data['price'];
-        $product->product_cost = $data['cost'];
+        $product->product_price = filter_var($data['price'], FILTER_SANITIZE_NUMBER_INT);
+        $product->product_cost = filter_var($data['cost'],FILTER_SANITIZE_NUMBER_INT);
         $product->product_quantity = $data['quantity'];
         $product->product_slug = $data['slug'];
         $product->product_keywords = $data['keywords'];

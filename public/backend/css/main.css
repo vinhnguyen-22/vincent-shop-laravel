@@ -107,6 +107,7 @@ i.fa-eye-style {
 
 form .error {
     color: coral;
+    font-weight: 300;
 }
 
 .leftside-navigation,

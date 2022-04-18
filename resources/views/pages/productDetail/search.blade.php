@@ -54,9 +54,9 @@
         </ul>
     </div>
     <div class="tab-content">
-        <div class="tab-pane fade active in" id="tshirt">
+        <div class="tab-pane fade active in row" id="tshirt">
             <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
@@ -75,7 +75,7 @@
 
         <div class="tab-pane fade" id="blazers">
             <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
@@ -93,7 +93,7 @@
 
         <div class="tab-pane fade" id="sunglass">
             <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
@@ -112,7 +112,7 @@
 
         <div class="tab-pane fade" id="kids">
             <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
@@ -131,7 +131,7 @@
 
         <div class="tab-pane fade" id="poloshirt">
             <?php  for($i =1; $i < 5; $i++){ ?>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">

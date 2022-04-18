@@ -55,6 +55,19 @@ class PostController extends Controller
         $post->updated_at = Carbon::now()->toDateTimeString();
 
         $get_image = $request->file('thumbnail');
+        $get_document = $request->file('document');
+
+        if($get_document){
+            $path = "public/uploads/document";
+
+            $get_name_document = $get_document->getClientOriginalName();
+            $name_document =  pathinfo($get_name_document, PATHINFO_FILENAME);
+            $extension = pathinfo($get_name_document, PATHINFO_EXTENSION);
+           
+            $new_document = time().'-'.$name_document.'.'.$extension;
+            $get_document->move($path,$new_document);
+            $post->post_file = $new_document;            
+        }
 
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();
@@ -113,13 +126,29 @@ class PostController extends Controller
         $post->updated_at = Carbon::now()->toDateTimeString();
 
         $get_image = $request->file('thumbnail');
+        $get_document = $request->file('document');
 
+        if($get_document){
+            $path = "public/uploads/document";
+
+            if($post->post_file){
+                $path_file ='public/uploads/document/'.$post->post_file;
+                unlink($path_file);
+            }
+            $get_name_document = $get_document->getClientOriginalName();
+            $name_document =  pathinfo($get_name_document, PATHINFO_FILENAME);
+            $extension = pathinfo($get_name_document, PATHINFO_EXTENSION);
+           
+            $new_document = time().'-'.$name_document.'.'.$extension;
+            $get_document->move($path,$new_document);
+            $post->post_file = $new_document;    
+        }
+        
         if($get_image){
             if($post->post_thumbnail){
                 $path ='public/uploads/post/'.$post->post_thumbnail;
                 unlink($path);
             }
-
             $get_name_image = $get_image->getClientOriginalName();
             $name_image =  pathinfo($get_name_image, PATHINFO_FILENAME);
             $extension = pathinfo($get_name_image, PATHINFO_EXTENSION);
@@ -146,10 +175,28 @@ class PostController extends Controller
             $path ='public/uploads/post/'.$post->post_thumbnail;
             unlink($path);
         }
+        if($post->post_file){
+            $path_file ='public/uploads/document/'.$post->post_file;
+            unlink($path_file);
+        }
+            
         $post->delete();
 
         session(['message' => 'Delete post success']);
         return redirect('all-post');
+    }
+
+    public function deleteDocument(Request $request){
+        $data = $request->all();
+        $post = Post::find($data['post_id']);
+        
+        if($post->post_file){
+            $path_file ='public/uploads/document/'.$post->post_file;
+            unlink($path_file);
+            $post->post_file = NULL;
+        }
+        
+        $post->save();
     }
 
     //end function admin

@@ -25,7 +25,7 @@
             </div>
            
             <div class="col-sm-4"></div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="input-group">
                         <input type="text" class="input-sm form-control" placeholder="Search">
                     <span class="input-group-btn">
@@ -48,6 +48,7 @@
                     <th>Title</th>
                     <th>Menu</th>
                     <th>Author</th>
+                    <th>File</th>
                     <th>Status</th>
                     <th style="width:30px;"></th>
                 </tr>
@@ -62,6 +63,12 @@
                     <td>{{$post ->post_title}}</td>
                     <td>{{$post ->menu_post_name}}</td>
                     <td>{{$post ->post_author}}</td>
+                    <td>@if($post ->post_file)  
+                        <p><a target="_blank" href="{{url("public/uploads/document/".$post->post_file)}}">{{$post->post_file}}</a></p>
+                        @else 
+                        file is not exist
+                        @endif
+                    </td>
                     <td>
                         @if($post ->post_status == 0)
                             <a href="{{url('/inactive-post/'.$post->post_id)}}">

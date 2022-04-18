@@ -65,13 +65,6 @@
                     <ul class="sub">
                         <li><a href="{{url('/manage-order')}}">Manage Order</a></li>
                     </ul>
-                </li>
-
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Shipping Fee</span>
-                    </a>
                     <ul class="sub">
                         <li><a href="{{url('/delivery')}}">Manage shipping</a></li>
                     </ul>
@@ -144,26 +137,17 @@
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Menu Post</span>
-                    </a>
-                    <ul class="sub">
-                        @hasrole(['admin','author'])
-						<li><a href="{{url('/add-menu-post')}}">Add</a></li>
-                        @endhasrole
-                        <li><a href="{{url('/all-menu-post')}}">View All</a></li>
-                    </ul>
-                </li>
-
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
                         <span>Post</span>
                     </a>
                     <ul class="sub">
                         @hasrole(['admin','author'])
-						<li><a href="{{url('/add-post')}}">Add</a></li>
+						<li><a href="{{url('/add-post')}}">Add Post</a></li>
                         @endhasrole
-                        <li><a href="{{url('/all-post')}}">View All</a></li>
+                        @hasrole(['admin','author'])
+						<li><a href="{{url('/add-menu-post')}}">Add Menu</a></li>
+                        @endhasrole
+                        <li><a href="{{url('/all-post')}}">View All Post</a></li>
+                        <li><a href="{{url('/all-menu-post')}}">View All Menu</a></li>
                     </ul>
                 </li>
 

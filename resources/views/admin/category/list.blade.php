@@ -85,3 +85,34 @@
   </div>
 </div>
 @endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{asset('public/backend/js/jquery-ui.min.js')}}"></script>
+    <script type="text/javascript">
+    
+        //order category
+        $("#category_order").sortable({
+            placeholder: "ui-state-highlight",
+            update: function (event, ui) {
+                var page_id_array = new Array();
+                var _token = $('input[name="_token"]').val();
+
+                $("#category_order tr").each(function () {
+                    page_id_array.push($(this).attr("id"));
+                });
+
+                $.ajax({
+                    url: "/lavarel%208/shop-vincent/arrange-category",
+                    method: "post",
+                    data: {
+                        page_id_array,
+                        _token,
+                    },
+                    success: function (data) {
+                        alert(data);
+                    },
+                });
+            },
+        })
+    </script>
+@endsection

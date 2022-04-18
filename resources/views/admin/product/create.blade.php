@@ -35,12 +35,12 @@
 
                         <div class="form-group col-lg-6">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" name="price" id="price" placeholder="Enter price product" required >
+                            <input type="text" class="form-control price-format" name="price" id="price" placeholder="Enter price product" required >
                         </div>
             
                         <div class="form-group col-lg-6">
                             <label for="cost">Cost</label>
-                            <input type="number" class="form-control" name="cost" id="cost" placeholder="Enter cost product" required >
+                            <input type="text" class="form-control price-format" name="cost" id="cost" placeholder="Enter cost product" required >
                         </div>
 
                         <div class="form-group col-lg-12">
@@ -50,23 +50,17 @@
                         
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea id="description-product" class="form-control" name="desc" required>
-
-                            </textarea>
+                            <textarea id="description-product" class="form-control" name="desc" required></textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="content">Content</label>
-                            <textarea id="content-product" class="form-control" name="content" required>
-
-                            </textarea>
+                            <textarea id="content-product" class="form-control" name="content" required></textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="keywords">Keywords</label>
-                            <textarea style="resize:none" id="keywords-product" class="form-control" name="keywords" required>
-
-                            </textarea>
+                            <textarea style="resize:none" id="keywords-product" class="form-control" name="keywords" required></textarea>
                         </div>
                         
                         <div class="form-group col-lg-6">
@@ -108,4 +102,28 @@
         </section>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript" src="{{asset('public/backend/js/simple.money.format.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript">
+    // upload ckeditor
+    CKEDITOR.replace('description-product',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
+    CKEDITOR.replace('content-product',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
+</script>
+<script type="text/javascript">
+     // format price
+    $(".price-format").simpleMoneyFormat();
+</script>
 @endsection

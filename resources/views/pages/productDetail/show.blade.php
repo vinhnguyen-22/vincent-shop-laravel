@@ -127,7 +127,7 @@ li {
             <p>{!!$pro_detail->product_desc!!}</p>
         </div>
         
-        <div class="tab-pane fade active in"  id="reviews" >
+        <div class="tab-pane fade active in row"  id="reviews" >
             <div class="col-sm-12">
                 <style type="text/css">
                     .style-comment {

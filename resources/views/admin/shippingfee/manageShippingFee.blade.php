@@ -53,7 +53,7 @@
                             <input type="number" name="shippingfee" class="form-control shippingfee" placeholder="feeshipping">
                         </div>
 
-                        <button type="button" name="add_delivery" class="btn btn-info add_delivery">Add</button>
+                        <button type="button" name="add_delivery" class="btn btn-info add_delivery mb-4">Add</button>
                     </form>
                 </div>
 

@@ -19,6 +19,7 @@ class Post extends Model
         'post_content',
         'post_status',
         'post_thumbnail',
+        'post_file',
         'post_author',
         'created_at',
         'updated_at',

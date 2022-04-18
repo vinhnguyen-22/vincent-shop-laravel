@@ -40,12 +40,12 @@
 
                         <div class="form-group col-lg-12">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" value="{{$edit_product->product_cost}}" name="cost" id="cost" placeholder="Enter price product">
+                            <input type="text" class="form-control price-format" value="{{$edit_product->product_cost}}" name="cost" id="cost" placeholder="Enter price product">
                         </div>
                         
                         <div class="form-group col-lg-12">
                             <label for="quantity">Quantity</label>
-                            <input type="number" class="form-control" value="{{$edit_product->product_quantity}}" name="quantity" id="quantity" placeholder="Enter quantity product">
+                            <input type="text" class="form-control price-format" value="{{$edit_product->product_quantity}}" name="quantity" id="quantity" placeholder="Enter quantity product">
                         </div>
 
                         <div class="form-group col-lg-12">
@@ -106,4 +106,23 @@
         </section>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript">
+    // upload ckeditor
+    CKEDITOR.replace('description-product',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
+    CKEDITOR.replace('content-product',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
+</script>
+<script type="text/javascript" src="{{asset('public/backend/js/simple.money.format.js')}}"></script>
 @endsection

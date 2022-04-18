@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Create Product
+                Create Post
             </header>
             <?php
                 $message = Session::get('message');
@@ -64,17 +64,23 @@
                         </div>
 
                         <div class="form-group col-lg-6">
-                            <label for="thumbnail">Thumbnail</label>
-                            <input type="file" class="form-control" name="thumbnail" id="thumbnail" placeholder="Enter thumbnail post">
-                        </div>
-
-                        <div class="form-group col-lg-6">
                             <label for="">Status</label>
                                 <select class="form-control input-sm m-bot15" name="status" required>
                                     <option value="0">Hide</option>
                                     <option value="1">Show</option>
                             </select>
                         </div>
+                        
+                        <div class="form-group col-lg-6">
+                            <label for="thumbnail">Thumbnail</label>
+                            <input type="file" class="form-control" name="thumbnail" id="thumbnail" placeholder="Enter thumbnail post">
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="document">Document </label>
+                            <input type="file" class="form-control" name="document" id="document" placeholder="Enter image product">
+                        </div>
+
                         <div class="form-group col-lg-12">
                             <button type="submit" name="add" class="btn btn-info">Add</button>  
                         </div>
@@ -84,4 +90,20 @@
         </section>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    // upload ckeditor
+    CKEDITOR.replace('description-post',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
+    CKEDITOR.replace('content-post',{
+        filebrowserImageUploadUrl: "{{url('uploads-ckeditor?_token='.csrf_token())}}",
+        filebrowserBrowseUrl: "{{url('file-browser?_token='.csrf_token())}}",
+        filebrowserUploadMethod:'form'
+    });
+</script>
 @endsection

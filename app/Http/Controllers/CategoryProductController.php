@@ -190,11 +190,11 @@ class CategoryProductController extends Controller
         if($product_count>0){
             $output .= '
              <div class="tab-content">
-                <div class="tab-pane fade active in" id="blazers" >
+                <div class="tab-pane fade active in row" id="blazers" >
              ';
                 foreach($product as $key=>$value){
                     $output .= '
-                        <div class="col-sm-3">
+                        <div class="col-md-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
@@ -205,7 +205,7 @@ class CategoryProductController extends Controller
                                     </div>
                                 </div>
                             </div>
-                    </div>';
+                        </div>';
                 }
             $output .= '</div>
                     </div>
@@ -214,7 +214,7 @@ class CategoryProductController extends Controller
         }else{
              $output .= '
              <div class="tab-content">
-                <div class="tab-pane fade active in" id="blazers" >
+                <div class="tab-pane fade active in row" id="blazers" >
                     <h2>Chưa có sản phẩm trong tab này</h2>
                 </div>
             </div>
