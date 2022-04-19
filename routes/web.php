@@ -23,6 +23,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -315,6 +316,21 @@ Route::post('/filter-by-date', [StatisticController::class, 'filterByDate']);
 
 //statistic item
 Route::post('/statistic-item', [StatisticController::class, 'statisticItem']);
+
+//Document
+Route::get('/upload-file', [DocumentController::class, 'uploadFile']);
+Route::get('/upload-images', [DocumentController::class, 'uploadImage']);
+Route::get('/upload-video', [DocumentController::class, 'uploadVideo']);
+
+Route::get('/download-document/{path}/{name}', [DocumentController::class, 'downloadDocument']);
+Route::get('/create-document', [DocumentController::class, 'createDocument']);
+Route::get('/list-document', [DocumentController::class, 'listDocument']);
+Route::get('/read-document', [DocumentController::class, 'readDocument']);
+Route::get('/delete-document/{path}', [DocumentController::class, 'deleteDocument']);
+/* //Folder */
+Route::get('/create-folder', [DocumentController::class, 'createFolder']);
+Route::get('/rename-folder', [DocumentController::class, 'renameFolder']);
+Route::get('/delete-folder', [DocumentController::class, 'deleteFolder']);
 
 /////////////////////////
 //BACKEND

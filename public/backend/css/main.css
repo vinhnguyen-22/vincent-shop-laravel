@@ -358,7 +358,7 @@ ul.top-menu > li > a {
 }
 ul.top-menu > li > a:hover,
 ul.top-menu > li > a:focus {
-    background: #fa9fa4;
+    background: coral;
     text-decoration: none;
     color: #fff !important;
     padding-right: 8px !important;
@@ -366,7 +366,7 @@ ul.top-menu > li > a:focus {
 .nav .open > a,
 .nav .open > a:focus,
 .nav .open > a:hover {
-    background: #fa9fa4 !important;
+    background: coral !important;
     color: #fff !important;
 }
 .notify-row .badge {
@@ -608,8 +608,8 @@ ul.top-menu > li > a:focus {
 }
 .top-nav ul.top-menu > li > a:hover,
 .top-nav ul.top-menu > li > a:focus {
-    border: 1px solid #fa9fa4;
-    background: #fa9fa4 !important;
+    border: 1px solid coral;
+    background: coral !important;
     border-radius: 100px;
     -webkit-border-radius: 100px;
 }
@@ -697,7 +697,7 @@ ul.top-menu > li > a:focus {
     color: #fff;
 }
 .sidebar-toggle-box:hover {
-    background: #fa9fa4;
+    background: coral;
 }
 .hide-left-bar {
     margin-left: -240px !important;
@@ -2125,7 +2125,7 @@ a.mail-dropdown {
     padding: 20px;
 }
 .btn-compose {
-    background: #f0bcb4;
+    background: coral;
     padding: 12px 0;
     text-align: center;
     width: 100%;
@@ -2503,7 +2503,7 @@ ul.inbox-pagination li {
     padding: 12px 0px;
     letter-spacing: 2px;
     display: inline-block;
-    background: #f0bcb4;
+    background: coral;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -o-transition: 0.5s all;
@@ -2627,7 +2627,7 @@ input.ggg {
     -ms-transition: 0.5s all;
 }
 .w3layouts-main a:hover {
-    color: #f0bcb4;
+    color: coral;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -o-transition: 0.5s all;
@@ -2639,7 +2639,7 @@ input.ggg {
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: #f0bcb4;
+    background: coral;
     color: white;
     border: none;
     outline: none;
@@ -2661,7 +2661,7 @@ input.ggg {
     -ms-transition: 0.5s all;
 }
 .w3layouts-main p a {
-    color: #f0bcb4;
+    color: coral;
     padding: 10px;
 }
 .w3layouts-main p a:hover {

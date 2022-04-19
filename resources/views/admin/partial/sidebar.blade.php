@@ -160,6 +160,17 @@
                         <li><a href="{{url('/all-comment')}}">Manage comment</a></li>
                     </ul>
                 </li>
+                
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>GG DRIVE</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{url('/list-document')}}">Manage DRIVE</a></li>
+                    </ul>
+                </li>
+
             </ul>            
         </div>
         <!-- sidebar menu end-->

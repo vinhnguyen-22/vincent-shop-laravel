@@ -186,6 +186,10 @@ return [
 
         //Authenticate blade service providers
         App\Providers\BladeServiceProvider::class,
+
+        // DRIVE
+        App\Providers\GoogleDriveServiceProvider::class,
+        // ...
     ],
 
     /*
@@ -247,6 +251,8 @@ return [
         //DOM PDF
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        // ...
     ],
 
 ];

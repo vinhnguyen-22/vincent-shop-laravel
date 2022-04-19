@@ -8,6 +8,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @include("admin.partial.style")
 <!-- //font-awesome icons -->
+@yield('styles-custom')
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>

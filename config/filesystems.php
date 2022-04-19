@@ -14,6 +14,7 @@ return [
     */
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'cloud' => env('FILESYSTEM', 'google'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +53,23 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
-
+        //  Google Drive
+        'google' => [
+            'driver' => 'google',
+            'clientId' => env('MAIN_GOOGLE_DRIVE_CLIENT_ID'),
+            'clientSecret' => env('MAIN_GOOGLE_DRIVE_CLIENT_SECRET'),
+            'refreshToken' => env('MAIN_GOOGLE_DRIVE_REFRESH_TOKEN'),
+            'folderId' => env('MAIN_GOOGLE_DRIVE_FOLDER_ID'),
+        ],
+        
+        'google-second' => [
+            'driver' => 'google',
+            'clientId' => env('SECOND_GOOGLE_DRIVE_CLIENT_ID'),
+            'clientSecret' => env('SECOND_GOOGLE_DRIVE_CLIENT_SECRET'),
+            'refreshToken' => env('SECOND_GOOGLE_DRIVE_REFRESH_TOKEN'),
+            'folderId' => env('SECOND_GOOGLE_DRIVE_FOLDER_ID'),
+        ],
+        // ...
     ],
 
     /*
