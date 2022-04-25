@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\District;
 use App\Models\Information;
 use App\Models\MenuPost;
@@ -141,6 +142,14 @@ class CheckoutController extends Controller
     public function confirmOrder(Request $request){
         $this->CustomerLogin();
         $data = $request->all();
+        // get coupon
+        $coupon = Coupon::where('coupon_code',$data['order_coupon'])->first();
+        if($coupon){
+            $coupon->coupon_time -= 1;
+            $coupon->coupon_used = $coupon->coupon_used.','.session()->get('customer_id');
+            $coupon->save();
+        }
+        // get fee_shipping
         $shipping = new Shipping;
         $shipping->shipping_name = $data['shipping_name']; 
         $shipping->customer_id = session()->get('customer_id'); 

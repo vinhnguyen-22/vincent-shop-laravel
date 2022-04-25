@@ -332,6 +332,11 @@ Route::get('/create-folder', [DocumentController::class, 'createFolder']);
 Route::get('/rename-folder', [DocumentController::class, 'renameFolder']);
 Route::get('/delete-folder', [DocumentController::class, 'deleteFolder']);
 
+// send mail coupon
+Route::get('/send-coupon/{coupon_name}/{coupon_rate}/{coupon_code}/{coupon_time}/{coupon_method}/{coupon_expired}/{coupon_start}', [MailController::class, 'sendCoupon']);
+Route::get('/send-coupon-vip/{coupon_name}/{coupon_rate}/{coupon_code}/{coupon_time}/{coupon_method}/{coupon_expired}/{coupon_start}', [MailController::class, 'sendCouponVip']);
+Route::get('/mail-example', [MailController::class, 'mailExample']);
+
 /////////////////////////
 //BACKEND
 /////////////////////////

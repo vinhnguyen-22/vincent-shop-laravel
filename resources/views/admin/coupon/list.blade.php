@@ -13,17 +13,9 @@
                 Session::put('message' , null);    
             }
         ?>
+
         <div class="row w3-res-tb">
-            <div class="col-sm-5 m-b-xs">
-                <select class="input-sm form-control w-sm inline v-middle">
-                <option value="0">Bulk action</option>
-                <option value="1">Delete selected</option>
-                <option value="2">Bulk edit</option>
-                <option value="3">Export</option>
-                </select>
-                <button class="btn btn-sm btn-default">Apply</button>                
-            </div>
-           
+            <div class="col-sm-5"><a href="{{url('/send-coupon-vip')}}" class="btn btn-default">Send coupon</a></div>
             <div class="col-sm-4"></div>
             <div class="col-md-3">
                 <div class="input-group">
@@ -44,12 +36,16 @@
                         <input type="checkbox"><i></i>
                     </label>
                     </th>
+                    <th>Start day</th>
+                    <th>Expire day</th>
                     <th>Title</th>
                     <th>Code</th>
                     <th>Quantity</th>
                     <th>Rate</th>
                     <th>Method</th>
-                    <th></th>
+                    <th>Status</th>
+                    <th>Expiry</th>
+                    <th style="width:30px;"></th>
                     <th style="width:30px;"></th>
                 </tr>
             </thead>
@@ -57,6 +53,8 @@
                 @foreach($list_coupon as $key => $coupon)
                 <tr>
                     <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                    <td>{{date('d/m/Y', strtotime($coupon->coupon_start))}}</td>
+                    <td>{{date('d/m/Y', strtotime($coupon->coupon_expired))}}</td>
                     <td>{{$coupon ->coupon_name}}</td>
                     <td>{{$coupon ->coupon_code}}</td>
                     <td>{{$coupon ->coupon_time}}</td>
@@ -67,12 +65,49 @@
                         <td>{{$coupon ->coupon_rate}}%</td>
                         <td>DESC By Percentage</td>
                     @endif
+
+                    @if($coupon ->coupon_status == 1)
+                        <td style="color:green">actived</td>
+                    @else
+                        <td style="color:coral">inactived</td>
+                    @endif
+                    
+                    @if($today < $coupon->coupon_expired)
+                        <td style="color:green">not expired</td>
+                    @else
+                        <td style="color:coral">expired</td>
+                    @endif
+                    
                     <td>
-                        <a href="{{url('/edit-coupon/'.$coupon->coupon_id)}}">
-                        <i class="fa fa-edit text-success text-active"></i>
-                        </a>
                         <a href="{{url('/delete-coupon/'.$coupon->coupon_id)}}" onclick="return confirm('Are you sure you want to delete this coupon?')">
                             <i class="fa fa-trash text-danger text"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url('/send-coupon-vip',
+                        [
+                            'coupon_name' => $coupon->coupon_name,
+                            'coupon_rate' => $coupon->coupon_rate,
+                            'coupon_code' => $coupon->coupon_code,
+                            'coupon_time' => $coupon->coupon_time,
+                            'coupon_method' => $coupon->coupon_method,
+                            'coupon_expired' => $coupon->coupon_expired,
+                            'coupon_start' => $coupon->coupon_start,
+                        ]
+                        )}}" class="btn btn-sm" style=" width:100%;margin-bottom:10px;color:black; background-color:yellow">Send for vip
+                            <i class="fa fa-send text-information text-active"></i>
+                        </a>
+                        <a href="{{url('/send-coupon',
+                         [
+                            'coupon_name' => $coupon->coupon_name,
+                            'coupon_rate' => $coupon->coupon_rate,
+                            'coupon_code' => $coupon->coupon_code,
+                            'coupon_time' => $coupon->coupon_time,
+                            'coupon_method' => $coupon->coupon_method,
+                            'coupon_expired' => $coupon->coupon_expired,
+                            'coupon_start' => $coupon->coupon_start,
+                        ])}}" class="btn btn-sm btn-default">Send coupon
+                            <i class="fa fa-send text-information text-active"></i>
                         </a>
                     </td>
                 </tr>

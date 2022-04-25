@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\Information;
 use App\Models\MenuPost;
 use App\Models\Slider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -14,53 +15,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
-    // public function saveCart(Request $request){
-    //     $data = array();
-    //     $product_id =
-    //     $request->productId_hidden;
-    //     $quantity = $request->qty;
-    //     $product_info = DB::table('tbl_product')-> where('product_id', $product_id)->first();
-
-    //     $data['id'] = $product_info->product_id;
-    //     $data['name'] = $product_info->product_name;
-    //     $data['qty'] = $quantity;
-    //     $data['price'] = $product_info->product_price;
-    //     $data['weight'] = $product_info->product_price;
-    //     $data['options']['image'] = $product_info->product_image;
-
-    //     // Cart::destroy();
-    //     Cart::add($data);
-    //     Cart::setGlobalTax(10);
-        
-    //     return redirect('/show-cart');
-    // }
-
-    // public function showCart(Request $request){
-    //     // SEO
-    //     $meta_desc = 'Cart shopping';
-    //     $meta_keywords ='buy online, e-commerce'; 
-    //     $meta_title = 'Your cart';
-    //     $url_canonical = $request->url(); 
-    //     // SEO
-
-    //     $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-    //     $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-    
-    //     return view('pages.cart.show')->with(compact('cats','brands','meta_desc','meta_keywords','meta_title','url_canonical'));
-    // }
-    
-    // public function deleteToCart($rowId){        
-    //     Cart::update($rowId,0);
-    //     return redirect('/show-cart');
-    // }
-    
-    // public function updateQtyCart(Request $request){        
-    //     $rowId = $request->rowId_cart;
-    //     $qty = $request->cart_qty;
-    //     Cart::update($rowId, $qty);
-    //     return redirect('/show-cart');
-    // }
-
     //AJAX request
     public function addCartAjax(Request $request){
         $data = $request->all();
@@ -172,23 +126,19 @@ class CartController extends Controller
     
     public function checkCoupon(Request $request){
         $data = $request->all();
-        $coupon = Coupon::where('coupon_code', $data['coupon'])->first();
+        $now = Carbon::now()->format('Y-m-d');
+        $coupon =Coupon::where('coupon_code', $data['coupon'])->where('coupon_status',1)->where('coupon_expired','>=',$now)->first();
         if($coupon){
-            $count_coupon = $coupon->count();
-            if($count_coupon > 0){
-                $coupon_session = session()->get('coupon');
-                
-                if($coupon_session){
-                    $is_available = false;
-                    if(!$is_available){
-                        $cou[]= array(
-                            'coupon_code' => $coupon->coupon_code,
-                            'coupon_method' => $coupon->coupon_method,
-                            'coupon_rate' => $coupon->coupon_rate,
-                        );
-                        session(['coupon' => $cou]);
-                    }
-                }else{
+            if(session()->get('customer_id')){
+                $coupon = Coupon::where('coupon_code', $data['coupon'])->where('coupon_status',1)->where('coupon_used','NOT LIKE','%'.session()->get('customer_id').'%')->first();
+                if(!$coupon) {
+                    return redirect()->back()->with('error','Coupon used');
+                }
+            }
+            $coupon_session = session()->get('coupon');
+            if($coupon_session){
+                $is_available = false;
+                if(!$is_available){
                     $cou[]= array(
                         'coupon_code' => $coupon->coupon_code,
                         'coupon_method' => $coupon->coupon_method,
@@ -196,13 +146,20 @@ class CartController extends Controller
                     );
                     session(['coupon' => $cou]);
                 }
-                
-                session()->save();
-                return redirect()->back()->with('message','Add coupon success');
+            }else{
+                $cou[]= array(
+                    'coupon_code' => $coupon->coupon_code,
+                    'coupon_method' => $coupon->coupon_method,
+                    'coupon_rate' => $coupon->coupon_rate,
+                );
+                session(['coupon' => $cou]);
             }
+            
+            session()->save();
+            return redirect()->back()->with('message','Add coupon success');
         }else{
-            return redirect()->back()->with('error','Coupon code incorrect');
-        }             
+            return redirect()->back()->with('error','Coupon expired');
+        }
     }
     
     public function deleteAllCoupon(){

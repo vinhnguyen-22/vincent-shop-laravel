@@ -642,7 +642,7 @@ $(document).ready(function () {
                         "#EC407A",
                         "#00897B",
                         "coral",
-                        "#C0CA33",
+                        "cornflowerblue",
                         "#9CC4E4",
                     ],
 

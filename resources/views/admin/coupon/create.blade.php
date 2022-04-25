@@ -46,6 +46,16 @@
                             <label for="">Enter rate of percent or cash</label>
                             <input type="number" class="form-control" name="rate" id="rate" placeholder="Enter rate coupon">
                         </div>
+
+                        <div class="form-group">
+                            <label for="start">Start day</label>
+                            <input type="text" id="start" name="start" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expired">Expire day</label>
+                            <input type="text" id="expired" name="expired" class="form-control">
+                        </div>
                         
                         <button type="submit" name="add" class="btn btn-info">Add Coupon</button>
                     </form>
@@ -54,4 +64,38 @@
         </section>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="{{asset('public/backend/js/jquery-ui.min.js')}}"></script>
+<script type="text/javascript">
+    var dateFormat = "mm/dd/yy",
+    from = $( "#start" )
+        .datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3
+        })
+        .on( "change", function() {
+        to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+    to = $( "#expired" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3
+    })
+    .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+    
+    function getDate( element ) {
+        var date;
+        try {
+            date = $.datepicker.parseDate( dateFormat, element.value );
+        } catch( error ) {
+            date = null;
+        }
+        return date;
+    }
+</script>
 @endsection

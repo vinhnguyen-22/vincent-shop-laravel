@@ -15,6 +15,7 @@ class Customer extends Model
         'customer_email',
         'customer_password',
         'customer_phone',
+        'customer_vip',
     ];
 
     protected $primaryKey = 'customer_id';

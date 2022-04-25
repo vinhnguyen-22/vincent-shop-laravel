@@ -8,7 +8,7 @@
                 <li class="active">Checkout</li>
             </ol>
         </div>
-{{-- 
+        {{-- 
         <div class="step-one">
             <h2 class="heading">Step1</h2>
         </div>
