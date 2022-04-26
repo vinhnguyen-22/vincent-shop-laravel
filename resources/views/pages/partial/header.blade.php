@@ -63,14 +63,18 @@
                             $customer_id = Session::get('customer_id');
                             $shipping_id = Session::get('shipping_id');
                             $customer_name = Session::get('customer_name');
+                            $customer_avatar = Session::get('customer_avatar');
                             
                             if($customer_id != null){ ?>
-                                <li><a href=""><i class="fa fa-user"></i> {{$customer_name}}</a></li>                                    
+                                <li><a href="">
+                                    @if($customer_avatar)
+                                        <img src="{{$customer_avatar}}" style="width:30px; border-radius:50%" alt="">
+                                    @else
+                                        <i class="fa fa-user"></i> 
+                                    @endif
+                                    {{$customer_name}}</a></li>                                    
                             <?php }?>
-                            
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="{{url('/show-contact')}}">Contact</a></li> 
-
                             <li><a href="
                                 @if($shipping_id == null)
                                 {{url('/checkout')}}

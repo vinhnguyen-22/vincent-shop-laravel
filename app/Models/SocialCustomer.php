@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Social extends Model
+class SocialCustomer extends Model
 {
     use HasFactory;
     public $timestamps = false;
@@ -16,8 +16,8 @@ class Social extends Model
         'user'  
     ];
     protected $primaryKey = 'user_id';
-    protected $table = 'tbl_social';
-    public function login(){
-        return $this->belongsTo('App\Models\Admin', 'user');
+    protected $table = 'tbl_social_customer';
+    public function customer(){
+        return $this->belongsTo('App\Models\Customer', 'user');
     }
 }

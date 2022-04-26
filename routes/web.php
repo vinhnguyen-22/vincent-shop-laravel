@@ -56,7 +56,7 @@ Route::get('/brand-product/{brand_slug}', [BrandController::class, 'showBrandPag
 Route::get('/product-detail/{product_slug}', [ProductController::class, 'showProductDetailPage']);
 Route::get('/tags/{product_tag}', [ProductController::class, 'tag']);
 
-//Checkout
+//Checkout login
 Route::get('/login-checkout', [CheckoutController::class, 'loginCheckout']);
 Route::post('/customer-signup', [CheckoutController::class, 'customerRegister']);
 Route::post('/customer-login', [CheckoutController::class, 'login']);
@@ -350,6 +350,19 @@ Route::get('/admin/callback', [AdminController::class, 'callbackFacebook']);
 
 Route::get('/login-google', [AdminController::class, 'loginGoogle']);
 Route::get('/google/callback', [AdminController::class, 'callbackGoogle']);
+/////////////////////////
+//LOGIN WITH SOCIAL MEDIA
+/////////////////////////
+
+
+/////////////////////////
+//LOGIN WITH SOCIAL MEDIA
+/////////////////////////
+Route::get('/login-customer-facebook', [AdminController::class, 'loginCustomerFacebook']);
+Route::get('customer/facebook/callback', [AdminController::class, 'callbackCustomerFacebook']);
+
+Route::get('/login-customer-google', [AdminController::class, 'loginCustomerGoogle']);
+Route::get('customer/google/callback', [AdminController::class, 'callbackCustomerGoogle']);
 /////////////////////////
 //LOGIN WITH SOCIAL MEDIA
 /////////////////////////

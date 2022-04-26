@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Social;
+use App\Models\SocialCustomer;
 use App\Models\Video;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
@@ -196,6 +197,7 @@ class AdminController extends Controller
         }else{
             $admin_new = new Social([
                 'provider_user_id' => $users->id,
+                'provider_user_email' => $users->email,
                 'provider' => strtoupper($provider)
             ]);
 
@@ -206,7 +208,6 @@ class AdminController extends Controller
                     'admin_name' => $users->name,
                     'admin_email' => $users->email,
                     'admin_password' => '',
-
                     'admin_phone' => '',
                     'admin_status' => 1
                 ]);
@@ -215,5 +216,104 @@ class AdminController extends Controller
             $admin_new->save();
             return $admin_new;
         }        
+    }
+
+    //LOGIN GOOGLE CLIENT
+    public function loginCustomerGoogle(){
+        config(['services.google.redirect' => env('GOOGLE_CLIENT_URL')]);
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function callbackCustomerGoogle(){
+        config(['services.google.redirect' => env('GOOGLE_CLIENT_URL')]);
+        $users = Socialite::driver('google')->stateless()->user(); 
+        $authUser = $this->findOrCreateCustomer($users,'google');
+        if($authUser){
+            $account = Customer::where('customer_id',$authUser->user)->first();
+            session(['customer_name'=>$account->customer_name]);
+            session(['customer_id'=>$account->customer_id]);
+            session(['customer_avatar'=>$account->customer_avatar]);
+        }elseif(isset($customer_new)){
+            $account = Customer::where('customer_id',$authUser->user)->first();
+            session(['customer_name'=>$account->customer_name]);
+            session(['customer_id'=>$account->customer_id]);
+            session(['customer_avatar'=>$account->customer_avatar]);
+        }
+
+        return redirect('/login-checkout')->with('message', 'Đăng nhập thành công');
+    }
+
+     public function findOrCreateCustomer($users,$provider){
+        $authUser = SocialCustomer::where('provider_user_id', $users->id)->first();
+        if($authUser){
+            return $authUser;
+        }else{
+             $customer_new = new SocialCustomer([
+                'provider_user_id' => $users->id,
+                'provider_user_email' => $users->email,
+                'provider' => strtoupper($provider)
+            ]);
+
+            $orang = Customer::where('customer_email',$users->email)->first();
+
+            if(!$orang){
+                $orang = Customer::create([
+                    'customer_name' => $users->name,
+                    'customer_email' => $users->email,
+                    'customer_avatar' => $users->avatar,
+                    'customer_password' => '',
+                    'customer_phone' => ''
+                ]);
+            }
+            $customer_new->customer()->associate($orang);
+            $customer_new->save();
+            return $customer_new;
+        }        
+    }
+
+    //LOGIN FACEBOOK CLIENT
+    public function loginCustomerFacebook(){
+        config(['services.facebook.redirect' => env('FACEBOOK_CLIENT_REDIRECT')]);
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function callbackCustomerFacebook(){
+        config(['services.facebook.redirect' => env('FACEBOOK_CLIENT_REDIRECT')]);
+        $provider = Socialite::driver('facebook')->user();
+        $account = SocialCustomer::where('provider','facebook')->where('provider_user_id',$provider->getId())->first();
+            
+        if($account != null) {
+            //login in Admin  
+            $account_name = Customer::where('customer_id',$account->user)->first();
+            session(['customer_name'=>$account_name->customer_name]);
+            session(['customer_id'=>$account_name->customer_id]);
+            return redirect('/login-checkout')->with('message', 'Đăng nhập Customer thành công');
+        }else{
+
+            $customer_login = new SocialCustomer([
+                'provider_user_id' => $provider->getId(),
+                'provider_user_email' => $provider->getEmail() ?? '',
+                'provider' => 'facebook'
+            ]);
+
+            $orang = Customer::where('customer_email',$provider->getEmail())->first();
+
+            if(!$orang){
+                $orang = Customer::create([
+                    'customer_name' => $provider->getName(),
+                    'customer_email' => $provider->getEmail() ?? '',
+                    'customer_avatar' => '',
+                    'customer_phone' => '',
+                    'customer_password' => '',
+                ]);
+            }
+            $customer_login->customer()->associate($orang);
+            $customer_login->save();
+
+            $account_name = Customer::where('customer_id',$customer_login->user)->first();
+            session(['customer_name'=>$customer_login->customer_name]);
+            session(['customer_id'=>$customer_login->customer_id]);
+            return redirect('/login-checkout')->with('message', 'Đăng nhập Customer thành công');
+        }
     }
 }
