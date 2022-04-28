@@ -12,6 +12,7 @@ use App\Models\Statistic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 class OrderController extends Controller
 {
@@ -140,6 +141,65 @@ class OrderController extends Controller
                     }
                 }
             }
+            
+            // send email
+            $now = Carbon::now()->format('d-m-Y H:i:s');
+            $title_mail = 'Xác nhận đơn hàng đến từ VincentGaming ngày '.$now;
+            $customer = Customer::where('customer_id', $order->customer_id)->first();
+            $data['email'][] = $customer->customer_email;
+
+            foreach($data['orderProductId'] as $key => $val){
+                $product_mail = Product::find($val);
+                foreach($data['quantity'] as $key2 => $qty){
+                    $cart_array[] = array(
+                        'product_name' => $product_mail['product_name'],
+                        'product_price' => $product_mail['product_price'],
+                        'product_qty' => $qty,
+                    );
+                }
+            }
+            
+            $details = OrderDetails::where('order_code',$order->order_code)->first();
+            $fee_ship = $details->order_feeship;
+            $coupon_code = $details->order_coupon;
+            $shipping = Shipping::where('shipping_id',$order->shipping_id)->first();
+            $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+            
+            $shipping_array = array(
+                'customer_name' => $customer->customer_name, 
+                'shipping_name' => $shipping->shipping_name, 
+                'shipping_address' => $shipping->shipping_address, 
+                'shipping_phone' => $shipping->shipping_phone, 
+                'shipping_email' => $shipping->shipping_email, 
+                'shipping_notes' => $shipping->shipping_notes, 
+                'shipping_method' => $shipping->shipping_method, 
+            );
+
+            if($coupon_code){
+                $code = array(
+                    'coupon_code' => $coupon_code,
+                    'coupon_method' => $coupon->coupon_method,
+                    'coupon_rate' => $coupon->coupon_rate,
+                    'order_feeship' =>  $fee_ship,
+                    'order_code' => $order->order_code,
+                    'issued' => $now
+                );
+            }else{
+                $code = array(
+                    'coupon_code' => 'Không có',
+                    'order_code' => $order->order_code,
+                    'issued' => $now
+                );
+            }
+            
+            Mail::send('pages.Mail.confirm_order',[
+                'cart_array' => $cart_array,
+                'shipping_array' => $shipping_array,
+                'code' => $code], function($message) use ($title_mail,$data){
+                $message->to($data['email'])->subject($title_mail);
+                $message->from($data['email'],$title_mail);
+            });
+
         }elseif($order->order_status != 2 && $order->order_status != 1 && $order->order_status != 3 ){
             foreach ($data['orderProductId'] as $key => $product_id) {
                 $product = Product::find($product_id);

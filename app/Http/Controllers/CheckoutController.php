@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Customer;
 use App\Models\District;
 use App\Models\Information;
 use App\Models\MenuPost;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Session;
 
 use App\Rules\Captcha;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 session_start();
 class CheckoutController extends Controller
@@ -186,6 +188,57 @@ class CheckoutController extends Controller
                 $order_details->save();
             }    
         }
+
+        // send email
+        $now = Carbon::now()->format('d-m-Y H:i:s');
+        $title_mail = 'Xác nhận đơn hàng đến từ VincentGaming ngày '.$now;
+        $customer = Customer::find(session()->get('customer_id'));
+        $data['email'][] = $customer->customer_email;
+
+        if(session()->get('cart') == true){
+            foreach(session()->get('cart') as $key => $val){
+                $cart_array[] = array(
+                    'product_name' => $val['product_name'],
+                    'product_price' => $val['product_price'],
+                    'product_qty' => $val['product_qty'],
+                );
+            }
+        }
+
+        $shipping_array = array(
+            'customer_name' => $customer->customer_name, 
+            'shipping_name' => $data['shipping_name'], 
+            'shipping_address' => $data['shipping_address'], 
+            'shipping_phone' => $data['shipping_phone'], 
+            'shipping_email' => $data['shipping_email'], 
+            'shipping_notes' => $data['shipping_notes'], 
+            'shipping_method' => $data['shipping_method']  
+        );
+        if($coupon->coupon_code){
+            $code = array(
+                'coupon_code' => $coupon->coupon_code,
+                'coupon_method' => $coupon->coupon_method,
+                'coupon_rate' => $coupon->coupon_rate,
+                'order_feeship' =>  $data['order_fee'],
+                'order_code' => $order->order_code,
+                'issued' => $now
+            );
+        }else{
+            $code = array(
+                'coupon_code' => 'Không có',
+                'order_code' => $checkout_code,
+                'issued' => $now
+            );
+        }
+        
+        Mail::send('pages.Mail.invoice',[
+            'cart_array' => $cart_array,
+            'shipping_array' => $shipping_array,
+            'code' => $code], function($message) use ($title_mail,$data){
+            $message->to($data['email'])->subject($title_mail);
+            $message->from($data['email'],$title_mail);
+        });
+
         session()->forget('cart');
         session()->forget('coupon');
         session()->forget('fee');

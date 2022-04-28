@@ -337,6 +337,7 @@ Route::get('/send-coupon/{coupon_name}/{coupon_rate}/{coupon_code}/{coupon_time}
 Route::get('/send-coupon-vip/{coupon_name}/{coupon_rate}/{coupon_code}/{coupon_time}/{coupon_method}/{coupon_expired}/{coupon_start}', [MailController::class, 'sendCouponVip']);
 Route::get('/mail-example', [MailController::class, 'mailExample']);
 
+
 /////////////////////////
 //BACKEND
 /////////////////////////

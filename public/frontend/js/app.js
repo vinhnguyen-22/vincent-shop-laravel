@@ -180,9 +180,9 @@ $(document).ready(function () {
                             );
                         },
                     });
-                    window.setTimeout(function () {
-                        location.reload();
-                    }, 3000);
+                    // window.setTimeout(function () {
+                    //     location.reload();
+                    // }, 3000);
                 } else {
                     swal(
                         "Cancelled",

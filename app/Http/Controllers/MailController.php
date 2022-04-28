@@ -77,6 +77,6 @@ class MailController extends Controller
         return redirect()->back()->with('message', 'Send mail successfully');
     }
     public function mailExample(){
-        return view('pages.Mail.send_coupon');
+        return view('pages.Mail.invoice');
     }
 }
