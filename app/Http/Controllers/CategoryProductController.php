@@ -134,10 +134,7 @@ class CategoryProductController extends Controller
         $max = Product::max('product_price');
         $max += 1000;        
         // SEO
-        $meta_desc = '';
-        $meta_keywords =''; 
-        $meta_title = '';
-        $url_canonical = $request->url();
+        
         foreach ($pro_by_cat as $key => $val){
             $meta_desc = $val->category_desc;
             $meta_keywords = $val->category_keywords;
@@ -185,7 +182,7 @@ class CategoryProductController extends Controller
     public function productTabs(Request $request) {
         $data = $request->all();
         $output = '';
-        $product = Product::where('category_id',$data['cate_id'])->orderBy('product_id','DESC')->get();
+        $product = Product::where('category_id',$data['cate_id'])->orderBy('product_id','DESC')->take(6)->get();
         $product_count =$product->count();
         if($product_count>0){
             $output .= '

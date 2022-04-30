@@ -28,35 +28,12 @@
     <div class="header-middle"><!--header-middle-->
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="logo pull-left" >
                         <a href="{{url('/')}}" style="color: darkcyan"><img src="{{asset('public/uploads/info/'.$logo->info_img)}}" style="border-radius:50%; margin-right:10px" width="50" height="50"alt="" /><b>VINCENT GAMING</b></a>
                     </div>
-                    <div class="btn-group pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                USA
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canada</a></li>
-                                <li><a href="#">UK</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                DOLLAR
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canadian Dollar</a></li>
-                                <li><a href="#">Pound</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <?php 
@@ -74,7 +51,6 @@
                                     @endif
                                     {{$customer_name}}</a></li>                                    
                             <?php }?>
-                            <li><a href="{{url('/show-contact')}}">Contact</a></li> 
                             <li><a href="
                                 @if($shipping_id == null)
                                 {{url('/checkout')}}
@@ -87,6 +63,7 @@
                             <li><a href="{{url('/show-cart-page')}}"="{{url('/show-cart-page')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <?php 
                             if($customer_id != null){ ?>
+                                <li><a href="{{url('/history-order')}}"><i class="fa fa-history"></i>Order history</a></li>
                                 <li><a href="{{url('/customer-logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>                                    
                             <?php } else{ ?>
                                 <li><a href="{{url('/login-checkout')}}"><i class="fa fa-lock"></i> Login</a></li>                                    
@@ -121,7 +98,6 @@
                                     @endforeach
                                 </ul>
                             </li> 
-                            <li><a href="{{url('/show-cart-page')}}">Cart</a></li>
                             <li><a href="{{url('/video-page')}}">Videos</a></li>
                             <li><a href="{{url('/show-contact')}}">Contact</a></li> 
 
@@ -134,9 +110,7 @@
                         <div class="search_box">
                             <input type="text" name="search_box" style="width:70%; resize:none;" placeholder="Search" id="search-box"/>
                             <input type="submit" style="margin-top:0px; width:20%; color:white" name="search_items" value="Search" class="btn btn-primary btn-sm">
-                            <div id="keywords-box" >
-                                
-                            </div>
+                            <div id="keywords-box" ></div>
                         </div>
                     </form>
                 </div>

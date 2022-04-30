@@ -38,9 +38,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         @endforeach
         <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" >
         <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" >
-        <span><input type="checkbox" />Remember Me</span>
-        <h6><a href="#">Forgot Password?</a></h6>
-        <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+        
+        <div >
+            <span><input type="checkbox" />Remember Me</span>
+            <h6><a href="#">Forgot Password?</a></h6>
+        </div>
+        
+        <div  style="margin: 60px auto 0px auto;" class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
         <div class="clearfix"></div>
         <input type="submit" value="Sign In" name="login">
         <br/>

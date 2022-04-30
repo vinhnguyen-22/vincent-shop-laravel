@@ -243,4 +243,41 @@ class CheckoutController extends Controller
         session()->forget('coupon');
         session()->forget('fee');
     }
+
+    //Order history
+
+    public function orderHistoryPage(){
+        $this->CustomerLogin();
+        $all_order = Order::where('customer_id',session()->get('customer_id'))->orderby('order_id','DESC')->paginate(20);
+        return view('pages.history.history_order')->with(compact('all_order'));
+    }
+
+    public function ViewOrderHistoryPage($order_code){
+        $this->CustomerLogin();
+        $order = Order::where('order_code', $order_code)->first();
+        
+        $customer_id = $order->customer_id;
+        $shipping_id = $order->shipping_id;
+        
+        $shipping = Shipping::where('shipping_id',$shipping_id)->first();
+        $customer = Customer::where('customer_id',$customer_id)->first();
+
+        $order_details = OrderDetails::with('product')->where('order_code', $order_code)->get();
+        $order_fee = OrderDetails::where('order_code', $order_code)->pluck('order_feeship')->first();
+        
+        $order_coupon = "Empty";
+
+        foreach($order_details as $key => $value){
+            $order_coupon = $value->order_coupon;
+        }    
+        if($order_coupon != "Empty"){
+            $coupon = Coupon::where('coupon_code',$order_coupon)->first();
+            $coupon_method = $coupon->coupon_method;
+            $coupon_rate = $coupon->coupon_rate;
+        }else{
+            $coupon_method = 2;
+            $coupon_rate = 0;
+        }
+        return view('pages.history.history_detail')->with(compact('customer','shipping','order','order_details','coupon_method','coupon_rate','order_fee'));
+    }
 }

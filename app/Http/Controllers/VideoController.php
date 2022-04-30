@@ -179,17 +179,6 @@ class VideoController extends Controller
     
     //end function backend
     public function showVideoPage( Request $request){  
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();      
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
-        $meta_desc = '';
-        $meta_keywords =''; 
-        $meta_title = '';
-        $url_canonical = $request->url();
-        
         $videos = Video::orderby('video_id','desc')->paginate(6);
         // SEO
         $meta_desc = "Equipment for gamers, Specializes in selling electronic devices to gamers. Get support for building gaming PCs, loading game cards and other utilities.";
@@ -197,9 +186,7 @@ class VideoController extends Controller
         $meta_title = "GAMING STORE | Equipment for gamers";
         $url_canonical = $request->url();
         // SEO
-
-
-        return view('pages.video.show')->with(compact('logo','videos','catsPost','cats','brands','slider','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.video.show')->with(compact('videos','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 
      

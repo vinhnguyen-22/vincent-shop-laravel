@@ -19,14 +19,8 @@ class ContactController extends Controller
         $meta_title = "GAMING STORE | Equipment for gamers";
         $url_canonical = $request->url();
         // SEO
-
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
         $informations = Information::orderBy('info_id','DESC')->get();
-        $logo = Information::select('info_img')->first();
-        return view('pages.contact.show')->with(compact('catsPost','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','slider','informations','logo'));
+        return view('pages.contact.show')->with(compact('meta_desc','meta_keywords','meta_title','url_canonical','informations'));
     }
 
 

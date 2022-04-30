@@ -227,21 +227,10 @@ class ProductController extends Controller
     //end function admin
     
     public function showProductDetailPage($product_slug, Request $request){  
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();      
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
         $product_details = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
         ->where('tbl_product.product_slug', $product_slug)->limit(1)->get();
-           
-        $meta_desc = '';
-        $meta_keywords =''; 
-        $meta_title = '';
-        $url_canonical = $request->url();
     
         // SEO
         foreach($product_details as $key => $value){
@@ -263,18 +252,12 @@ class ProductController extends Controller
         $related_products = DB::table('tbl_product')
         ->join('tbl_category_product', 'tbl_category_product.category_id','=', 'tbl_product.category_id')
         ->join('tbl_brand', 'tbl_brand.brand_id','=', 'tbl_product.brand_id')
-        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->get();
+        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_slug',[$product_slug])->take(3)->get();
         
-        return view('pages.productDetail.show')->with(compact('logo','gallery','catsPost','cats','brands','slider','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
+        return view('pages.productDetail.show')->with(compact('gallery','product_details','related_products','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 
     public function tag(Request $request, $product_tag){
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();      
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
         $tag = str_replace('-'," ",$product_tag);
 
         $pro_tag = Product::where('product_status','1')
@@ -288,7 +271,7 @@ class ProductController extends Controller
         $meta_title = 'Tags: '.$product_tag;
         $url_canonical = $request->url();
     
-        return view('pages.productDetail.tag')->with(compact('logo','catsPost','cats','brands','slider','meta_desc','meta_keywords','meta_title','url_canonical','product_tag','pro_tag'));
+        return view('pages.productDetail.tag')->with(compact('meta_desc','meta_keywords','meta_title','url_canonical','product_tag','pro_tag'));
     }
 
     public function quickView(Request $request){

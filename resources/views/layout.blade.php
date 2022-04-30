@@ -12,8 +12,8 @@
     <link rel="canonical" href="{{$url_canonical}}" >
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="INDEX, FOLLOW"/>
-     <link rel="shortcut icon" href="https://vanilla.futurecdn.net/pcgamer/392738/favicon.ico" size="16x16">    
-    
+    <link rel="shortcut icon" href="{{asset("")}}" size="16x16">    
+
     
     {{-- <meta property="og:image" content="{{$image_og}}" /> --}}
     <meta property="og:site_name" content="http://localhost:81/lavarel%208/shop-vincent/" />

@@ -274,7 +274,7 @@ form{
                 <div>
                     <p style="color:cornflowerblue; text-align:center; font-size:15px">
                         Xem lại lịch sử đơn hàng đã đặt tại:
-                        <a href="{{'/history-order'}}" style="color:coral">Lịch sử đơn hàng</a>
+                        <a target="_blank" href="{{url('/history-order')}}" style="color:coral">Lịch sử đơn hàng</a>
                     </p>
                 </div>
 

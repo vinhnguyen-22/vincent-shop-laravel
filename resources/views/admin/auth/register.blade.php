@@ -43,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <input type="tel" class="ggg" value="{{old('phone')}}" name="phone" placeholder="PHONE" >
         <input type="password" class="ggg" name="password" placeholder="PASSWORD" >
         <input type="password" class="ggg" name="confirm_password" placeholder="CONFIRM PASSWORD" >
-        <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+        <div class="g-recaptcha" style="margin: 60px auto 0px auto;" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
         <div class="clearfix"></div>
 
         <input type="submit" value="Register" name="register">

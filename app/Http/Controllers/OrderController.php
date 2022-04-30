@@ -61,7 +61,6 @@ class OrderController extends Controller
     }
 
     public function printOrder($order_code){
-        $this->AuthLogin();        
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->printOrderConvert($order_code));
         return $pdf->stream();

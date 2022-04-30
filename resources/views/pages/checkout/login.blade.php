@@ -1,7 +1,6 @@
 @extends('layout')
 @section('custom_styles')
 <style type="text/css">
-
 .block-wrap {
   display: flex;
   justify-content: center;

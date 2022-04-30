@@ -20,7 +20,6 @@ class AuthController extends Controller
         $this->validate($request,[
             'email' => 'required|max:255',
             'password' => 'required|max:255',
-            'g-recaptcha-response' => new Captcha(), 	//dòng kiểm tra Captch
         ]);
         if(Auth::attempt(['admin_email'=> $request->email,'admin_password'=> $request->password])){
             return redirect('/dashboard');
@@ -39,7 +38,6 @@ class AuthController extends Controller
             'phone' => 'required|max:255',
             'email' => 'required|max:255',
             'password' => 'required|max:255',
-            'g-recaptcha-response' => new Captcha(), 	//dòng kiểm tra Captch
         ]);
     }
 

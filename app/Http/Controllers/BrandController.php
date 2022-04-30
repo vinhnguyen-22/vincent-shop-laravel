@@ -107,20 +107,10 @@ class BrandController extends Controller
     // end function admin
     
     public function showBrandPage($brand_slug, Request $request){
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();      
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-      
         $pro_by_brand = DB::table('tbl_product')->join('tbl_brand', 'tbl_product.brand_id','=','tbl_brand.brand_id')->where('tbl_brand.brand_slug',$brand_slug)->get();
-      
         $brand_name = DB::table('tbl_brand')->where('tbl_brand.brand_slug',$brand_slug)->limit(1)->get(); 
         
-        $meta_desc = '';
-        $meta_keywords =''; 
-        $meta_title = '';
-        $url_canonical = $request->url();
+        
         
         // SEO
         foreach ($pro_by_brand as $key => $val){
@@ -131,6 +121,6 @@ class BrandController extends Controller
         }
         // SEO
 
-        return view('pages.brand.show')->with(compact('logo','catsPost','cats','brands','pro_by_brand','brand_name','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        return view('pages.brand.show')->with(compact('pro_by_brand','brand_name','meta_desc','meta_keywords','meta_title','url_canonical'));
     } 
 }

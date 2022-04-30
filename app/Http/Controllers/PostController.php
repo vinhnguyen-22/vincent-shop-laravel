@@ -202,12 +202,6 @@ class PostController extends Controller
     //end function admin
     
     public function showPostPage(Request $request,$post_slug){  
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
         $posts = Post::with('menuPost')->where('post_slug',$post_slug)->take(1)->get();
         foreach ($posts as $key => $val){
             // SEO
@@ -222,6 +216,6 @@ class PostController extends Controller
         $post->post_views += 1;
         $post->save();
 
-        return view('pages.post.show')->with(compact('logo','catsPost','posts','brands','cats','meta_desc','meta_keywords','meta_title','url_canonical','slider'));       
+        return view('pages.post.show')->with(compact('posts','meta_desc','meta_keywords','meta_title','url_canonical'));       
     }
 }
