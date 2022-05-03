@@ -8,25 +8,7 @@
                 <li class="active">Checkout</li>
             </ol>
         </div>
-        {{-- 
-        <div class="step-one">
-            <h2 class="heading">Step1</h2>
-        </div>
-        <div class="checkout-options">
-            <h3>New User</h3>
-            <p>Checkout options</p>
-            <ul class="nav">
-                <li>
-                    <label><input type="checkbox"> Register Account</label>
-                </li>
-                <li>
-                    <label><input type="checkbox"> Guest Checkout</label>
-                </li>
-                <li>
-                    <a href=""><i class="fa fa-times"></i>Cancel</a>
-                </li>
-            </ul>
-        </div><!--/checkout-options--> --}}
+      
         <div class="shopper-informations">
             <div class="row"> 
                 <div class="col-sm-12 clearfix">
@@ -114,7 +96,7 @@
                     </div>
                 </div>	
 
-                <div class="col-sm-12 clearfix">
+                <div class="col-md-12 clearfix">
                     <div class="bill-to">
                         <p>Fill in shipping information</p>
                         <div class="form-one">
@@ -151,6 +133,7 @@
                                 @endif
 
                                 <input type="button" value="Confirm Order" name="send_order" class="btn btn-primary btn-sm send_order">
+                                <div id="paypal-button"></div>
                             </form>
                         </div>
                         
@@ -258,4 +241,50 @@
         
     </div>
 </section>
+@endsection
+
+@section('scripts')
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    //papal payment
+    var total = document.getElementById('order_total').value;
+  paypal.Button.render({
+    // Configure environment
+    env: 'sandbox',
+    client: {
+      sandbox:  'AY6sDShCSG15m9x0z23XTbElwux-ukCxPk0tJ8mymah-vPAqr_CTCGP2_Am12uC2TSEFZMWv1DFoSGa4' ,
+      production: 'demo_production_client_id'
+    },
+    // Customize button (optional)
+    locale: 'en_US',
+    style: {
+      size: 'large',
+      color: 'gold',
+      shape: 'pill',
+    },
+
+    // Enable Pay Now checkout flow (optional)
+    commit: true,
+
+    // Set up a payment
+    payment: function(data, actions) {
+      return actions.payment.create({
+        transactions: [{
+          amount: {
+                total: `${total}`,
+                currency: 'USD'
+            }
+        }]
+      });
+    },
+    // Execute the payment
+    onAuthorize: function(data, actions) {
+      return actions.payment.execute().then(function() {
+        // Show a confirmation message to the buyer
+        window.alert('Thank you for your purchase!');
+      });
+    }
+  }, '#paypal-button');
+
+</script>
 @endsection

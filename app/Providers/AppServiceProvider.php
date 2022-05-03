@@ -42,13 +42,6 @@ class AppServiceProvider extends ServiceProvider
             $app_video = Video::all()->count();
             $app_customer = Customer::all()->count();
 
-            // SEO
-            $meta_desc = "";
-            $meta_keywords = "";
-            $meta_title = "";
-            $url_canonical = "";
-            // SEOs
-     
             $logo = Information::select('info_img')->first();
             $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->get();
             $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
@@ -62,10 +55,6 @@ class AppServiceProvider extends ServiceProvider
                 'app_video',
                 'app_customer',
 
-                'meta_desc',
-                'meta_keywords',
-                'meta_title',
-                'url_canonical',
                 'logo',
                 'cats',
                 'brands',

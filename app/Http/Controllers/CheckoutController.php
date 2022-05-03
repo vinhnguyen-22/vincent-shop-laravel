@@ -47,18 +47,12 @@ class CheckoutController extends Controller
     }
 
     public function loginCheckout(Request $request){        
-        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
         $meta_desc = 'Checkout page, order';
         $meta_keywords ='checkout, order'; 
         $meta_title = 'Your order';
         $url_canonical = $request->url();
         
-        return view('pages.checkout.login')->with(compact('logo','catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','slider'));
+        return view('pages.checkout.login')->with(compact('meta_desc','meta_keywords','meta_title','url_canonical'));
     }
     
     public function login(Request $request){
@@ -93,7 +87,7 @@ class CheckoutController extends Controller
             'customer_email' => 'required',
             'customer_password' => 'required',
             'customer_phone' => 'required',
-            'g-recaptcha-response' => new Captcha(), 		//dòng kiểm tra Captcha
+            // 'g-recaptcha-response' => new Captcha(), 		//dòng kiểm tra Captcha
         ]);
 
         $data = array();
@@ -119,12 +113,6 @@ class CheckoutController extends Controller
     
     public function checkoutPage (Request $request){        
         $this->CustomerLogin();
-        $cats = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $brands = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id', 'desc')->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
         $meta_desc = 'Checkout page, order';
         $meta_keywords ='checkout, order'; 
         $meta_title = 'Your order';
@@ -137,7 +125,7 @@ class CheckoutController extends Controller
         if(!session()->get('cart')){
             return redirect('/show-cart-page')->with('message', 'Please buy something before checkout');
         }else{
-            return view('pages.checkout.show')->with(compact('logo','catsPost','cats','brands','meta_desc','meta_keywords','meta_title','url_canonical','province','district','ward','slider'));
+            return view('pages.checkout.show')->with(compact('province','district','ward', 'meta_desc','meta_keywords','meta_title','url_canonical'));
         }
     }
     
@@ -246,14 +234,25 @@ class CheckoutController extends Controller
 
     //Order history
 
-    public function orderHistoryPage(){
+    public function orderHistoryPage(Request $request){
         $this->CustomerLogin();
+        $meta_desc = 'History page, order';
+        $meta_keywords ='history, order'; 
+        $meta_title = 'Your order';
+        $url_canonical = $request->url();
+        
         $all_order = Order::where('customer_id',session()->get('customer_id'))->orderby('order_id','DESC')->paginate(20);
-        return view('pages.history.history_order')->with(compact('all_order'));
+        return view('pages.history.history_order')->with(compact('all_order', 'meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 
-    public function ViewOrderHistoryPage($order_code){
+    public function ViewOrderHistoryPage(Request $request,$order_code){
         $this->CustomerLogin();
+ 
+        $meta_desc = 'History page, order';
+        $meta_keywords ='history, order'; 
+        $meta_title = 'Your order';
+        $url_canonical = $request->url();
+        
         $order = Order::where('order_code', $order_code)->first();
         
         $customer_id = $order->customer_id;
@@ -278,6 +277,6 @@ class CheckoutController extends Controller
             $coupon_method = 2;
             $coupon_rate = 0;
         }
-        return view('pages.history.history_detail')->with(compact('customer','shipping','order','order_details','coupon_method','coupon_rate','order_fee'));
+        return view('pages.history.history_detail')->with(compact('customer','shipping','order','order_details','coupon_method','coupon_rate','order_fee','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 }
