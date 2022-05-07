@@ -106,9 +106,9 @@
 
 
 @section('scripts')
-<script type="text/javascript" src="{{asset('public/backend/js/simple.money.format.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/backend/js/bootstrap-tagsinput.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/backend/js/simple.money.format.js')}}"></script>
 <script type="text/javascript">
     // upload ckeditor
     CKEDITOR.replace('description-product',{

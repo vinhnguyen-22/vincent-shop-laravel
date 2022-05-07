@@ -1,3 +1,4 @@
+
 <div class="col-md-3">
     <div class="left-sidebar">
         <h2>Category</h2>
@@ -7,13 +8,22 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordian" href="#{{$cat->category_slug}}">
-                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                <a href="{{url('category-product/'.$cat->category_slug)}}">
                                     {{$cat->category_name}}
                                 </a>
+                                
+                                @foreach($cats as $key => $cat_sub)
+                                    @if($cat_sub->category_parentId == $cat->category_id)
+                                        <a data-toggle="collapse" data-parent="#accordian" href="#{{$cat->category_slug}}">
+                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        </a>
+                                        @break
+                                    @endif
+                                @endforeach
+
                             </h4>
                         </div>
-
+            
                         <div id="{{$cat->category_slug}}" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul>
@@ -41,8 +51,9 @@
             </div>
         </div><!--/brands_products-->
         
-        <div id="row_wishlist">
+        <div class="brands_products"><!--brands_products-->
             <h2>Wishlist</h2>
-        </div>
+            <div id="row_wishlist"></div>
+        </div><!--/brands_products-->
     </div>
 </div>

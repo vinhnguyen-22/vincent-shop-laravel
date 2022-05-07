@@ -30,9 +30,7 @@
 
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea id="description-slider" class="form-control" name="desc" id="description">
-                                {{$edit_slider->slider_desc}}
-                            </textarea>
+                            <textarea id="description-slider" class="form-control" name="desc" id="description">{{$edit_slider->slider_desc}}</textarea>
                         </div>
 
                         <div class="form-group col-lg-6">

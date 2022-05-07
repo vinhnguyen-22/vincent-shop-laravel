@@ -36,9 +36,7 @@
                         
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea class="form-control video_desc" name="desc" id="description">
-
-                            </textarea>
+                            <textarea class="form-control video_desc" name="desc" id="description"></textarea>
                         </div>
 
                          <div class="form-group">

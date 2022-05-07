@@ -22,8 +22,8 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         // SEO
         
-        $all_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id','desc')->paginate(6);
-        $cat_tab = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->where('category_parentId','<>',0)->get();
+        $all_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id','desc')->paginate(9);
+        $cat_tab = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->where('category_status','1')->where('category_parentId','=',0)->get();
         return view('pages.home')->with(compact('cat_tab','all_product','meta_desc','meta_keywords','meta_title','url_canonical'));
     }
 

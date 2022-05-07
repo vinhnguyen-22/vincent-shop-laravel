@@ -7,7 +7,7 @@
 <script src="{{asset('public/frontend/js/sweetalert.js')}}"></script>
 <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
 <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
-<script src="{{asset('public/frontend/js/app.js')}}"></script>
+<script src="{{asset('public/frontend/js/main.js')}}"></script>
 <script type="text/javascript">
     //wishlist with localStorage
     function addWishlist(clicked_id) {
@@ -51,8 +51,8 @@
         if (localStorage.getItem("data") != null);
         var data = JSON.parse(localStorage.getItem("data"));
         data.reverse();
-        document.getElementById("row_wishlist").style.overflow = "scroll";
-        document.getElementById("row_wishlist").style.height = "600px";
+        document.getElementById("row_wishlist").style.overflowY = "scroll";
+        document.getElementById("row_wishlist").style.height = "500px";
         for (i = 0; i < data.length; i++) {
             var url = data[i].url;
             var name = data[i].name;

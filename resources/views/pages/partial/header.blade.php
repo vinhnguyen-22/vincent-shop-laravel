@@ -90,17 +90,24 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="{{url('/home')}}" class="active">Home</a></li>
-                            
+                            <li class="dropdown"><a href="#">Category<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    @foreach($cats as $key => $value)
+                                        @if($value->category_parentId == 0)
+                                            <li><a href="{{url('/category-product/'.$value->category_slug)}}">{{$value->category_name}}</a></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
                             <li class="dropdown"><a href="#">News<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     @foreach($catsPost as $key => $value)
-                                    <li><a href="{{url('/menu-post/'.$value->menu_post_slug)}}">{{$value->menu_post_name}}</a></li>
+                                    <li><a href="{{url('/category-product/'.$value->category_slug)}}">{{$value->category_name}}</a></li>
                                     @endforeach
                                 </ul>
                             </li> 
                             <li><a href="{{url('/video-page')}}">Videos</a></li>
                             <li><a href="{{url('/show-contact')}}">Contact</a></li> 
-
                         </ul>
                     </div>
                 </div>

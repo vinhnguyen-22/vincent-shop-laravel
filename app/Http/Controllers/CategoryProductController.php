@@ -122,20 +122,15 @@ class CategoryProductController extends Controller
     // end function admin page
     
     public function showCategoryPage($cat_slug, Request $request){
-        $cats = CategoryProduct::orderBy('category_order','ASC')->orderBy('category_id','DESC')->orderBy('category_order','ASC')->where('category_status','1' )->get();
-        $brands = Brand::orderBy('brand_id','DESC')->where('brand_status','1')->get();
         $pro_by_cat = DB::table('tbl_product')->join('tbl_category_product', 'tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug',$cat_slug)->get();
-        $slider = Slider::where('slider_status',1)->orderBy('slider_id','DESC')->take('5')->get();
-        $catsPost = MenuPost::orderBy('menu_post_id','DESC')->where('menu_post_status','1')->get();
-        $logo = Information::select('info_img')->first();
-
+       
         $category_by_slug = CategoryProduct::where('category_slug',$cat_slug)->get();
         $min = Product::min('product_price');
         $max = Product::max('product_price');
         $max += 1000;        
         // SEO
         
-        foreach ($pro_by_cat as $key => $val){
+        foreach ($category_by_slug as $key => $val){
             $meta_desc = $val->category_desc;
             $meta_keywords = $val->category_keywords;
             $meta_title = $val->category_name;
@@ -175,31 +170,63 @@ class CategoryProductController extends Controller
         }
         $cat_name = DB::table('tbl_category_product')->select('category_name')->where('tbl_category_product.category_slug',$cat_slug)->limit(1)->get(); 
 
-        return view('pages.category.show')->with(compact('logo','catsPost','cats','brands','pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','slider','min','max'));
+        return view('pages.category.show')->with(compact('pro_by_cat','cat_name','meta_desc','meta_keywords','meta_title','url_canonical','min','max'));
     } 
 
-    //category tabs_product
+    //category tab product
     public function productTabs(Request $request) {
         $data = $request->all();
         $output = '';
-        $product = Product::where('category_id',$data['cate_id'])->orderBy('product_id','DESC')->take(6)->get();
+        
+        $sub_cat = CategoryProduct::where('category_parentId',$data['cate_id'])->get();
+        $cat_arr = array();
+        foreach($sub_cat as $key =>$cat){
+            $cat_arr[] = $cat->category_id;
+        }
+        array_push($cat_arr,$data['cate_id']);
+        $product = Product::whereIn('category_id',$cat_arr)->orderBy('product_id','DESC')->take(6)->get();
         $product_count =$product->count();
         if($product_count>0){
             $output .= '
              <div class="tab-content">
                 <div class="tab-pane fade active in row" id="blazers" >
              ';
-                foreach($product as $key=>$value){
+                foreach($product as $key=> $value){
                     $output .= '
                         <div class="col-md-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="'.url('public/uploads/product/'.$value->product_image).'" alt="" />
-                                        <h2>'.number_format($value->product_price,0,',','.').'</h2>
-                                        <p>'.$value->product_name.'</p>
-                                        <a href="'.url('/product-detail/'.$value->product_slug).'" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
+                                    <form>
+                                        <input type="hidden" value="'.$value->product_id.'" class="cart_product_id_'.$value->product_id.'">
+                                        <input type="hidden" value="'.$value->product_name.'" id="wishlist_productname'.$value->product_id.'" class="cart_product_name_'.$value->product_id.'">
+                                        <input type="hidden" value="'.$value->product_image.'" class="cart_product_image_'.$value->product_id.'">
+                                        <input type="hidden" value="'.$value->product_price.'" id="wishlist_productprice'.$value->product_id.'" class="cart_product_price_'.$value->product_id.'">
+                                        <input type="hidden" value="'.$value->product_quantity.'" class="cart_product_stock_'.$value->product_id.'">
+                                        <input type="hidden" value="1" class="cart_product_qty_'.$value->product_id.'">
+
+                                        <div class="productinfo text-center">
+                                            <a id="wishlist_producturl'.$value->product_id.'" href="'.url('/product-detail/'.$value->product_slug).'">
+                                                <img id="wishlist_productimage'.$value->product_id.'" src="'.url('public/uploads/product/'.$value->product_image).'" height="250" alt="">
+                                                <h2>$ '.number_format($value->product_price).'</h2>
+                                                <p>'.$value->product_name.'</p>
+                                            </a>
+                                            <button  onclick="addToCart('.$value->product_id.')" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="choose">
+                                    <ul class="nav nav-pills nav-justified" style="background:white; border:none;margin:0px">
+                                        <li>
+                                            <i class="fa fa-heart"></i>
+                                            <button class="btn_wishlist" id="'.$value->product_id.'" onclick="addWishlist(this.id);">Add to wishlist</button>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-plus-square"></i>Add to compare</a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>';
@@ -216,6 +243,7 @@ class CategoryProductController extends Controller
                 </div>
             </div>
              ';
+            echo $output;
         }
     }
 }

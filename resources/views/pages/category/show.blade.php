@@ -65,8 +65,7 @@
                                     <img src="{{url('public/uploads/product/'.$allpro->product_image)}}" height="250" alt="">
                                     <h2>${{number_format($allpro->product_price)}}</h2>
                                     <p>{{$allpro->product_name}}</p>
-                                </a>
-                                {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
+                                </a>{{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
                                 <button data-id_product="{{$allpro->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
                             </div>
                         </form>

@@ -310,6 +310,7 @@ ul.sub-menu {
 }
 
 .navbar-nav li ul.sub-menu li a {
+    text-decoration: none !important;
     color: #fff;
 }
 
@@ -567,11 +568,9 @@ ul.sub-menu {
 .carousel-indicators li.active {
     background: darkcyan;
 }
-
 .item {
-    padding-left: 100px;
+    padding: 30px;
 }
-
 .pricing {
     position: absolute;
     right: 40%;

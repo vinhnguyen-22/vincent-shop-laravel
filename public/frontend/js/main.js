@@ -40,7 +40,6 @@ $(document).ready(function () {
         var cart_product_qty = $(".cart_product_qty_" + id).val();
         var cart_product_stock = $(".cart_product_stock_" + id).val();
         var _token = $('input[name="_token"]').val();
-
         if (parseInt(cart_product_stock) > parseInt(cart_product_qty)) {
             $.ajax({
                 url: "/lavarel%208/shop-vincent/add-cart-ajax",

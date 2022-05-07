@@ -19,7 +19,7 @@
 <!-- dataTables -->
 <link rel="stylesheet" href="{{asset('public/backend/css/responsive.dataTables.min.css')}}" type="text/css"/>
 {{-- taginput --}}
-<link rel="stylesheet" href="{{asset('public/backend/css/boostrap-tagsinput.css')}}" type="text/css"/>
+<link rel="stylesheet" href="{{asset('public/backend/css/bootstrap-tagsinput.css')}}" type="text/css"/>
 
 <link rel="stylesheet" href="{{asset('public/backend/css/monthly.css')}}" type="text/css"/>
 <!-- //calendar -->

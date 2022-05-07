@@ -45,8 +45,10 @@
                                     <h2>${{number_format($allpro->product_price)}}</h2>
                                     <p>{{$allpro->product_name}}</p>
                                 </a>
-                                {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
-                                <button data-id_product="{{$allpro->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
+                                <button data-id_product="{{$allpro->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Add to cart
+                                </button>
                                 <button data-product_id="{{$allpro->product_id}}" type="button" class="btn btn-primary quick-view" data-toggle="modal" data-target="#quickViewModal" style="margin-bottom: 25px">
                                     Quick view
                                 </button>
@@ -55,10 +57,13 @@
                     </div>
                     <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                            <li><i class="fa fa-heart"></i>
+                            <li>
+                                <i class="fa fa-heart"></i>
                                 <button class="btn_wishlist" id="{{$allpro->product_id}}" onclick="addWishlist(this.id);">Add to wishlist</button>
-                               </li>
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-plus-square"></i>Add to compare</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -154,3 +159,53 @@
   </div>
 </div>
 @endsection 
+
+@section('scripts')
+    <script>
+        function addToCart(id) {
+        var cart_product_id = $(".cart_product_id_" + id).val();
+        var cart_product_name = $(".cart_product_name_" + id).val();
+        var cart_product_image = $(".cart_product_image_" + id).val();
+        var cart_product_price = $(".cart_product_price_" + id).val();
+        var cart_product_qty = $(".cart_product_qty_" + id).val();
+        var cart_product_stock = $(".cart_product_stock_" + id).val();
+        var _token = $('input[name="_token"]').val();
+        if (parseInt(cart_product_stock) > parseInt(cart_product_qty)) {
+            $.ajax({
+                url: "/lavarel%208/shop-vincent/add-cart-ajax",
+                method: "POST",
+                data: {
+                    cart_product_id: cart_product_id,
+                    cart_product_name: cart_product_name,
+                    cart_product_image: cart_product_image,
+                    cart_product_price: cart_product_price,
+                    cart_product_qty: cart_product_qty,
+                    cart_product_stock: cart_product_stock,
+                    _token: _token,
+                },
+                success: function () {
+                    swal(
+                        {
+                            title: "Đã thêm sản phẩm vào giỏ hàng",
+                            text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                            showCancelButton: true,
+                            cancelButtonText: "Xem tiếp",
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Đi đến giỏ hàng",
+                            closeOnConfirm: false,
+                        },
+                        function () {
+                            window.location.href =
+                                "/lavarel%208/shop-vincent/show-cart-page";
+                        }
+                    );
+                },
+            });
+        } else {
+            alert(
+                "Please buy lower than quantity in stock " + cart_product_stock
+            );
+        }
+    }
+    </script>
+@endsection

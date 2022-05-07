@@ -22,8 +22,7 @@ echo "<pre>";print_r($posts);echo "</pre>";
                                     <img src="{{url('public/uploads/video/'.$video->video_image)}}" height="250" alt="">
                                     {{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/v9_K_6VQMDg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
                                     <p>{{$video->video_title}}</p>
-                                </a>
-                                {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
+                                </a>{{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
                                  <button type="button" data-video_id="{{$video->video_id}}" class="btn btn-primary btn-sm view-video" data-toggle="modal" data-target="#viewVideoModal">
                                     Watch
                                 </button>

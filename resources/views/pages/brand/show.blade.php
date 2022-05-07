@@ -25,8 +25,7 @@
                                     <img src="{{url('public/uploads/product/'.$pro->product_image)}}" height="250" alt="">
                                     <h2>${{number_format($pro->product_price)}}</h2>
                                     <p>{{$pro->product_name}}</p>
-                                </a>
-                                {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
+                                </a>{{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> --}}
                                 <button data-id_product="{{$pro->product_id}}" class="btn btn-primary add-to-cart" type="button" style="color: white" name="add-to-cart">Add to cart</button>
                             </div>
                         </form>

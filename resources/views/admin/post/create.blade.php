@@ -35,23 +35,17 @@
 
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea value="{{old('desc')}}" id="description-post" class="form-control" name="desc" required>
-
-                            </textarea>
+                            <textarea value="{{old('desc')}}" id="description-post" class="form-control" name="desc" required></textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="content">Content</label>
-                            <textarea value="{{old('content')}}"  id="content-post" class="form-control" name="content" required>
-
-                            </textarea>
+                            <textarea value="{{old('content')}}"  id="content-post" class="form-control" name="content" required></textarea>
                         </div>
 
                         <div class="form-group col-lg-12">
                             <label for="keywords">Keywords</label>
-                            <textarea value="{{old('keywords')}}"  style="resize:none" id="keywords-post" class="form-control" name="keywords" required>
-
-                            </textarea>
+                            <textarea value="{{old('keywords')}}"  style="resize:none" id="keywords-post" class="form-control" name="keywords" required></textarea>
                         </div>
                         
                         <div class="form-group col-lg-6">

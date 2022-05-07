@@ -30,9 +30,7 @@
 
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea id="description-menu-post" class="form-control" name="desc" id="description">
-                                {{$edit_menu_post->menu_post_desc}}
-                            </textarea>
+                            <textarea id="description-menu-post" class="form-control" name="desc" id="description">{{$edit_menu_post->menu_post_desc}}</textarea>
                         </div>
                         
                         <div class="col-lg-12">

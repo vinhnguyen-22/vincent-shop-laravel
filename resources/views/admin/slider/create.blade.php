@@ -30,9 +30,7 @@
 
                         <div class="form-group col-lg-12">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="desc" required>
-
-                            </textarea>
+                            <textarea class="form-control" name="desc" required></textarea>
                         </div>
 
                         <div class="form-group col-lg-6">

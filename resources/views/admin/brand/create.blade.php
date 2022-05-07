@@ -30,16 +30,12 @@
                         
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="desc" id="description">
-
-                            </textarea>
+                            <textarea class="form-control" name="desc" id="description"></textarea>
                         </div>
                         
                         <div class="form-group">
                             <label for="description">Keywords</label>
-                            <textarea class="form-control" name="keywords" id="keywords">
-
-                            </textarea>
+                            <textarea class="form-control" name="keywords" id="keywords"></textarea>
                         </div>
 
                         <div class="form-group">

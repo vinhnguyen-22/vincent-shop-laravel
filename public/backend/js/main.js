@@ -8,10 +8,6 @@ $(document).ready(function () {
                 required: true,
                 minlength: 3,
             },
-            price: {
-                required: true,
-                digits: true,
-            },
             desc: {
                 required: true,
                 minlength: 8,
